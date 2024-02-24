@@ -1,0 +1,50 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Advanced Statistics"
+#  favicon: images/beer-mug-icon.png
+  page-footer:
+    center: |
+      <a href="https://clickityklein.github.io/Carl-Klein/">About Carl Klein</a>
+    background: "#3E3F3A"
+    
+  navbar:
+    left:
+# index is automatically included under the main title page
+#      - href: index.qmd
+#        text: "About"
+      - href: review.qmd
+        text: "Basic Review"
+      - href: confidence_intervals.qmd
+        text: "Confidence Intervals"
+      - href: statistical_hypotheses.qmd
+        text: "Statistical Hypotheses"
+      - href: inference.qmd
+        text: "Inference Models"
+    right:
+      - icon: github
+        menu:
+          - text: "Source Code"
+            href: https://github.com/clickityKlein/Statistics
+          - text: "Carl Klein's Main Page"
+            href: https://github.com/clickityKlein
+
+format:
+  html:
+    email-obfuscation: javascript
+    grid: 
+      body-width: 2000px
+      sidebar-width: 200px
+      margin-width: 200px
+    citations-hover: true
+    code-link: true
+    code-fold: true
+    theme: sandstone
+    css: styles.css
+    code-block-border-left: "#3E3F3A"
+    toc: true
+
+
+

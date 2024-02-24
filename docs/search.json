@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "statistical_hypotheses.html",
+    "href": "statistical_hypotheses.html",
+    "title": "Statistical Hypotheses",
+    "section": "",
+    "text": "This page features theories involving statistical hypotheses, including:\n\nNull vs. Alternative Hypothesis\nAnalogy\nTest Statistic\nRejection Region & Significance Levels\nType I and Type II Errors\nPower and Statistical Learning\nBootstrapping\nHypothesis Testing with Randomization"
+  },
+  {
+    "objectID": "inference.html",
+    "href": "inference.html",
+    "title": "Inference Models",
+    "section": "",
+    "text": "This page features information about creating and interpreting inference models.\n\nSimple Linear Regression (math, programming, and interpretation)\nMultiple Linear Regression (math, programming, and interpretation)"
+  },
+  {
+    "objectID": "confidence_intervals.html",
+    "href": "confidence_intervals.html",
+    "title": "Confidence Intervals",
+    "section": "",
+    "text": "This page features confidence intervals’ definition, interpretation, and programming."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\nCode1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Advanced Statistics",
+    "section": "",
+    "text": "A website dedicated to knowledge obtained for the statistics used in data science."
+  },
+  {
+    "objectID": "review.html",
+    "href": "review.html",
+    "title": "Basic Review",
+    "section": "",
+    "text": "This page features review of basic statistical concepts and the linear algebra necessary for advanced statistics."
+  }
+]

@@ -1,0 +1,14 @@
+---
+title: "Statistical Hypotheses"
+---
+
+This page features theories involving statistical hypotheses, including:
+
+- Null vs. Alternative Hypothesis
+- Analogy
+- Test Statistic
+- Rejection Region & Significance Levels
+- Type I and Type II Errors
+- Power and Statistical Learning
+- Bootstrapping
+- Hypothesis Testing with Randomization

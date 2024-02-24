@@ -1,0 +1,5 @@
+---
+title: "Confidence Intervals"
+---
+
+This page features confidence intervals' definition, interpretation, and programming.

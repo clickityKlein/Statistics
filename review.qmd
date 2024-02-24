@@ -1,0 +1,5 @@
+---
+title: "Basic Review"
+---
+
+This page features review of basic statistical concepts and the linear algebra necessary for advanced statistics.
