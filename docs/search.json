@@ -40,5 +40,131 @@
     "title": "Basic Review",
     "section": "",
     "text": "This page features review of basic statistical concepts and the linear algebra necessary for advanced statistics."
+  },
+  {
+    "objectID": "review.html#discrete-random-variables",
+    "href": "review.html#discrete-random-variables",
+    "title": "Basic Review",
+    "section": "Discrete Random Variables",
+    "text": "Discrete Random Variables\nProbability Mass Function (pmf)\n\\(p(x) = P(X=x)\\)\n\n\\(p(x) \\geq 0\\)\n\\(\\sum_{x} p(x) = 1\\)\nCumulative Distribution Function (cdf)\n\\(F(x) = P(X \\leq x) = \\sum_{k \\leq x} p(k)\\)\n\n\\(0 \\leq F(x) \\leq 1\\)\nIf \\(a \\leq b \\rightarrow F(a) \\leq F(b)\\)"
+  },
+  {
+    "objectID": "review.html#continuous-random-variables",
+    "href": "review.html#continuous-random-variables",
+    "title": "Basic Review",
+    "section": "Continuous Random Variables",
+    "text": "Continuous Random Variables\nProbability Density Function (pdf)\nIf X is a continuous random variable, then \\(f(x)\\) is a pdf if\n\n\\(P(a \\leq X \\leq b) = \\int_a^b f(x)dx\\)\n\\(f(x) \\geq 0\\)\n\\(\\int_{-\\infty}^\\infty f(x)dx = 1\\)\nCumulative Distribution Function (cdf)\nProperties of the CDF for a continuous RV X:\n\n\\(P(X \\leq x) = F(x)\\)\n\\(F(x) \\geq 0\\)\n\\(\\lim_{x \\rightarrow \\infty} F(x) = 1\\)\n\\(\\lim_{x \\rightarrow -\\infty} F(x) = 0\\)\nPDF to CDF, and Back Again\nBy the fundamental theorem of calculus, if \\(f(x)\\) is the pdf of a continuous variable X, and \\(F(x)\\) is the cdf the continuous variable X, then:\n\n\\(\\frac{d}{dx}F(x) = f(x)\\)\n\\(F(x) = \\int_{-\\infty}^x f(t)dt\\)"
+  },
+  {
+    "objectID": "review.html#conditional-probability",
+    "href": "review.html#conditional-probability",
+    "title": "Basic Review",
+    "section": "Conditional Probability",
+    "text": "Conditional Probability\n\\(P(A \\mid B) = \\frac{P(A \\cap B)}{P(B)}\\)\n\\(\\rightarrow P(B \\mid A) = \\frac{P(A \\mid B)P(B)}{P(A)}\\)\nIn the reference to the above formulas, the following definitions apply:\n\n\n\\(P(B \\mid A)\\): Posterior Probability\n\n\\(P(B)\\): Prior Probability\n\n\\(P(A)\\): Evidence\n\nNote that when dealing with more than two events, due to the law of total probability, the following is true:\n\\(P(A) = \\sum_{i = 1}^{n} P(A \\mid B_i)P(B_i)\\)\nIn other words, this applies:\n\\(P(B \\mid A) = \\frac{P(A \\mid B)P(B)}{P(A)} = \\frac{P(A \\mid B_j)P(B_j)}{\\sum_{i = 1}^{n} P(A \\mid B_i)P(B_i)}\\)"
+  },
+  {
+    "objectID": "review.html#independence",
+    "href": "review.html#independence",
+    "title": "Basic Review",
+    "section": "Independence",
+    "text": "Independence\nGiven the events \\(A\\) and \\(B\\), the events are considered independent if\n\\(P(A \\cap B) = P(A)P(B)\\).\nThis has implications to the conditional probability definitions above."
+  },
+  {
+    "objectID": "review.html#expected-value",
+    "href": "review.html#expected-value",
+    "title": "Basic Review",
+    "section": "Expected Value",
+    "text": "Expected Value\nExpected value, also known as expectation, mean, or average has slightly different methods of being calculated depending on if the random variable is discrete or continuous.\nDiscrete\n\\(E[X] = \\sum_{x}xp(x)\\)\n\\(E[g(X)] = \\sum_{x}g(x)p(x)\\)\nContinuous\n\\(E[g(X)] = \\int_{-\\infty}^{\\infty} g(X)f(X)dx\\)\nExpectation is a Linear Function"
+  },
+  {
+    "objectID": "review.html#variance-and-standard-deviation",
+    "href": "review.html#variance-and-standard-deviation",
+    "title": "Basic Review",
+    "section": "Variance and Standard Deviation",
+    "text": "Variance and Standard Deviation\nVariance, which essentially describes the spread of the data, particularly in reference to the mean, also has slightly different methods of being calculated depending on if the random variable is discrete or continuous.\nDiscrete\n\\(Var(X) = E[(X - E[X])]^2 = E[X^2] - (E[X])^2\\)\nContinuous\nNote: Notice from the formula above, all we really need to find are two different instances of expected value, namely\n\\(E[X^2]\\) and \\(E[X]\\)\nIndependence in Variance"
+  },
+  {
+    "objectID": "review.html#percentiles-quantiles",
+    "href": "review.html#percentiles-quantiles",
+    "title": "Basic Review",
+    "section": "Percentiles & Quantiles",
+    "text": "Percentiles & Quantiles\nPercentiles\nFor a random variable \\(X\\), \\(x_p\\) is the \\(p^{th}\\) percentile of \\(X\\) if\n\\(P(X \\leq x_p) = p\\)\nFor example, the median is the \\(50^{th}\\) percentile.\nQuantiles\nWe often say percentile when given a percentage. The quantile is essentially just the decimal version of the percentile.\nFor example, the median is the \\(0.5\\) quantile.\nThe quantile function is the inverse of the CDF:\n\\(Q(q) = x\\) whenever \\(P(X \\leq x) = q\\)."
+  },
+  {
+    "objectID": "review.html#symmetry",
+    "href": "review.html#symmetry",
+    "title": "Basic Review",
+    "section": "Symmetry",
+    "text": "Symmetry\nThe normal distribution is symmetric around its mean \\(\\mu\\). Hence, if we denote the normal distribution by \\(f_X(x)\\), then for any \\(c\\), \\(f_X(\\mu + c) = f_X(\\mu - c)\\).\nThis idea can be generalized for any distribution function. Suppose a distribution function, \\(f(x)\\), is symmetric around a point \\(x_0\\). Then for any \\(c\\), \\(f(x_0 + c) = f(x_0 - c)\\).\nIt can also be shown that if \\(X\\) is a continuous random variable whose ditribution is symmetric about \\(x_0\\), let’s use \\(x_0 = 0\\) for simplicity, then \\(E[2^{2k+1}] = 0\\), for any postive integer \\(k\\). That is, the expected value of any odd power of \\(X\\) is \\(0\\)."
+  },
+  {
+    "objectID": "review.html#rule",
+    "href": "review.html#rule",
+    "title": "Basic Review",
+    "section": "68-95-99.7 Rule",
+    "text": "68-95-99.7 Rule\nGiven the random variable, \\(X \\sim N(0, 1)\\), we’ll examine the outcomes of when \\(X\\) is within 1, 2, and 3 standard deviations of the mean. We’ll build off the ideas of symmetry with symmetric ranges.\n\nSingle Standard Deviation From the Range\n\n\\(P(|x - \\mu| \\leq \\sigma)\\)\n\\(= 2P(x - \\mu \\leq \\sigma)\\) (just to show symmetry)\nOR\n\\(= P(-\\sigma \\leq x - \\mu \\leq \\sigma) = P(-1 \\leq \\frac{x-\\mu}{\\sigma} \\leq 1)\\)\n\\(= P(-1 \\leq Z \\leq 1)\\)\n\\(\\Phi(1) - \\Phi(-1)\\)\nNOTE: This does not depend on \\(\\mu\\) or \\(\\sigma\\).\nThe exact result of \\(P(|x - \\mu| \\leq \\sigma) \\approx 0.68\\)\n\nDouble Standard Deviation From the Range\n\n\\(P(|x - \\mu| \\leq 2\\sigma) \\approx 0.95\\)\n\nTriple Standard Deviation From the Range\n\n\\(P(|x - \\mu| \\leq 3\\sigma) \\approx 0.997\\)\nThis means that 99.7% of values for any normal distributions are within 3 standard deviations of the mean.\nThis rule is ONLY for normal distributions, but we can extend to other distributions."
+  },
+  {
+    "objectID": "review.html#markovs-inequality",
+    "href": "review.html#markovs-inequality",
+    "title": "Basic Review",
+    "section": "Markov’s Inequality",
+    "text": "Markov’s Inequality\nGiven a random variable \\(X\\) such that \\(x \\geq 0\\) (this can be any distribution), then\n\\(P(X \\geq a) \\leq \\frac{E[X]}{a}\\)"
+  },
+  {
+    "objectID": "review.html#chebyshevs-inequality",
+    "href": "review.html#chebyshevs-inequality",
+    "title": "Basic Review",
+    "section": "Chebyshev’s Inequality",
+    "text": "Chebyshev’s Inequality\nGiven a random variable \\(X\\) with finite variance, then\n\\(P(|X-\\mu|\\geq k\\sigma) \\leq \\frac{1}{k^2}\\)\nThis is saying that the probability of \\(X\\) being outside k standard deviations of mean is less than \\(\\frac{1}{k^2}.\\)\nNOTE: Different distributions (i.e. not normal distributions) are common in different domains. Markov’s and Chebyshev’s inequalities are great without knowing the exact distribution. In other words, they’re great for making general assumptions about general distributions."
+  },
+  {
+    "objectID": "review.html#common-discrete-distributions",
+    "href": "review.html#common-discrete-distributions",
+    "title": "Basic Review",
+    "section": "Common Discrete Distributions",
+    "text": "Common Discrete Distributions\nBinomial Distribution\nIf a success has probability p, and there are n trials, what is the probability we have k successes:\n(Suppose a coin lands on heads with the probability p. If we flip the coin n times, what is the probability the coin lands on heads k times)\n\\(P(X=k) = \\binom{n}{k}p^k(1-p)^{n-k}\\)\n\n\\(E[X] = np\\)\n\\(Var(X) = np(1-p)\\)\nGeometric Distribution\nIf a success has probability p, what si the probability we k failures before the first success?\n\\(P(X = k) = p(1-p)^k\\)\n\n\\(E[X] = \\frac{1-p}{p}\\)\n\\(Var(X) = \\frac{1-p}{p^2}\\)\n\nDeriving E[X]\n\\(E[X] = \\sum_{k=0}^{\\infty} kp(1-p)^k\\)\n\\(= p(1-p)\\sum_{k=1}^{\\infty} kp(1-p)^{k-1}\\)\nNote that \\(kp(1-p)^{k-1}\\) is the definition of a derivative.\nSo, letting \\(q = 1-p\\), and using the fact that \\(\\sum \\frac{d}{dx}f(x) = \\frac{d}{dx}(\\sum f(x))\\),\n\\(E[X] = p(1-p)\\sum_{k=0}^{\\infty} (q^k)^{'} = p(1-p)(\\sum_{k=0}^{\\infty} q^k)^{'}\\)\nNote that \\(\\sum_{k=0}^{\\infty} q^k = \\frac{1}{1-q}\\) for \\(q \\leq 1\\)\n\\(= p(1-p)(\\frac{1}{1-q})^{'}\\)\n\\(= p(1-p)\\frac{1}{(1-q)^2}\\)\nSubstitute back \\(q = 1-p\\),\n\\(= \\frac{p(1-p)}{p^2} = \\frac{1-p}{p} = E[X]\\)\nDeriving Var(X)\n\\(Var(X) = E[X^2] - (E[X])^2\\)\nWe know \\(E[X]\\), so we only need to solve for \\(E[X^2]\\).\n\\(E[X^2] = \\sum_{k=0}^{\\infty} k^2p(1-p)^k = \\sum_{k=0}^{\\infty} k(k-1+1)p(1-p)^k\\)\n\\(= \\sum_{k=0}^{\\infty} k(k-1)p(1-p)^k + \\sum_{k=0}^{\\infty} kp(1-p)^k\\)\n\\(= p(1-p)^2 \\sum k(k-1)(1-p)^{k-2} + E[X]\\)\nNow just focusing on the left term, notice this is now the definition of a second derivative:\n\\(p(1-p)^2 \\sum ((1-p)^k)^{''}\\)\nPoisson Distribution\nSuppose we wanted to approximate the binomial distribution, \\(P(X=k) = \\binom{n}{k}p^k(1-p)^{n-k}\\), to find what it calculates on average for large numbers.\nSince \\(E[X] = np\\) (“on average”), let\n\\(\\lambda = np\\)\n\\(\\rightarrow p = \\frac{\\lambda}{n}\\)\nPlugging the \\(\\lambda\\) expression into the binomial distribution yields:\n\\(P(X=k) = \\binom{n}{k}(\\frac{\\lambda}{n})^k(1-(\\frac{\\lambda}{n}))^{n-k}\\)\nNow that we have an equation in terms of \\(\\lambda\\), what happens when we let \\(n \\rightarrow \\infty\\)?\n\\(\\binom{n}{k}(\\frac{\\lambda}{n})^k(1-(\\frac{\\lambda}{n}))^{n-k}\\)\n\\(= \\binom{n}{k}\\frac{(\\frac{\\lambda}{n})^k}{(1-\\frac{\\lambda}{n})^k}(1-\\frac{\\lambda}{n})^{n}\\)\nNote the following:\n\\(\\lim_{n \\rightarrow \\infty} (1-\\frac{\\lambda}{n})^{n} = e^{-\\lambda}\\)\nSo, just focusing on the left side of the equation:\n\\(\\binom{n}{k}\\frac{(\\frac{\\lambda}{n})^k}{(1-\\frac{\\lambda}{n})^k}\\)\n\\(= \\binom{n}{k}\\frac{\\lambda^k}{(n - \\lambda)^k}\\)\n\\(= \\frac{\\lambda^k}{k!}\\)\nTherefore,\n\\(\\lim_{n \\rightarrow \\infty} \\binom{n}{k}(\\frac{\\lambda}{n})^k(1-(\\frac{\\lambda}{n}))^{n-k} = \\frac{\\lambda^k}{k!} e^{-\\lambda}\\)\nTHEREFORE…\nFor large values of \\(n\\), the pmf for the binomial distribution is approximated by\n\\(\\frac{\\lambda^k}{k!} e^{-\\lambda}\\); where \\(\\lambda\\) is the average rate of success, and is known as the Poisson distribution. The Poisson distribution models the number of rare events in time or space.\nFor a more complete definition:\n\\(X \\sim Pois(\\lambda)\\) \\(P(X=k) = \\frac{\\lambda^k}{k!} e^{-\\lambda}\\) \\(E[X] = Var(X) = \\lambda\\)\nTo prove this is a probability mass function (pmf), we can use the Taylor’s Series:\n\\(\\sum_{k=0}^\\infty \\frac{\\lambda^k}{k!} = e^\\lambda\\)\n\\(\\sum_{k=0}^\\infty \\frac{\\lambda^k}{k!} e^{-\\lambda} = e^\\lambda \\sum_{k=0}^\\infty \\frac{\\lambda^k}{k!}\\)\n\\(= e^{-\\lambda}e^\\lambda = 1\\)\nRare: essentially means that two events cannot occur at once.\nUniform Distribution"
+  },
+  {
+    "objectID": "review.html#common-continuous-distributions",
+    "href": "review.html#common-continuous-distributions",
+    "title": "Basic Review",
+    "section": "Common Continuous Distributions",
+    "text": "Common Continuous Distributions\nUniform Distribution\n\n\\(X \\sim Unif(a, b):\\)\n\n\\(f(x) = \\frac{a}{b-a}\\); \\(a \\leq x \\leq b\\)\n\ncdf: \\(P(X \\leq x) = F(x) = \\frac{x-a}{b-a}\\); \\(a \\leq x \\leq b\\)\n\n\n\\(E[X] = \\frac{a+b}{2}\\) middle of the interval\n\n\\(Var(X) = \\frac{(b-a)^2}{12}\\)\n\nCalculations:\ncdf:\n\\(F(x) = \\int_{-\\infty}^{x}f(t)dt = \\int_{-\\infty}^{x}f(t)dt + \\int_{a}^{x}f(t)dt\\) \\(= \\int_{a}^{x}\\frac{a}{b-a}dt = \\frac{x-a}{b-a}\\)\nE[X]:\n\\(E[X] = \\int_{-\\infty}^{\\infty} xf(x)dx\\) \\(= \\int_{a}^{b} x \\frac{1}{b-a} dx\\) \\(= \\frac{1}{2} x^2 \\frac{a}{b-a} \\mid_{a}^{b}\\)\n…simplifying…\n\\(= \\frac{a+b}{2}\\)\nVar(X):\n\\(Var(X) = E[(X - E[X])^2] = E[X^2] - (E[X])^2\\)\nWe only need to solve for \\(E[X^2]\\):\n\\(E[X^2] = \\int_{-\\infty}^{\\infty} x^2 \\frac{1}{b-a} dx\\) \\(= \\frac{1}{3} x^3 \\frac{a}{b-a} \\mid_{a}^{b}\\)\nPutting these together:\n\\(Var(X) = \\frac{(b-a)^2}{12}\\)\nNormal Distribution\nNormal Distribution: \\(\\sim N(\\mu, \\sigma)\\),\n\n\n\\(\\mu\\): expected value\n\nshifts the curve left or right\n\n\n\n\\(\\sigma\\): standard deviation (NOT variance)\n\nchanges width AND height\n\n\n\\(f(x) = \\frac{1}{\\sqrt{2\\pi}\\sigma} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}\\)\n\nStandard Normal Distribution:\nThe probability of the normal distribution, \\(P(a \\leq X \\leq B) = \\int\\limits_a^bf(x)dx\\), cannot be computed in closed form. only numerical integral can be used to find this. However, the Standard Normal Form provides normally quick computations through pre-computed values.\n\nThe Standard Normal Form: \\(Z \\sim N(0, 1)\\)\n\n\n\nClaim: \\(\\frac{X-\\mu}{\\sigma} \\sim N(0, 1)\\)\n\nLet \\(X\\) be a random variable, then \\(Z = \\frac{X-\\mu}{\\sigma}\\). We want to show that \\(E[Z] = 0\\) and \\(SD(Z) = 1\\)\nUsing the fact that expected value is linear:\n\\(E[\\frac{X-\\mu}{\\sigma}] = \\frac{E[X]-E[\\mu]}{E[\\sigma]} = \\frac{\\mu - \\mu}{E[\\sigma]} = 0\\)\nAside: \\(Var(aX) = a^2Var(X)\\)\n\\(Var(aX) = E[(aX)^2] - E[aX]^2\\)\n\\(= a^2E[X^2] - a^2E[X]^2 = a^2(E[X^2] - E[X]^2)\\)\n\\(= a^2Var(X)\\)\nUsing the above finding…\n\\(Var(Z) = Var(\\frac{X-\\mu}{\\sigma}) = \\frac{1}{\\sigma^2}Var(X-\\mu) = \\frac{1}{\\sigma^2}Var(X) = \\frac{\\sigma^2}{\\sigma^2} = 1\\)\n\\(Var(Z) = 1 \\rightarrow SD(Z) = \\sqrt{Var(Z)} = 1\\)\nWhat does the Z-score do?\nZ-score is defined as \\(Z = \\frac{x-\\mu}{\\sigma}\\), and measures how many standard deviations X is above (or below) the mean.\nThe Z-score calculates \\(P(Z \\leq x)\\), also commonly written as \\(\\Phi (X)\\), can be shifted to find other probabilities:\n\n\\(P(Z \\geq x) = 1 - P(Z \\leq x)\\)\n\\(P(a \\leq Z \\leq b) = P(Z \\leq b) - P(Z \\leq a)\\)\nExponential Distribution\n\nContinuous derivation of the Poisson Distribution\n\nRecall the Poisson distribution, which we used to model the number of rare events in time or space. The exponential distribution is the distribution of wait times in a Poisson process, i.e. how long until the next event.\n\n\n\\(F(X) = P(X \\leq x) = 1 - e^{-\\lambda x}\\), where \\(x&gt;0\\)\n\n\n\\(f(x) = \\lambda e^{-\\lambda x}\\), where \\(x&gt;0\\)\n\n\\(E[X] = \\frac{1}{\\lambda}\\)\n\\(Var(X) = \\frac{1}{\\lambda^2}\\)\n\n\\(X \\sim Exp(\\lambda)\\), where \\(\\lambda\\): the rate of occurrence of events\nMemoryless\n\nThe exponential distribution has the unique property of being memoryless, which can be illustrated with:\n\\(P(X &gt; t + s | X &gt; t) = P(X &gt; s)\\)\nTo put this result into words, it is saying “After waiting \\(t\\), the probability of an event happening in another \\(s\\) has the same probability of it happening in \\(s\\), if from \\(time = 0\\).”\nThis can be shown mathematically:\n\\(P(X &gt; t + s | X &gt; t) = \\frac{P(X &gt; t + s, X &gt; t)}{P(X &gt; t)}\\)\n\\(= \\frac{P(X &gt; t + s)}{P(X &gt; t)}\\)\n\\(= \\frac{1 - F(t+s)}{1 - F(t)}\\)\n\\(= \\frac{e^{-\\lambda(t+s)}}{e^{-\\lambda t}}\\)\n\\(= e^{-\\lambda s} = P(X &gt; s)\\)\n\nPoisson is “how many events in a time period”, while exponential is “what is the wait time between events”.\n\nAnother property of memorylessness is that:\n\\(E[X | X \\geq s] = s + E[X]\\)"
+  },
+  {
+    "objectID": "review.html#central-limit-theorem",
+    "href": "review.html#central-limit-theorem",
+    "title": "Basic Review",
+    "section": "Central Limit Theorem",
+    "text": "Central Limit Theorem\nThe idea behind the central limit theorem begins with the law of large numbers.\n\nLaw of Large Numbers\n\nAs the number of samples increases, the sample mean approaches the true mean:\nAs \\(n \\rightarrow \\infty\\), \\(\\bar{X_n} = \\frac{\\sum\\limits_x x_i}{n} \\rightarrow \\mu\\).\nAn application of Chebyshev’s Inequality provides the Weak LLN:\n\\(\\lim\\limits_{n \\rightarrow \\infty} P(|\\bar{X_n} - \\mu| &lt; \\epsilon) = 1\\)\n\nWeak Law of Large Numbers (WLLN)\n\nSpecifically, given\n\\(P(|\\bar{X_n} - \\mu| &gt; c) \\leq \\frac{\\sigma^2}{n * c^2}\\),\nThen taking the limit as \\(n \\rightarrow \\infty\\),\n\\(\\lim\\limits_{n \\to +\\infty} P(|\\bar{X}_n - \\mu| &gt; c) \\leq \\lim\\limits_{n \\to +\\infty} \\frac{\\sigma^2}{nc^2} = 0\\)\nDue to the axiom of probability, for any event \\(A\\), \\(P(A) \\geq 0\\), then we know that\n\\(0 \\leq (|\\bar{X}_n - \\mu| &gt; c) \\leq 0\\), then it follows that\n\\(\\lim\\limits_{n \\to +\\infty} P(|\\bar{X}_n - \\mu| &gt; c) = 0\\).\nIn conclusion, the WLLN says no matter how small we pick \\(c\\) to be, the probability of the sample mean being further away from the mean than that small number \\(c\\) goes to zero. Or, no matter how small we pick \\(c\\) to be, the probability of sample mean being with \\(c\\) of the true mean eventually approaches 1.\n\nThe Central Limit Theorem\n\nThis leads us to the Central Limit Theorem (CLT):\nAs \\(n \\rightarrow \\infty\\) for \\(\\frac{\\sqrt{n}(\\bar{X_n}-\\mu)}{\\sigma} \\sim N(0, 1)\\),\nwhich holds regardless of what the underlying population distribution is."
+  },
+  {
+    "objectID": "review.html#joint-variable-distributions",
+    "href": "review.html#joint-variable-distributions",
+    "title": "Basic Review",
+    "section": "Joint Variable Distributions",
+    "text": "Joint Variable Distributions\nGeneral Information\nCumulative Density Function: \\(F_{X,Y}(x, y) = P(X \\leq x, Y \\leq y)\\)\nDiscrete PMF: \\(p(x, y) = P(X=x, Y=y)\\)\nContinuous PDF: \\(f(x, y) = \\frac{\\partial^2 F(x, y)}{\\partial x \\partial y}\\)\nIndependence can be modeled via CDF, PMF, and PDF. If the following hold, the joint distributions are independent:\n\nCDF: \\(F(x, y) = F(x)F(y)\\)\n\npmf: \\(p(x, y) = p(x)p(y)\\)\n\npdf: \\(f(x, y) = f(x)f(y)\\)\n\nProperties of the Joint PMF\n\n\\(p(x, y) \\geq 0\\)\n\\(\\sum\\limits_x \\sum\\limits_y p(x, y) = 1\\)\n\nMarginals build from the idea of the law of total probability.\n\nmarginal pmf for \\(X\\): \\(p_X(a) = \\sum\\limits_y p(a, y)\\)\n\nmarginal pmf for \\(Y\\): \\(p_Y(b) = \\sum\\limits_x p(x, b)\\)\n\n\nConditional PMF: \\(p_{X|Y}(x|y) = P(X=x|Y=y) = \\frac{P(X=x, Y=y)}{P(Y=y)}\\)\nProperties of the joint PDF\n\n\\(f(x, y) \\geq 0\\)\n\\(\\int\\limits_x \\int\\limits_y f(x, y) = 1\\)\n\n\nGeometrically, the probability can be thought of as volume under a surface defined by the pdf.\n\nMarginals build from the idea of the law of total probability.\n\nmarginal pdf for \\(X\\): \\(f_X(a) = \\int\\limits_y f(a, y)\\)\n\nmarginal pdf for \\(Y\\): \\(f_Y(b) = \\int\\limits_y p(x, b)\\)\n\n\nConditional PDF: \\(f_{X|Y}(x|y) = P(X \\leq x|Y \\leq y) = \\frac{P(X \\leq x, Y \\leq y)}{P(Y \\leq y)}\\)"
+  },
+  {
+    "objectID": "review.html#covariance-correlation",
+    "href": "review.html#covariance-correlation",
+    "title": "Basic Review",
+    "section": "Covariance & Correlation",
+    "text": "Covariance & Correlation\nThe exact definition of covariance for discrete and continuous:\n\nDiscrete: \\(Cov(X, Y) = \\sum\\limits_x \\sum\\limits_y (x - \\mu_x)(y - \\mu_y) p(x, y)\\)\n\nContinuous: \\(Cov(X, Y) = \\int\\limits_x \\int\\limits_y (x - \\mu_x)(y - \\mu_y) f(x, y)dxdy\\)\n\n\nA better, generic way to calculate covariance:\n\\(Cov(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]\\)\nProof:\n\\(Cov(X, Y) = E[(X - E[X])(Y - E[Y])]\\)\n\\(= E[XY + XE[Y] - YE[X] + E[X]E[Y]]\\)\n\\(= E[XY] + E[X]E[Y] - E[Y]E[X] + E[X]E[Y]\\)\n\\(= E[XY] - E[X]E[Y]\\)\nIf \\(X\\) and \\(Y\\) are independent, covariance is 0\nCorrelation:\n\\(Corr(X, Y) = \\frac{Cov(X, Y)}{SD(X)SD(Y)}\\)\nIf \\(X\\) and \\(Y\\) are independent, correlation is 0"
+  },
+  {
+    "objectID": "review.html#distributions",
+    "href": "review.html#distributions",
+    "title": "Basic Review",
+    "section": "Distributions",
+    "text": "Distributions\nTo showcase the distribution formulas in R, we’ll use the example of the normal function. However, most common distributions share the same blueprint as the functions we’ll call.\nWe can use the normal distribution in R via the following:\n\n\ndnorm: Returns a value from the distribution provided a location, mean, and standard deviation. Calling a specific value from a distribution has more meaning and applications within discrete distributions.\n\npnorm: Returns a value from the cumulative distribution function (cdf) provided a location, mean, and standard deviation. In other words, returns the area to the left of the given value from the normal cdf. Optional parameter of lower.tail=FALSE to get the area to the right of the given value.\n\nqnorm: Returns the value of the \\(p^{th}\\) quantile (Z-score) provided a quantile, mean, and standard deviation.\n\nrnorm: Returns a vector of normally distributed random variables provided size of desired vector, mean, and standard deviation.\n\n\n\n\n\n\n\nNote\n\n\n\nImport Libraries\n\n\n\nCode# import libraries\nlibrary(tidyverse)\n\n\n\n\n\n\n\n\nNote\n\n\n\ndnorm: value of the standard normal distribution pdf at x=0.\n\n\n\nCode# dnorm: value of the standard normal distribution pdf at x=0\ndnorm(x = 0, mean = 0, sd = 1)\n\n[1] 0.3989423\n\n\n\n\n\n\n\n\nNote\n\n\n\npnorm: amount of the standard normal distribution pdf to the left of x=0.\n\n\n\nCode# pnorm: amount of the standard normal distribution pdf to the left of x=0\npnorm(q = 0, mean = 0, sd = 1)\n\n[1] 0.5\n\n\n\n\n\n\n\n\nNote\n\n\n\nqnorm: find the 0.50 quantile of the standard normal distribution.\n\n\n\nCode# qnorm: find the 0.50 quantile of the standard normal distribution\nqnorm(p = 0.50, mean = 0, sd = 1)\n\n[1] 0\n\n\n\n\n\n\n\n\nNote\n\n\n\nrnorm: vector of 1000 random draws from the standard normal distribution.\n\n\n\nCode# rnorm: vector of 1000 random draws from the standard normal distribution\nnormal_vector &lt;- rnorm(n = 1000, mean = 0, sd = 1)\n\n\n\n\n\n\n\n\nNote\n\n\n\nWe’ll illustrate rnorm by plotting the density distribution of the vector created.\n\n\n\nCodeggplot() + \n  geom_density(aes(normal_vector), fill = 'blue', alpha = 0.5) +\n  xlab('Randomly Drawn Values from the Standard Normal Distribution') +\n  ylab('Density')\n\n\n\n\n\n\n\nAs previously stated, many of the common distributions have these built in functionalities within R. For example, the exponential distribution has the functions dexp, pexp, qexp, and rexp. These follow a similar blueprint as to what is seen with the normal distribution functions above, but may contain slightly different nomenclature and parameters."
+  },
+  {
+    "objectID": "review.html#helpful-functions",
+    "href": "review.html#helpful-functions",
+    "title": "Basic Review",
+    "section": "Helpful Functions",
+    "text": "Helpful Functions\nThe Apply Family\nA useful assortment of functions in R are available through the apply family:\n\napply\nlapply\nsapply\ntapply\nSample and Replicate\nThe sample and replicate functions are useful individually and when combined can be incredibly useful for statistical modeling."
   }
 ]

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.525">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>Advanced Statistics - Basic Review</title>
 <style>
 code{white-space: pre-wrap;}
@@ -20,8 +17,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -38,8 +68,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -65,18 +94,12 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-
-<link rel="stylesheet" href="styles.css">
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Advanced Statistics</span>
@@ -88,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link active" href="./review.html" aria-current="page"> 
 <span class="menu-text">Basic Review</span></a>
   </li>  
@@ -105,15 +128,15 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Inference Models</span></a>
   </li>  
 </ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item dropdown ">
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       <i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
-        <li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">
+<li>
     <a class="dropdown-item" href="https://github.com/clickityKlein/Statistics">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
@@ -122,26 +145,113 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Carl Klein’s Main Page</span></a>
   </li>  
     </ul>
-  </li>
+</li>
 </ul>
-          </div> <!-- /navcollapse -->
+</div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#basic-statistics" id="toc-basic-statistics" class="nav-link active" data-scroll-target="#basic-statistics">Basic Statistics</a>
+  <ul class="collapse">
+<li>
+<a href="#discrete-random-variables" id="toc-discrete-random-variables" class="nav-link" data-scroll-target="#discrete-random-variables">Discrete Random Variables</a>
+  <ul class="collapse">
+<li><a href="#probability-mass-function-pmf" id="toc-probability-mass-function-pmf" class="nav-link" data-scroll-target="#probability-mass-function-pmf">Probability Mass Function (pmf)</a></li>
+  <li><a href="#cumulative-distribution-function-cdf" id="toc-cumulative-distribution-function-cdf" class="nav-link" data-scroll-target="#cumulative-distribution-function-cdf">Cumulative Distribution Function (cdf)</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#continuous-random-variables" id="toc-continuous-random-variables" class="nav-link" data-scroll-target="#continuous-random-variables">Continuous Random Variables</a>
+  <ul class="collapse">
+<li><a href="#probability-density-function-pdf" id="toc-probability-density-function-pdf" class="nav-link" data-scroll-target="#probability-density-function-pdf">Probability Density Function (pdf)</a></li>
+  <li><a href="#cumulative-distribution-function-cdf-1" id="toc-cumulative-distribution-function-cdf-1" class="nav-link" data-scroll-target="#cumulative-distribution-function-cdf-1">Cumulative Distribution Function (cdf)</a></li>
+  <li><a href="#pdf-to-cdf-and-back-again" id="toc-pdf-to-cdf-and-back-again" class="nav-link" data-scroll-target="#pdf-to-cdf-and-back-again">PDF to CDF, and Back Again</a></li>
+  </ul>
+</li>
+  <li><a href="#conditional-probability" id="toc-conditional-probability" class="nav-link" data-scroll-target="#conditional-probability">Conditional Probability</a></li>
+  <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence">Independence</a></li>
+  <li>
+<a href="#expected-value" id="toc-expected-value" class="nav-link" data-scroll-target="#expected-value">Expected Value</a>
+  <ul class="collapse">
+<li><a href="#discrete" id="toc-discrete" class="nav-link" data-scroll-target="#discrete">Discrete</a></li>
+  <li><a href="#continuous" id="toc-continuous" class="nav-link" data-scroll-target="#continuous">Continuous</a></li>
+  <li><a href="#expectation-is-a-linear-function" id="toc-expectation-is-a-linear-function" class="nav-link" data-scroll-target="#expectation-is-a-linear-function">Expectation is a Linear Function</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#variance-and-standard-deviation" id="toc-variance-and-standard-deviation" class="nav-link" data-scroll-target="#variance-and-standard-deviation">Variance and Standard Deviation</a>
+  <ul class="collapse">
+<li><a href="#discrete-1" id="toc-discrete-1" class="nav-link" data-scroll-target="#discrete-1">Discrete</a></li>
+  <li><a href="#continuous-1" id="toc-continuous-1" class="nav-link" data-scroll-target="#continuous-1">Continuous</a></li>
+  <li><a href="#independence-in-variance" id="toc-independence-in-variance" class="nav-link" data-scroll-target="#independence-in-variance">Independence in Variance</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#percentiles-quantiles" id="toc-percentiles-quantiles" class="nav-link" data-scroll-target="#percentiles-quantiles">Percentiles &amp; Quantiles</a>
+  <ul class="collapse">
+<li><a href="#percentiles" id="toc-percentiles" class="nav-link" data-scroll-target="#percentiles">Percentiles</a></li>
+  <li><a href="#quantiles" id="toc-quantiles" class="nav-link" data-scroll-target="#quantiles">Quantiles</a></li>
+  </ul>
+</li>
+  <li><a href="#symmetry" id="toc-symmetry" class="nav-link" data-scroll-target="#symmetry">Symmetry</a></li>
+  <li><a href="#rule" id="toc-rule" class="nav-link" data-scroll-target="#rule">68-95-99.7 Rule</a></li>
+  <li><a href="#markovs-inequality" id="toc-markovs-inequality" class="nav-link" data-scroll-target="#markovs-inequality">Markov’s Inequality</a></li>
+  <li><a href="#chebyshevs-inequality" id="toc-chebyshevs-inequality" class="nav-link" data-scroll-target="#chebyshevs-inequality">Chebyshev’s Inequality</a></li>
+  <li>
+<a href="#common-discrete-distributions" id="toc-common-discrete-distributions" class="nav-link" data-scroll-target="#common-discrete-distributions">Common Discrete Distributions</a>
+  <ul class="collapse">
+<li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution">Binomial Distribution</a></li>
+  <li><a href="#geometric-distribution" id="toc-geometric-distribution" class="nav-link" data-scroll-target="#geometric-distribution">Geometric Distribution</a></li>
+  <li><a href="#poisson-distribution" id="toc-poisson-distribution" class="nav-link" data-scroll-target="#poisson-distribution">Poisson Distribution</a></li>
+  <li><a href="#uniform-distribution" id="toc-uniform-distribution" class="nav-link" data-scroll-target="#uniform-distribution">Uniform Distribution</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#common-continuous-distributions" id="toc-common-continuous-distributions" class="nav-link" data-scroll-target="#common-continuous-distributions">Common Continuous Distributions</a>
+  <ul class="collapse">
+<li><a href="#uniform-distribution-1" id="toc-uniform-distribution-1" class="nav-link" data-scroll-target="#uniform-distribution-1">Uniform Distribution</a></li>
+  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution">Normal Distribution</a></li>
+  <li><a href="#exponential-distribution" id="toc-exponential-distribution" class="nav-link" data-scroll-target="#exponential-distribution">Exponential Distribution</a></li>
+  </ul>
+</li>
+  <li><a href="#central-limit-theorem" id="toc-central-limit-theorem" class="nav-link" data-scroll-target="#central-limit-theorem">Central Limit Theorem</a></li>
+  <li>
+<a href="#joint-variable-distributions" id="toc-joint-variable-distributions" class="nav-link" data-scroll-target="#joint-variable-distributions">Joint Variable Distributions</a>
+  <ul class="collapse">
+<li><a href="#general-information" id="toc-general-information" class="nav-link" data-scroll-target="#general-information">General Information</a></li>
+  <li><a href="#properties-of-the-joint-pmf" id="toc-properties-of-the-joint-pmf" class="nav-link" data-scroll-target="#properties-of-the-joint-pmf">Properties of the Joint PMF</a></li>
+  <li><a href="#properties-of-the-joint-pdf" id="toc-properties-of-the-joint-pdf" class="nav-link" data-scroll-target="#properties-of-the-joint-pdf">Properties of the joint PDF</a></li>
+  </ul>
+</li>
+  <li><a href="#covariance-correlation" id="toc-covariance-correlation" class="nav-link" data-scroll-target="#covariance-correlation">Covariance &amp; Correlation</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#r-programming-essentials" id="toc-r-programming-essentials" class="nav-link" data-scroll-target="#r-programming-essentials">R Programming Essentials</a>
+  <ul class="collapse">
+<li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions">Distributions</a></li>
+  <li>
+<a href="#helpful-functions" id="toc-helpful-functions" class="nav-link" data-scroll-target="#helpful-functions">Helpful Functions</a>
+  <ul class="collapse">
+<li><a href="#the-apply-family" id="toc-the-apply-family" class="nav-link" data-scroll-target="#the-apply-family">The Apply Family</a></li>
+  <li><a href="#sample-and-replicate" id="toc-sample-and-replicate" class="nav-link" data-scroll-target="#sample-and-replicate">Sample and Replicate</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li><a href="#linear-algebra" id="toc-linear-algebra" class="nav-link" data-scroll-target="#linear-algebra">Linear Algebra</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Basic Review</h1>
 </div>
 
@@ -156,15 +266,525 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
+</header><p>This page features review of basic statistical concepts and the linear algebra necessary for advanced statistics.</p>
+<hr>
+<section id="basic-statistics" class="level1"><h1>Basic Statistics</h1>
+<hr>
+<section id="discrete-random-variables" class="level2"><h2 class="anchored" data-anchor-id="discrete-random-variables">Discrete Random Variables</h2>
+<section id="probability-mass-function-pmf" class="level3"><h3 class="anchored" data-anchor-id="probability-mass-function-pmf">Probability Mass Function (pmf)</h3>
+<p><span class="math inline">\(p(x) = P(X=x)\)</span></p>
+<ul>
+<li><span class="math inline">\(p(x) \geq 0\)</span></li>
+<li><span class="math inline">\(\sum_{x} p(x) = 1\)</span></li>
+</ul></section><section id="cumulative-distribution-function-cdf" class="level3"><h3 class="anchored" data-anchor-id="cumulative-distribution-function-cdf">Cumulative Distribution Function (cdf)</h3>
+<p><span class="math inline">\(F(x) = P(X \leq x) = \sum_{k \leq x} p(k)\)</span></p>
+<ul>
+<li><span class="math inline">\(0 \leq F(x) \leq 1\)</span></li>
+<li>If <span class="math inline">\(a \leq b \rightarrow F(a) \leq F(b)\)</span>
+</li>
+</ul>
+<hr></section></section><section id="continuous-random-variables" class="level2"><h2 class="anchored" data-anchor-id="continuous-random-variables">Continuous Random Variables</h2>
+<section id="probability-density-function-pdf" class="level3"><h3 class="anchored" data-anchor-id="probability-density-function-pdf">Probability Density Function (pdf)</h3>
+<p>If X is a continuous random variable, then <span class="math inline">\(f(x)\)</span> is a <em>pdf</em> if</p>
+<ul>
+<li><span class="math inline">\(P(a \leq X \leq b) = \int_a^b f(x)dx\)</span></li>
+<li><span class="math inline">\(f(x) \geq 0\)</span></li>
+<li><span class="math inline">\(\int_{-\infty}^\infty f(x)dx = 1\)</span></li>
+</ul></section><section id="cumulative-distribution-function-cdf-1" class="level3"><h3 class="anchored" data-anchor-id="cumulative-distribution-function-cdf-1">Cumulative Distribution Function (cdf)</h3>
+<p>Properties of the CDF for a continuous RV X:</p>
+<ul>
+<li><span class="math inline">\(P(X \leq x) = F(x)\)</span></li>
+<li><span class="math inline">\(F(x) \geq 0\)</span></li>
+<li><span class="math inline">\(\lim_{x \rightarrow \infty} F(x) = 1\)</span></li>
+<li><span class="math inline">\(\lim_{x \rightarrow -\infty} F(x) = 0\)</span></li>
+</ul></section><section id="pdf-to-cdf-and-back-again" class="level3"><h3 class="anchored" data-anchor-id="pdf-to-cdf-and-back-again">PDF to CDF, and Back Again</h3>
+<p>By the fundamental theorem of calculus, if <span class="math inline">\(f(x)\)</span> is the pdf of a continuous variable X, and <span class="math inline">\(F(x)\)</span> is the cdf the continuous variable X, then:</p>
+<ul>
+<li><span class="math inline">\(\frac{d}{dx}F(x) = f(x)\)</span></li>
+<li><span class="math inline">\(F(x) = \int_{-\infty}^x f(t)dt\)</span></li>
+</ul>
+<hr></section></section><section id="conditional-probability" class="level2"><h2 class="anchored" data-anchor-id="conditional-probability">Conditional Probability</h2>
+<p><span class="math inline">\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\)</span></p>
+<p><span class="math inline">\(\rightarrow P(B \mid A) = \frac{P(A \mid B)P(B)}{P(A)}\)</span></p>
+<p>In the reference to the above formulas, the following definitions apply:</p>
+<ul>
+<li>
+<span class="math inline">\(P(B \mid A)\)</span>: Posterior Probability</li>
+<li>
+<span class="math inline">\(P(B)\)</span>: Prior Probability</li>
+<li>
+<span class="math inline">\(P(A)\)</span>: Evidence</li>
+</ul>
+<p>Note that when dealing with more than two events, due to the law of total probability, the following is true:</p>
+<p><span class="math inline">\(P(A) = \sum_{i = 1}^{n} P(A \mid B_i)P(B_i)\)</span></p>
+<p>In other words, this applies:</p>
+<p><span class="math inline">\(P(B \mid A) = \frac{P(A \mid B)P(B)}{P(A)} = \frac{P(A \mid B_j)P(B_j)}{\sum_{i = 1}^{n} P(A \mid B_i)P(B_i)}\)</span></p>
+</section><section id="independence" class="level2"><h2 class="anchored" data-anchor-id="independence">Independence</h2>
+<p>Given the events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, the events are considered <strong>independent</strong> if</p>
+<p><span class="math inline">\(P(A \cap B) = P(A)P(B)\)</span>.</p>
+<p>This has implications to the conditional probability definitions above.</p>
+<hr></section><section id="expected-value" class="level2"><h2 class="anchored" data-anchor-id="expected-value">Expected Value</h2>
+<p>Expected value, also known as expectation, mean, or average has slightly different methods of being calculated depending on if the random variable is discrete or continuous.</p>
+<section id="discrete" class="level3"><h3 class="anchored" data-anchor-id="discrete">Discrete</h3>
+<p><span class="math inline">\(E[X] = \sum_{x}xp(x)\)</span></p>
+<p><span class="math inline">\(E[g(X)] = \sum_{x}g(x)p(x)\)</span></p>
+</section><section id="continuous" class="level3"><h3 class="anchored" data-anchor-id="continuous">Continuous</h3>
+<p><span class="math inline">\(E[g(X)] = \int_{-\infty}^{\infty} g(X)f(X)dx\)</span></p>
+</section><section id="expectation-is-a-linear-function" class="level3"><h3 class="anchored" data-anchor-id="expectation-is-a-linear-function">Expectation is a Linear Function</h3>
+<hr></section></section><section id="variance-and-standard-deviation" class="level2"><h2 class="anchored" data-anchor-id="variance-and-standard-deviation">Variance and Standard Deviation</h2>
+<p>Variance, which essentially describes the spread of the data, particularly in reference to the mean, also has slightly different methods of being calculated depending on if the random variable is discrete or continuous.</p>
+<section id="discrete-1" class="level3"><h3 class="anchored" data-anchor-id="discrete-1">Discrete</h3>
+<p><span class="math inline">\(Var(X) = E[(X - E[X])]^2 = E[X^2] - (E[X])^2\)</span></p>
+</section><section id="continuous-1" class="level3"><h3 class="anchored" data-anchor-id="continuous-1">Continuous</h3>
+<p><strong>Note</strong>: Notice from the formula above, all we really need to find are two different instances of expected value, namely</p>
+<p><span class="math inline">\(E[X^2]\)</span> and <span class="math inline">\(E[X]\)</span></p>
+</section><section id="independence-in-variance" class="level3"><h3 class="anchored" data-anchor-id="independence-in-variance">Independence in Variance</h3>
+<hr></section></section><section id="percentiles-quantiles" class="level2"><h2 class="anchored" data-anchor-id="percentiles-quantiles">Percentiles &amp; Quantiles</h2>
+<section id="percentiles" class="level3"><h3 class="anchored" data-anchor-id="percentiles">Percentiles</h3>
+<p>For a random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(x_p\)</span> is the <span class="math inline">\(p^{th}\)</span> percentile of <span class="math inline">\(X\)</span> if</p>
+<p><span class="math inline">\(P(X \leq x_p) = p\)</span></p>
+<p>For example, the median is the <span class="math inline">\(50^{th}\)</span> percentile.</p>
+</section><section id="quantiles" class="level3"><h3 class="anchored" data-anchor-id="quantiles">Quantiles</h3>
+<p><em>We often say percentile when given a percentage.</em> The quantile is essentially just the decimal version of the percentile.</p>
+<p>For example, the median is the <span class="math inline">\(0.5\)</span> quantile.</p>
+<p>The quantile function is the inverse of the CDF:</p>
+<p><span class="math inline">\(Q(q) = x\)</span> whenever <span class="math inline">\(P(X \leq x) = q\)</span>.</p>
+<hr></section></section><section id="symmetry" class="level2"><h2 class="anchored" data-anchor-id="symmetry">Symmetry</h2>
+<p>The normal distribution is symmetric around its mean <span class="math inline">\(\mu\)</span>. Hence, if we denote the normal distribution by <span class="math inline">\(f_X(x)\)</span>, then for any <span class="math inline">\(c\)</span>, <span class="math inline">\(f_X(\mu + c) = f_X(\mu - c)\)</span>.</p>
+<p>This idea can be generalized for any distribution function. Suppose a distribution function, <span class="math inline">\(f(x)\)</span>, is symmetric around a point <span class="math inline">\(x_0\)</span>. Then for any <span class="math inline">\(c\)</span>, <span class="math inline">\(f(x_0 + c) = f(x_0 - c)\)</span>.</p>
+<p>It can also be shown that if <span class="math inline">\(X\)</span> is a continuous random variable whose ditribution is symmetric about <span class="math inline">\(x_0\)</span>, let’s use <span class="math inline">\(x_0 = 0\)</span> for simplicity, then <span class="math inline">\(E[2^{2k+1}] = 0\)</span>, for any postive integer <span class="math inline">\(k\)</span>. That is, the expected value of any odd power of <span class="math inline">\(X\)</span> is <span class="math inline">\(0\)</span>.</p>
+<hr></section><section id="rule" class="level2"><h2 class="anchored" data-anchor-id="rule">68-95-99.7 Rule</h2>
+<p>Given the random variable, <span class="math inline">\(X \sim N(0, 1)\)</span>, we’ll examine the outcomes of when <span class="math inline">\(X\)</span> is within 1, 2, and 3 standard deviations of the mean. We’ll build off the ideas of symmetry with <strong>symmetric ranges</strong>.</p>
+<blockquote class="blockquote">
+<p>Single Standard Deviation From the Range</p>
+</blockquote>
+<p><span class="math inline">\(P(|x - \mu| \leq \sigma)\)</span></p>
+<p><span class="math inline">\(= 2P(x - \mu \leq \sigma)\)</span> (<em>just to show symmetry</em>)</p>
+<p>OR</p>
+<p><span class="math inline">\(= P(-\sigma \leq x - \mu \leq \sigma) = P(-1 \leq \frac{x-\mu}{\sigma} \leq 1)\)</span></p>
+<p><span class="math inline">\(= P(-1 \leq Z \leq 1)\)</span></p>
+<p><span class="math inline">\(\Phi(1) - \Phi(-1)\)</span></p>
+<p><strong>NOTE: This does not depend on <span class="math inline">\(\mu\)</span> or <span class="math inline">\(\sigma\)</span>.</strong></p>
+<p>The exact result of <span class="math inline">\(P(|x - \mu| \leq \sigma) \approx 0.68\)</span></p>
+<blockquote class="blockquote">
+<p>Double Standard Deviation From the Range</p>
+</blockquote>
+<p><span class="math inline">\(P(|x - \mu| \leq 2\sigma) \approx 0.95\)</span></p>
+<blockquote class="blockquote">
+<p>Triple Standard Deviation From the Range</p>
+</blockquote>
+<p><span class="math inline">\(P(|x - \mu| \leq 3\sigma) \approx 0.997\)</span></p>
+<p><strong>This means that 99.7% of values for any normal distributions are within 3 standard deviations of the mean.</strong></p>
+<p>This rule is <strong>ONLY for normal distributions</strong>, but we can <em>extend to other distributions.</em></p>
+<hr></section><section id="markovs-inequality" class="level2"><h2 class="anchored" data-anchor-id="markovs-inequality">Markov’s Inequality</h2>
+<p>Given a random variable <span class="math inline">\(X\)</span> such that <span class="math inline">\(x \geq 0\)</span> (this can be any distribution), then</p>
+<p><span class="math inline">\(P(X \geq a) \leq \frac{E[X]}{a}\)</span></p>
+<hr></section><section id="chebyshevs-inequality" class="level2"><h2 class="anchored" data-anchor-id="chebyshevs-inequality">Chebyshev’s Inequality</h2>
+<p>Given a random variable <span class="math inline">\(X\)</span> with <em>finite variance</em>, then</p>
+<p><span class="math inline">\(P(|X-\mu|\geq k\sigma) \leq \frac{1}{k^2}\)</span></p>
+<p>This is saying that the probability of <span class="math inline">\(X\)</span> being outside k standard deviations of mean is less than <span class="math inline">\(\frac{1}{k^2}.\)</span></p>
+<p><strong>NOTE: Different distributions (i.e.&nbsp;not normal distributions) are common in different domains. Markov’s and Chebyshev’s inequalities are great without knowing the exact distribution. In other words, they’re great for making general assumptions about general distributions.</strong></p>
+<hr></section><section id="common-discrete-distributions" class="level2"><h2 class="anchored" data-anchor-id="common-discrete-distributions">Common Discrete Distributions</h2>
+<section id="binomial-distribution" class="level3"><h3 class="anchored" data-anchor-id="binomial-distribution">Binomial Distribution</h3>
+<p>If a success has probability <em>p</em>, and there are <em>n</em> trials, what is the probability we have <em>k</em> successes:</p>
+<p>(Suppose a coin lands on heads with the probability <em>p</em>. If we flip the coin <em>n</em> times, what is the probability the coin lands on heads <em>k</em> times)</p>
+<p><span class="math inline">\(P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}\)</span></p>
+<ul>
+<li><span class="math inline">\(E[X] = np\)</span></li>
+<li><span class="math inline">\(Var(X) = np(1-p)\)</span></li>
+</ul></section><section id="geometric-distribution" class="level3"><h3 class="anchored" data-anchor-id="geometric-distribution">Geometric Distribution</h3>
+<p>If a success has probability <em>p</em>, what si the probability we <em>k</em> failures before the first success?</p>
+<p><span class="math inline">\(P(X = k) = p(1-p)^k\)</span></p>
+<ul>
+<li><span class="math inline">\(E[X] = \frac{1-p}{p}\)</span></li>
+<li><span class="math inline">\(Var(X) = \frac{1-p}{p^2}\)</span></li>
+</ul>
+<p><em>Deriving E[X]</em></p>
+<p><span class="math inline">\(E[X] = \sum_{k=0}^{\infty} kp(1-p)^k\)</span></p>
+<p><span class="math inline">\(= p(1-p)\sum_{k=1}^{\infty} kp(1-p)^{k-1}\)</span></p>
+<p>Note that <span class="math inline">\(kp(1-p)^{k-1}\)</span> is the definition of a derivative.</p>
+<p>So, letting <span class="math inline">\(q = 1-p\)</span>, and using the fact that <span class="math inline">\(\sum \frac{d}{dx}f(x) = \frac{d}{dx}(\sum f(x))\)</span>,</p>
+<p><span class="math inline">\(E[X] = p(1-p)\sum_{k=0}^{\infty} (q^k)^{'} = p(1-p)(\sum_{k=0}^{\infty} q^k)^{'}\)</span></p>
+<p>Note that <span class="math inline">\(\sum_{k=0}^{\infty} q^k = \frac{1}{1-q}\)</span> for <span class="math inline">\(q \leq 1\)</span></p>
+<p><span class="math inline">\(= p(1-p)(\frac{1}{1-q})^{'}\)</span></p>
+<p><span class="math inline">\(= p(1-p)\frac{1}{(1-q)^2}\)</span></p>
+<p>Substitute back <span class="math inline">\(q = 1-p\)</span>,</p>
+<p><span class="math inline">\(= \frac{p(1-p)}{p^2} = \frac{1-p}{p} = E[X]\)</span></p>
+<p><em>Deriving Var(X)</em></p>
+<p><span class="math inline">\(Var(X) = E[X^2] - (E[X])^2\)</span></p>
+<p>We know <span class="math inline">\(E[X]\)</span>, so we only need to solve for <span class="math inline">\(E[X^2]\)</span>.</p>
+<p><span class="math inline">\(E[X^2] = \sum_{k=0}^{\infty} k^2p(1-p)^k = \sum_{k=0}^{\infty} k(k-1+1)p(1-p)^k\)</span></p>
+<p><span class="math inline">\(= \sum_{k=0}^{\infty} k(k-1)p(1-p)^k + \sum_{k=0}^{\infty} kp(1-p)^k\)</span></p>
+<p><span class="math inline">\(= p(1-p)^2 \sum k(k-1)(1-p)^{k-2} + E[X]\)</span></p>
+<p>Now just focusing on the left term, notice this is now the definition of a second derivative:</p>
+<p><span class="math inline">\(p(1-p)^2 \sum ((1-p)^k)^{''}\)</span></p>
+</section><section id="poisson-distribution" class="level3"><h3 class="anchored" data-anchor-id="poisson-distribution">Poisson Distribution</h3>
+<p>Suppose we wanted to approximate the binomial distribution, <span class="math inline">\(P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}\)</span>, to find what it calculates on average for large numbers.</p>
+<p>Since <span class="math inline">\(E[X] = np\)</span> (“on average”), let</p>
+<p><span class="math inline">\(\lambda = np\)</span></p>
+<p><span class="math inline">\(\rightarrow p = \frac{\lambda}{n}\)</span></p>
+<p>Plugging the <span class="math inline">\(\lambda\)</span> expression into the binomial distribution yields:</p>
+<p><span class="math inline">\(P(X=k) = \binom{n}{k}(\frac{\lambda}{n})^k(1-(\frac{\lambda}{n}))^{n-k}\)</span></p>
+<p>Now that we have an equation in terms of <span class="math inline">\(\lambda\)</span>, what happens when we let <span class="math inline">\(n \rightarrow \infty\)</span>?</p>
+<p><span class="math inline">\(\binom{n}{k}(\frac{\lambda}{n})^k(1-(\frac{\lambda}{n}))^{n-k}\)</span></p>
+<p><span class="math inline">\(= \binom{n}{k}\frac{(\frac{\lambda}{n})^k}{(1-\frac{\lambda}{n})^k}(1-\frac{\lambda}{n})^{n}\)</span></p>
+<p>Note the following:</p>
+<p><span class="math inline">\(\lim_{n \rightarrow \infty} (1-\frac{\lambda}{n})^{n} = e^{-\lambda}\)</span></p>
+<p>So, just focusing on the left side of the equation:</p>
+<p><span class="math inline">\(\binom{n}{k}\frac{(\frac{\lambda}{n})^k}{(1-\frac{\lambda}{n})^k}\)</span></p>
+<p><span class="math inline">\(= \binom{n}{k}\frac{\lambda^k}{(n - \lambda)^k}\)</span></p>
+<p><span class="math inline">\(= \frac{\lambda^k}{k!}\)</span></p>
+<p>Therefore,</p>
+<p><span class="math inline">\(\lim_{n \rightarrow \infty} \binom{n}{k}(\frac{\lambda}{n})^k(1-(\frac{\lambda}{n}))^{n-k} = \frac{\lambda^k}{k!} e^{-\lambda}\)</span></p>
+<p><strong>THEREFORE…</strong></p>
+<p>For large values of <span class="math inline">\(n\)</span>, the pmf for the binomial distribution is approximated by</p>
+<p><span class="math inline">\(\frac{\lambda^k}{k!} e^{-\lambda}\)</span>; where <span class="math inline">\(\lambda\)</span> is the average rate of success, and is known as the Poisson distribution. The Poisson distribution models the number of rare events in time or space.</p>
+<p>For a more complete definition:</p>
+<p><span class="math inline">\(X \sim Pois(\lambda)\)</span> <span class="math inline">\(P(X=k) = \frac{\lambda^k}{k!} e^{-\lambda}\)</span> <span class="math inline">\(E[X] = Var(X) = \lambda\)</span></p>
+<p>To prove this is a probability mass function (pmf), we can use the Taylor’s Series:</p>
+<p><span class="math inline">\(\sum_{k=0}^\infty \frac{\lambda^k}{k!} = e^\lambda\)</span></p>
+<p><span class="math inline">\(\sum_{k=0}^\infty \frac{\lambda^k}{k!} e^{-\lambda} = e^\lambda \sum_{k=0}^\infty \frac{\lambda^k}{k!}\)</span></p>
+<p><span class="math inline">\(= e^{-\lambda}e^\lambda = 1\)</span></p>
+<p><em>Rare</em>: essentially means that two events cannot occur at once.</p>
+</section><section id="uniform-distribution" class="level3"><h3 class="anchored" data-anchor-id="uniform-distribution">Uniform Distribution</h3>
+<hr></section></section><section id="common-continuous-distributions" class="level2"><h2 class="anchored" data-anchor-id="common-continuous-distributions">Common Continuous Distributions</h2>
+<section id="uniform-distribution-1" class="level3"><h3 class="anchored" data-anchor-id="uniform-distribution-1">Uniform Distribution</h3>
+<ul>
+<li><span class="math inline">\(X \sim Unif(a, b):\)</span></li>
+<li>
+<span class="math inline">\(f(x) = \frac{a}{b-a}\)</span>; <span class="math inline">\(a \leq x \leq b\)</span>
+</li>
+<li>cdf: <span class="math inline">\(P(X \leq x) = F(x) = \frac{x-a}{b-a}\)</span>; <span class="math inline">\(a \leq x \leq b\)</span>
+</li>
+<li>
+<span class="math inline">\(E[X] = \frac{a+b}{2}\)</span> <em>middle of the interval</em>
+</li>
+<li><span class="math inline">\(Var(X) = \frac{(b-a)^2}{12}\)</span></li>
+</ul>
+<p><strong>Calculations</strong>:</p>
+<p>cdf:</p>
+<p><span class="math inline">\(F(x) = \int_{-\infty}^{x}f(t)dt = \int_{-\infty}^{x}f(t)dt + \int_{a}^{x}f(t)dt\)</span> <span class="math inline">\(= \int_{a}^{x}\frac{a}{b-a}dt = \frac{x-a}{b-a}\)</span></p>
+<p>E[X]:</p>
+<p><span class="math inline">\(E[X] = \int_{-\infty}^{\infty} xf(x)dx\)</span> <span class="math inline">\(= \int_{a}^{b} x \frac{1}{b-a} dx\)</span> <span class="math inline">\(= \frac{1}{2} x^2 \frac{a}{b-a} \mid_{a}^{b}\)</span></p>
+<p>…simplifying…</p>
+<p><span class="math inline">\(= \frac{a+b}{2}\)</span></p>
+<p>Var(X):</p>
+<p><span class="math inline">\(Var(X) = E[(X - E[X])^2] = E[X^2] - (E[X])^2\)</span></p>
+<p>We only need to solve for <span class="math inline">\(E[X^2]\)</span>:</p>
+<p><span class="math inline">\(E[X^2] = \int_{-\infty}^{\infty} x^2 \frac{1}{b-a} dx\)</span> <span class="math inline">\(= \frac{1}{3} x^3 \frac{a}{b-a} \mid_{a}^{b}\)</span></p>
+<p>Putting these together:</p>
+<p><span class="math inline">\(Var(X) = \frac{(b-a)^2}{12}\)</span></p>
+</section><section id="normal-distribution" class="level3"><h3 class="anchored" data-anchor-id="normal-distribution">Normal Distribution</h3>
+<p><strong>Normal Distribution</strong>: <span class="math inline">\(\sim N(\mu, \sigma)\)</span>,</p>
+<ul>
+<li>
+<span class="math inline">\(\mu\)</span>: expected value
+<ul>
+<li>shifts the curve left or right</li>
+</ul>
+</li>
+<li>
+<span class="math inline">\(\sigma\)</span>: standard deviation (NOT variance)
+<ul>
+<li>changes width AND height</li>
+</ul>
+</li>
+<li><span class="math inline">\(f(x) = \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span></li>
+</ul>
+<p><strong>Standard Normal Distribution</strong>:</p>
+<p>The probability of the normal distribution, <span class="math inline">\(P(a \leq X \leq B) = \int\limits_a^bf(x)dx\)</span>, cannot be computed in closed form. only numerical integral can be used to find this. However, the <strong>Standard Normal Form</strong> provides normally quick computations through pre-computed values.</p>
+<ul>
+<li>The Standard Normal Form: <span class="math inline">\(Z \sim N(0, 1)\)</span>
+</li>
+</ul>
+<blockquote class="blockquote">
+<p>Claim: <span class="math inline">\(\frac{X-\mu}{\sigma} \sim N(0, 1)\)</span></p>
+</blockquote>
+<p>Let <span class="math inline">\(X\)</span> be a random variable, then <span class="math inline">\(Z = \frac{X-\mu}{\sigma}\)</span>. We want to show that <span class="math inline">\(E[Z] = 0\)</span> and <span class="math inline">\(SD(Z) = 1\)</span></p>
+<p>Using the fact that expected value is linear:</p>
+<p><span class="math inline">\(E[\frac{X-\mu}{\sigma}] = \frac{E[X]-E[\mu]}{E[\sigma]} = \frac{\mu - \mu}{E[\sigma]} = 0\)</span></p>
+<p><em>Aside:</em> <span class="math inline">\(Var(aX) = a^2Var(X)\)</span></p>
+<p><span class="math inline">\(Var(aX) = E[(aX)^2] - E[aX]^2\)</span></p>
+<p><span class="math inline">\(= a^2E[X^2] - a^2E[X]^2 = a^2(E[X^2] - E[X]^2)\)</span></p>
+<p><span class="math inline">\(= a^2Var(X)\)</span></p>
+<p><em>Using the above finding…</em></p>
+<p><span class="math inline">\(Var(Z) = Var(\frac{X-\mu}{\sigma}) = \frac{1}{\sigma^2}Var(X-\mu) = \frac{1}{\sigma^2}Var(X) = \frac{\sigma^2}{\sigma^2} = 1\)</span></p>
+<p><span class="math inline">\(Var(Z) = 1 \rightarrow SD(Z) = \sqrt{Var(Z)} = 1\)</span></p>
+<p><strong>What does the Z-score do?</strong></p>
+<p><strong>Z-score</strong> is defined as <span class="math inline">\(Z = \frac{x-\mu}{\sigma}\)</span>, and measures how many standard deviations X is above (or below) the mean.</p>
+<p>The Z-score calculates <span class="math inline">\(P(Z \leq x)\)</span>, also commonly written as <span class="math inline">\(\Phi (X)\)</span>, can be shifted to find other probabilities:</p>
+<ul>
+<li><span class="math inline">\(P(Z \geq x) = 1 - P(Z \leq x)\)</span></li>
+<li><span class="math inline">\(P(a \leq Z \leq b) = P(Z \leq b) - P(Z \leq a)\)</span></li>
+</ul></section><section id="exponential-distribution" class="level3"><h3 class="anchored" data-anchor-id="exponential-distribution">Exponential Distribution</h3>
+<blockquote class="blockquote">
+<p>Continuous derivation of the Poisson Distribution</p>
+</blockquote>
+<p>Recall the Poisson distribution, which we used to model the number of rare events in time or space. The exponential distribution is the distribution of wait times in a Poisson process, i.e.&nbsp;how long until the next event.</p>
+<ul>
+<li>
+<span class="math inline">\(F(X) = P(X \leq x) = 1 - e^{-\lambda x}\)</span>, where <span class="math inline">\(x&gt;0\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x) = \lambda e^{-\lambda x}\)</span>, where <span class="math inline">\(x&gt;0\)</span>
+</li>
+<li><span class="math inline">\(E[X] = \frac{1}{\lambda}\)</span></li>
+<li><span class="math inline">\(Var(X) = \frac{1}{\lambda^2}\)</span></li>
+<li>
+<span class="math inline">\(X \sim Exp(\lambda)\)</span>, where <span class="math inline">\(\lambda\)</span>: the rate of occurrence of events</li>
+<li>Memoryless</li>
+</ul>
+<p>The exponential distribution has the unique property of being <strong>memoryless</strong>, which can be illustrated with:</p>
+<p><span class="math inline">\(P(X &gt; t + s | X &gt; t) = P(X &gt; s)\)</span></p>
+<p>To put this result into words, it is saying “After waiting <span class="math inline">\(t\)</span>, the probability of an event happening in another <span class="math inline">\(s\)</span> has the same probability of it happening in <span class="math inline">\(s\)</span>, if from <span class="math inline">\(time = 0\)</span>.”</p>
+<p>This can be shown mathematically:</p>
+<p><span class="math inline">\(P(X &gt; t + s | X &gt; t) = \frac{P(X &gt; t + s, X &gt; t)}{P(X &gt; t)}\)</span></p>
+<p><span class="math inline">\(= \frac{P(X &gt; t + s)}{P(X &gt; t)}\)</span></p>
+<p><span class="math inline">\(= \frac{1 - F(t+s)}{1 - F(t)}\)</span></p>
+<p><span class="math inline">\(= \frac{e^{-\lambda(t+s)}}{e^{-\lambda t}}\)</span></p>
+<p><span class="math inline">\(= e^{-\lambda s} = P(X &gt; s)\)</span></p>
+<blockquote class="blockquote">
+<p>Poisson is “how many events in a time period”, while exponential is “what is the wait time between events”.</p>
+</blockquote>
+<p>Another property of memorylessness is that:</p>
+<p><span class="math inline">\(E[X | X \geq s] = s + E[X]\)</span></p>
+<hr></section></section><section id="central-limit-theorem" class="level2"><h2 class="anchored" data-anchor-id="central-limit-theorem">Central Limit Theorem</h2>
+<p>The idea behind the central limit theorem begins with the law of large numbers.</p>
+<blockquote class="blockquote">
+<p>Law of Large Numbers</p>
+</blockquote>
+<p>As the number of samples increases, the sample mean approaches the true mean:</p>
+<p>As <span class="math inline">\(n \rightarrow \infty\)</span>, <span class="math inline">\(\bar{X_n} = \frac{\sum\limits_x x_i}{n} \rightarrow \mu\)</span>.</p>
+<p><strong>An application of Chebyshev’s Inequality provides the Weak LLN:</strong></p>
+<p><span class="math inline">\(\lim\limits_{n \rightarrow \infty} P(|\bar{X_n} - \mu| &lt; \epsilon) = 1\)</span></p>
+<blockquote class="blockquote">
+<p>Weak Law of Large Numbers (WLLN)</p>
+</blockquote>
+<p>Specifically, given</p>
+<p><span class="math inline">\(P(|\bar{X_n} - \mu| &gt; c) \leq \frac{\sigma^2}{n * c^2}\)</span>,</p>
+<p>Then taking the limit as <span class="math inline">\(n \rightarrow \infty\)</span>,</p>
+<p><span class="math inline">\(\lim\limits_{n \to +\infty} P(|\bar{X}_n - \mu| &gt; c) \leq \lim\limits_{n \to +\infty} \frac{\sigma^2}{nc^2} = 0\)</span></p>
+<p>Due to the axiom of probability, for any event <span class="math inline">\(A\)</span>, <span class="math inline">\(P(A) \geq 0\)</span>, then we know that</p>
+<p><span class="math inline">\(0 \leq (|\bar{X}_n - \mu| &gt; c) \leq 0\)</span>, then it follows that</p>
+<p><span class="math inline">\(\lim\limits_{n \to +\infty} P(|\bar{X}_n - \mu| &gt; c) = 0\)</span>.</p>
+<p>In conclusion, the WLLN says no matter how small we pick <span class="math inline">\(c\)</span> to be, the probability of the sample mean being further away from the mean than that small number <span class="math inline">\(c\)</span> goes to zero. Or, no matter how small we pick <span class="math inline">\(c\)</span> to be, the probability of sample mean being with <span class="math inline">\(c\)</span> of the true mean eventually approaches 1.</p>
+<blockquote class="blockquote">
+<p>The Central Limit Theorem</p>
+</blockquote>
+<p>This leads us to the <strong>Central Limit Theorem (CLT)</strong>:</p>
+<p>As <span class="math inline">\(n \rightarrow \infty\)</span> for <span class="math inline">\(\frac{\sqrt{n}(\bar{X_n}-\mu)}{\sigma} \sim N(0, 1)\)</span>,</p>
+<p>which holds regardless of what the underlying population distribution is.</p>
+<hr></section><section id="joint-variable-distributions" class="level2"><h2 class="anchored" data-anchor-id="joint-variable-distributions">Joint Variable Distributions</h2>
+<section id="general-information" class="level3"><h3 class="anchored" data-anchor-id="general-information">General Information</h3>
+<p>Cumulative Density Function: <span class="math inline">\(F_{X,Y}(x, y) = P(X \leq x, Y \leq y)\)</span></p>
+<p>Discrete PMF: <span class="math inline">\(p(x, y) = P(X=x, Y=y)\)</span></p>
+<p>Continuous PDF: <span class="math inline">\(f(x, y) = \frac{\partial^2 F(x, y)}{\partial x \partial y}\)</span></p>
+<p>Independence can be modeled via CDF, PMF, and PDF. If the following hold, the joint distributions are independent:</p>
+<ul>
+<li>CDF: <span class="math inline">\(F(x, y) = F(x)F(y)\)</span>
+</li>
+<li>pmf: <span class="math inline">\(p(x, y) = p(x)p(y)\)</span>
+</li>
+<li>pdf: <span class="math inline">\(f(x, y) = f(x)f(y)\)</span>
+</li>
+</ul></section><section id="properties-of-the-joint-pmf" class="level3"><h3 class="anchored" data-anchor-id="properties-of-the-joint-pmf">Properties of the Joint PMF</h3>
+<ul>
+<li><span class="math inline">\(p(x, y) \geq 0\)</span></li>
+<li><span class="math inline">\(\sum\limits_x \sum\limits_y p(x, y) = 1\)</span></li>
+</ul>
+<p>Marginals build from the idea of the law of total probability.</p>
+<ul>
+<li>marginal pmf for <span class="math inline">\(X\)</span>: <span class="math inline">\(p_X(a) = \sum\limits_y p(a, y)\)</span>
+</li>
+<li>marginal pmf for <span class="math inline">\(Y\)</span>: <span class="math inline">\(p_Y(b) = \sum\limits_x p(x, b)\)</span>
+</li>
+</ul>
+<p>Conditional PMF: <span class="math inline">\(p_{X|Y}(x|y) = P(X=x|Y=y) = \frac{P(X=x, Y=y)}{P(Y=y)}\)</span></p>
+</section><section id="properties-of-the-joint-pdf" class="level3"><h3 class="anchored" data-anchor-id="properties-of-the-joint-pdf">Properties of the joint PDF</h3>
+<ul>
+<li><span class="math inline">\(f(x, y) \geq 0\)</span></li>
+<li><span class="math inline">\(\int\limits_x \int\limits_y f(x, y) = 1\)</span></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Geometrically, the probability can be thought of as volume under a surface defined by the pdf.</strong></p>
+</blockquote>
+<p>Marginals build from the idea of the law of total probability.</p>
+<ul>
+<li>marginal pdf for <span class="math inline">\(X\)</span>: <span class="math inline">\(f_X(a) = \int\limits_y f(a, y)\)</span>
+</li>
+<li>marginal pdf for <span class="math inline">\(Y\)</span>: <span class="math inline">\(f_Y(b) = \int\limits_y p(x, b)\)</span>
+</li>
+</ul>
+<p>Conditional PDF: <span class="math inline">\(f_{X|Y}(x|y) = P(X \leq x|Y \leq y) = \frac{P(X \leq x, Y \leq y)}{P(Y \leq y)}\)</span></p>
+<hr></section></section><section id="covariance-correlation" class="level2"><h2 class="anchored" data-anchor-id="covariance-correlation">Covariance &amp; Correlation</h2>
+<p>The exact definition of covariance for discrete and continuous:</p>
+<ul>
+<li>Discrete: <span class="math inline">\(Cov(X, Y) = \sum\limits_x \sum\limits_y (x - \mu_x)(y - \mu_y) p(x, y)\)</span>
+</li>
+<li>Continuous: <span class="math inline">\(Cov(X, Y) = \int\limits_x \int\limits_y (x - \mu_x)(y - \mu_y) f(x, y)dxdy\)</span>
+</li>
+</ul>
+<p>A better, generic way to calculate covariance:</p>
+<p><span class="math inline">\(Cov(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]\)</span></p>
+<p>Proof:</p>
+<p><span class="math inline">\(Cov(X, Y) = E[(X - E[X])(Y - E[Y])]\)</span></p>
+<p><span class="math inline">\(= E[XY + XE[Y] - YE[X] + E[X]E[Y]]\)</span></p>
+<p><span class="math inline">\(= E[XY] + E[X]E[Y] - E[Y]E[X] + E[X]E[Y]\)</span></p>
+<p><span class="math inline">\(= E[XY] - E[X]E[Y]\)</span></p>
+<p><strong>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, covariance is 0</strong></p>
+<p><strong>Correlation</strong>:</p>
+<p><span class="math inline">\(Corr(X, Y) = \frac{Cov(X, Y)}{SD(X)SD(Y)}\)</span></p>
+<p><strong>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, correlation is 0</strong></p>
+<hr></section></section><section id="r-programming-essentials" class="level1"><h1>R Programming Essentials</h1>
+<section id="distributions" class="level2"><h2 class="anchored" data-anchor-id="distributions">Distributions</h2>
+<p>To showcase the distribution formulas in R, we’ll use the example of the normal function. However, most common distributions share the same blueprint as the functions we’ll call.</p>
+<p>We can use the normal distribution in R via the following:</p>
+<ul>
+<li>
+<code>dnorm</code>: Returns a value from the distribution provided a location, mean, and standard deviation. <em>Calling a specific value from a distribution has more meaning and applications within discrete distributions</em>.</li>
+<li>
+<code>pnorm</code>: Returns a value from the cumulative distribution function (cdf) provided a location, mean, and standard deviation. In other words, returns the area to the left of the given value from the normal cdf. Optional parameter of <code>lower.tail=FALSE</code> to get the area to the right of the given value.</li>
+<li>
+<code>qnorm</code>: Returns the value of the <span class="math inline">\(p^{th}\)</span> quantile (<em>Z-score</em>) provided a quantile, mean, and standard deviation.</li>
+<li>
+<code>rnorm</code>: Returns a vector of normally distributed random variables provided size of desired vector, mean, and standard deviation.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Import Libraries</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># import libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>dnorm</code>: value of the standard normal distribution pdf at x=0.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># dnorm: value of the standard normal distribution pdf at x=0</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3989423</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>pnorm</code>: amount of the standard normal distribution pdf to the left of x=0.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># pnorm: amount of the standard normal distribution pdf to the left of x=0</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">0</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>qnorm</code>: find the 0.50 quantile of the standard normal distribution.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># qnorm: find the 0.50 quantile of the standard normal distribution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.50</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>rnorm</code>: vector of 1000 random draws from the standard normal distribution.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># rnorm: vector of 1000 random draws from the standard normal distribution</span></span>
+<span><span class="va">normal_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We’ll illustrate <code>rnorm</code> by plotting the density distribution of the vector created.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">normal_vector</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">'blue'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">'Randomly Drawn Values from the Standard Normal Distribution'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">'Density'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="review_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As previously stated, many of the common distributions have these built in functionalities within R. For example, the <em>exponential</em> distribution has the functions <code>dexp</code>, <code>pexp</code>, <code>qexp</code>, and <code>rexp</code>. These follow a similar blueprint as to what is seen with the normal distribution functions above, but may contain slightly different nomenclature and parameters.</p>
+<hr></section><section id="helpful-functions" class="level2"><h2 class="anchored" data-anchor-id="helpful-functions">Helpful Functions</h2>
+<section id="the-apply-family" class="level3"><h3 class="anchored" data-anchor-id="the-apply-family">The Apply Family</h3>
+<p>A useful assortment of functions in R are available through the <em>apply</em> family:</p>
+<ul>
+<li><code>apply</code></li>
+<li><code>lapply</code></li>
+<li><code>sapply</code></li>
+<li><code>tapply</code></li>
+</ul></section><section id="sample-and-replicate" class="level3"><h3 class="anchored" data-anchor-id="sample-and-replicate">Sample and Replicate</h3>
+<p>The <code>sample</code> and <code>replicate</code> functions are useful individually and when combined can be incredibly useful for statistical modeling.</p>
+<hr></section></section></section><section id="linear-algebra" class="level1"><h1>Linear Algebra</h1>
 
 
-<p>This page features review of basic statistical concepts and the linear algebra necessary for advanced statistics.</p>
-
-
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -562,8 +1182,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -575,8 +1194,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>
