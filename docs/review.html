@@ -191,6 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
 <li><a href="#discrete-1" id="toc-discrete-1" class="nav-link" data-scroll-target="#discrete-1">Discrete</a></li>
   <li><a href="#continuous-1" id="toc-continuous-1" class="nav-link" data-scroll-target="#continuous-1">Continuous</a></li>
+  <li><a href="#standard-deviation" id="toc-standard-deviation" class="nav-link" data-scroll-target="#standard-deviation">Standard Deviation</a></li>
   <li><a href="#independence-in-variance" id="toc-independence-in-variance" class="nav-link" data-scroll-target="#independence-in-variance">Independence in Variance</a></li>
   </ul>
 </li>
@@ -247,6 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
   </ul>
 </li>
+  <li><a href="#explanatory-vs.-predictive-modeling" id="toc-explanatory-vs.-predictive-modeling" class="nav-link" data-scroll-target="#explanatory-vs.-predictive-modeling">Explanatory vs.&nbsp;Predictive Modeling</a></li>
   <li><a href="#linear-algebra" id="toc-linear-algebra" class="nav-link" data-scroll-target="#linear-algebra">Linear Algebra</a></li>
   </ul></nav>
     </div>
@@ -329,8 +331,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="math inline">\(E[X] = \sum_{x}xp(x)\)</span></p>
 <p><span class="math inline">\(E[g(X)] = \sum_{x}g(x)p(x)\)</span></p>
 </section><section id="continuous" class="level3"><h3 class="anchored" data-anchor-id="continuous">Continuous</h3>
-<p><span class="math inline">\(E[g(X)] = \int_{-\infty}^{\infty} g(X)f(X)dx\)</span></p>
+<p><span class="math inline">\(E[X] = \int_{-\infty}^{\infty} xf(x)dx\)</span></p>
+<p><span class="math inline">\(E[g(X)] = \int_{-\infty}^{\infty} g(x)f(x)dx\)</span></p>
 </section><section id="expectation-is-a-linear-function" class="level3"><h3 class="anchored" data-anchor-id="expectation-is-a-linear-function">Expectation is a Linear Function</h3>
+<p><span class="math inline">\(E[aX + b] = aE[X] + b\)</span></p>
 <hr></section></section><section id="variance-and-standard-deviation" class="level2"><h2 class="anchored" data-anchor-id="variance-and-standard-deviation">Variance and Standard Deviation</h2>
 <p>Variance, which essentially describes the spread of the data, particularly in reference to the mean, also has slightly different methods of being calculated depending on if the random variable is discrete or continuous.</p>
 <section id="discrete-1" class="level3"><h3 class="anchored" data-anchor-id="discrete-1">Discrete</h3>
@@ -338,7 +342,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="continuous-1" class="level3"><h3 class="anchored" data-anchor-id="continuous-1">Continuous</h3>
 <p><strong>Note</strong>: Notice from the formula above, all we really need to find are two different instances of expected value, namely</p>
 <p><span class="math inline">\(E[X^2]\)</span> and <span class="math inline">\(E[X]\)</span></p>
+</section><section id="standard-deviation" class="level3"><h3 class="anchored" data-anchor-id="standard-deviation">Standard Deviation</h3>
+<p><span class="math inline">\(SD(X) = \sqrt{Var(X)}\)</span></p>
 </section><section id="independence-in-variance" class="level3"><h3 class="anchored" data-anchor-id="independence-in-variance">Independence in Variance</h3>
+<p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, then</p>
+<p><span class="math inline">\(Var(X + Y) = Var(X) + Var(Y)\)</span></p>
 <hr></section></section><section id="percentiles-quantiles" class="level2"><h2 class="anchored" data-anchor-id="percentiles-quantiles">Percentiles &amp; Quantiles</h2>
 <section id="percentiles" class="level3"><h3 class="anchored" data-anchor-id="percentiles">Percentiles</h3>
 <p>For a random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(x_p\)</span> is the <span class="math inline">\(p^{th}\)</span> percentile of <span class="math inline">\(X\)</span> if</p>
@@ -572,8 +580,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The Central Limit Theorem</p>
 </blockquote>
 <p>This leads us to the <strong>Central Limit Theorem (CLT)</strong>:</p>
-<p>As <span class="math inline">\(n \rightarrow \infty\)</span> for <span class="math inline">\(\frac{\sqrt{n}(\bar{X_n}-\mu)}{\sigma} \sim N(0, 1)\)</span>,</p>
+<p>As <span class="math inline">\(n \rightarrow \infty\)</span> for <span class="math inline">\(\bar{X} \sim N(\mu, \frac{\sigma}{\sqrt{n}})\)</span>,</p>
 <p>which holds regardless of what the underlying population distribution is.</p>
+<p>In other words, the <strong>CLT</strong> tells us that the as the sample size <span class="math inline">\(n\)</span> increases, the sample mean of <span class="math inline">\(X\)</span> is close to normally distributed with expected value <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\frac{\sigma}{\sqrt{n}}\)</span>.</p>
 <hr></section><section id="joint-variable-distributions" class="level2"><h2 class="anchored" data-anchor-id="joint-variable-distributions">Joint Variable Distributions</h2>
 <section id="general-information" class="level3"><h3 class="anchored" data-anchor-id="general-information">General Information</h3>
 <p>Cumulative Density Function: <span class="math inline">\(F_{X,Y}(x, y) = P(X \leq x, Y \leq y)\)</span></p>
@@ -781,7 +790,14 @@ Note
 <li><code>tapply</code></li>
 </ul></section><section id="sample-and-replicate" class="level3"><h3 class="anchored" data-anchor-id="sample-and-replicate">Sample and Replicate</h3>
 <p>The <code>sample</code> and <code>replicate</code> functions are useful individually and when combined can be incredibly useful for statistical modeling.</p>
-<hr></section></section></section><section id="linear-algebra" class="level1"><h1>Linear Algebra</h1>
+<hr></section></section></section><section id="explanatory-vs.-predictive-modeling" class="level1"><h1>Explanatory vs.&nbsp;Predictive Modeling</h1>
+<blockquote class="blockquote">
+<p>Explanatory Modeling is taking a data set and making inferences on the underlying distribution (i.e.&nbsp;hypothesis testing). When looking at explanatory modeling from a causality perspective, we’re examining how a given variable behaves in the presecne of other variables. In other words, how does <span class="math inline">\(X\)</span> cause <span class="math inline">\(Y\)</span>?</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Predictive Modeling is any method that produces predictions given a data set. In association with causality, a predictive model is more useful for establishing the correlation between an event and an outcome. It’s best used to find possible future data from past data.</p>
+</blockquote>
+<hr></section><section id="linear-algebra" class="level1"><h1>Linear Algebra</h1>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

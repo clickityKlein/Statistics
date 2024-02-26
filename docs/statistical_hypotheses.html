@@ -67,6 +67,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -135,7 +137,39 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#competing-hypotheses" id="toc-competing-hypotheses" class="nav-link active" data-scroll-target="#competing-hypotheses">Competing Hypotheses</a>
+  <ul class="collapse">
+  <li><a href="#classic-jury-analogy" id="toc-classic-jury-analogy" class="nav-link" data-scroll-target="#classic-jury-analogy">Classic Jury Analogy</a></li>
+  <li><a href="#setting-up-the-hypothesis-test" id="toc-setting-up-the-hypothesis-test" class="nav-link" data-scroll-target="#setting-up-the-hypothesis-test">Setting Up the Hypothesis Test</a></li>
+  </ul></li>
+  <li><a href="#test-statistic-and-finding-evidence" id="toc-test-statistic-and-finding-evidence" class="nav-link" data-scroll-target="#test-statistic-and-finding-evidence">Test Statistic and Finding Evidence</a></li>
+  <li><a href="#rejection-regions-and-significance-level" id="toc-rejection-regions-and-significance-level" class="nav-link" data-scroll-target="#rejection-regions-and-significance-level">Rejection Regions and Significance Level</a>
+  <ul class="collapse">
+  <li><a href="#rejection-regions-for-alternative-hypotheses" id="toc-rejection-regions-for-alternative-hypotheses" class="nav-link" data-scroll-target="#rejection-regions-for-alternative-hypotheses">Rejection Regions for Alternative Hypotheses</a></li>
+  </ul></li>
+  <li><a href="#type-i-and-type-ii-errors" id="toc-type-i-and-type-ii-errors" class="nav-link" data-scroll-target="#type-i-and-type-ii-errors">Type I and Type II Errors</a>
+  <ul class="collapse">
+  <li><a href="#type-i-error" id="toc-type-i-error" class="nav-link" data-scroll-target="#type-i-error">Type I Error</a></li>
+  <li><a href="#type-ii-error" id="toc-type-ii-error" class="nav-link" data-scroll-target="#type-ii-error">Type II Error</a></li>
+  </ul></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <ul class="collapse">
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a></li>
+  <li><a href="#bootstrapping" id="toc-bootstrapping" class="nav-link" data-scroll-target="#bootstrapping">Bootstrapping</a></li>
+  <li><a href="#hypothesis-testing-with-randomization" id="toc-hypothesis-testing-with-randomization" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization">Hypothesis Testing with Randomization</a></li>
+  </ul></li>
+  <li><a href="#r-programming" id="toc-r-programming" class="nav-link" data-scroll-target="#r-programming">R Programming</a>
+  <ul class="collapse">
+  <li><a href="#hypothesis-testing-1" id="toc-hypothesis-testing-1" class="nav-link" data-scroll-target="#hypothesis-testing-1">Hypothesis Testing</a></li>
+  <li><a href="#bootstrapping-1" id="toc-bootstrapping-1" class="nav-link" data-scroll-target="#bootstrapping-1">Bootstrapping</a></li>
+  <li><a href="#hypothesis-testing-with-randomization-1" id="toc-hypothesis-testing-with-randomization-1" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization-1">Hypothesis Testing with Randomization</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -170,8 +204,132 @@ ul.task-list li input[type="checkbox"] {
 <li>Bootstrapping</li>
 <li>Hypothesis Testing with Randomization</li>
 </ul>
+<blockquote class="blockquote">
+<p>A statistical hypothesis is a claim about the value of a parameter of a population characteristic.</p>
+</blockquote>
+<section id="competing-hypotheses" class="level1">
+<h1>Competing Hypotheses</h1>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: Null Hypothesis</li>
+<li><span class="math inline">\(H_A\)</span>: Alternative Hypothesis</li>
+</ul>
+<section id="classic-jury-analogy" class="level2">
+<h2 class="anchored" data-anchor-id="classic-jury-analogy">Classic Jury Analogy</h2>
+<p>Consider a jury in a criminal trial. When a defendant is accused of a crime, the jury presumes that they are not guilty.</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: Not Guilty</li>
+<li><span class="math inline">\(H_A\)</span>: Guilty</li>
+</ul>
+<p>The jury is then presented with evidence. If the evidence seems implausible under the assumption of non-guilt, we might reject the null hypothesis of non-guilt, and claim that the defendant is (likely) guilty.</p>
+<blockquote class="blockquote">
+<p>In the case of statistical hypothesis testing, we use data to find evidence, leading us to arrive at two possible conclusions:</p>
+</blockquote>
+<ul>
+<li>Reject the null hypothesis, <span class="math inline">\(H_0\)</span>, in favor of the alternative hypothesis, <span class="math inline">\(H_A\)</span></li>
+<li>Fail to reject the null hypothesis, <span class="math inline">\(H_0\)</span></li>
+</ul>
+</section>
+<section id="setting-up-the-hypothesis-test" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-the-hypothesis-test">Setting Up the Hypothesis Test</h2>
+<p>The <em>null hypothesis</em> will almost always be represented with equivalence. The <em>alternative hypothesis</em> will be then be represented with an inequality or shown to be not equivalent.</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\theta = \theta_0\)</span></li>
+<li><span class="math inline">\(H_A\)</span>: One of the Following:
+<ul>
+<li><span class="math inline">\(\theta &gt; \theta_0\)</span></li>
+<li><span class="math inline">\(\theta &lt; \theta_0\)</span></li>
+<li><span class="math inline">\(\theta \neq \theta_0\)</span></li>
+</ul></li>
+</ul>
+<p>The <em>alternative hypothesis</em> is the hypothesis for which we are seeking statistical evidence for.</p>
+<hr>
+</section>
+</section>
+<section id="test-statistic-and-finding-evidence" class="level1">
+<h1>Test Statistic and Finding Evidence</h1>
+<blockquote class="blockquote">
+<p>A test statistic is a quantity derived from the sample data and calculated assuming that the null hypothesis is true. It is used in the decision about whether or not to reject the null hypothesis.</p>
+</blockquote>
+</section>
+<section id="rejection-regions-and-significance-level" class="level1">
+<h1>Rejection Regions and Significance Level</h1>
+<blockquote class="blockquote">
+<p>The rejection region is a range of values of the test statistic that would lead you to reject the null hypothesis.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>The significance level <span class="math inline">\(\alpha\)</span> indicates the largest probability of the test statistic occurring under the null hypothesis that would lead you to reject the null hypothesis.</p>
+</blockquote>
+<section id="rejection-regions-for-alternative-hypotheses" class="level2">
+<h2 class="anchored" data-anchor-id="rejection-regions-for-alternative-hypotheses">Rejection Regions for Alternative Hypotheses</h2>
+<p>The following example uses the <span class="math inline">\(z\)</span> statistic, but the concept holds for other statistics and critical values.</p>
+<table class="table-striped table-hover table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Alternative Hypothesis</th>
+<th>Rejection Region for Level <span class="math inline">\(\alpha\)</span> Test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\theta &gt; \theta_0\)</span></td>
+<td><span class="math inline">\(z \geq z_{\alpha}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\theta &lt; \theta_0\)</span></td>
+<td><span class="math inline">\(z \leq z_{\alpha}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\theta \neq \theta_0\)</span></td>
+<td><span class="math inline">\(z \geq z_{\alpha}\)</span> OR <span class="math inline">\(z \leq \z_{\alpha}\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="type-i-and-type-ii-errors" class="level1">
+<h1>Type I and Type II Errors</h1>
+<section id="type-i-error" class="level2">
+<h2 class="anchored" data-anchor-id="type-i-error">Type I Error</h2>
+<p>A <strong>Type I</strong> error is rejecting the null hypothesis when it is actually true. This is actually representing by <span class="math inline">\(\alpha\)</span>, where significance level is set at <span class="math inline">\(100*(1-\alpha)\)</span>.</p>
+</section>
+<section id="type-ii-error" class="level2">
+<h2 class="anchored" data-anchor-id="type-ii-error">Type II Error</h2>
+<p>A <strong>Type II</strong> error is failing to reject the null hypothesis when it is actually false. This is normally considered <em>worse</em> than <strong>Type I</strong> errors.</p>
+<hr>
+</section>
+</section>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<section id="hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
+</section>
+<section id="bootstrapping" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrapping">Bootstrapping</h2>
+</section>
+<section id="hypothesis-testing-with-randomization" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing-with-randomization">Hypothesis Testing with Randomization</h2>
+<hr>
+</section>
+</section>
+<section id="r-programming" class="level1">
+<h1>R Programming</h1>
+<section id="hypothesis-testing-1" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing-1">Hypothesis Testing</h2>
+</section>
+<section id="bootstrapping-1" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrapping-1">Bootstrapping</h2>
+</section>
+<section id="hypothesis-testing-with-randomization-1" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing-with-randomization-1">Hypothesis Testing with Randomization</h2>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

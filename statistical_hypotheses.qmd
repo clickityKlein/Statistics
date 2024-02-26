@@ -12,3 +12,99 @@ This page features theories involving statistical hypotheses, including:
 - Power and Statistical Learning
 - Bootstrapping
 - Hypothesis Testing with Randomization
+
+> A statistical hypothesis is a claim about the value of a parameter of a population characteristic.
+
+# Competing Hypotheses
+
+- $H_0$: Null Hypothesis
+- $H_A$: Alternative Hypothesis
+
+## Classic Jury Analogy
+
+Consider a jury in a criminal trial. When a defendant is accused of a crime, the jury presumes
+that they are not guilty.
+
+- $H_0$: Not Guilty
+- $H_A$: Guilty
+
+The jury is then presented with evidence. If the evidence seems implausible under the
+assumption of non-guilt, we might reject the null hypothesis of non-guilt, and claim that the
+defendant is (likely) guilty.
+
+> In the case of statistical hypothesis testing, we use data to find evidence, leading us to arrive at two possible conclusions:
+
+- Reject the null hypothesis, $H_0$, in favor of the alternative hypothesis, $H_A$
+- Fail to reject the null hypothesis, $H_0$
+
+## Setting Up the Hypothesis Test
+
+The *null hypothesis* will almost always be represented with equivalence. The *alternative hypothesis* will be then be represented with an inequality or shown to be not equivalent.
+
+- $H_0$: $\theta = \theta_0$
+- $H_A$: One of the Following:
+  - $\theta > \theta_0$
+  - $\theta < \theta_0$
+  - $\theta \neq \theta_0$
+  
+The *alternative hypothesis* is the hypothesis for which we are seeking statistical evidence for.
+
+---
+
+# Test Statistic and Finding Evidence
+
+> A test statistic is a quantity derived from the sample data and calculated assuming that the
+null hypothesis is true. It is used in the decision about whether or not to reject the null
+hypothesis.
+
+# Rejection Regions and Significance Level
+
+> The rejection region is a range of values of the test statistic that would lead you to reject
+the null hypothesis.
+
+> The significance level $\alpha$ indicates the largest probability of the test statistic occurring
+under the null hypothesis that would lead you to reject the null hypothesis.
+
+## Rejection Regions for Alternative Hypotheses
+
+The following example uses the $z$ statistic, but the concept holds for other statistics and critical values.
+
+| Alternative Hypothesis | Rejection Region for Level $\alpha$ Test           |
+|------------------------|----------------------------------------------------|
+| $H_A$:  $\theta > \theta_0$    | $z \geq z_{\alpha}$                        |
+| $H_A$:  $\theta < \theta_0$    | $z \leq z_{\alpha}$                        |
+| $H_A$:  $\theta \neq \theta_0$ | $z \geq z_{\alpha}$ OR $z \leq \z_{\alpha}$|
+
+: {.striped .hover}
+
+---
+
+# Type I and Type II Errors
+
+## Type I Error
+
+A **Type I** error is rejecting the null hypothesis when it is actually true. This is actually representing by $\alpha$, where significance level is set at $100*(1-\alpha)$.
+
+## Type II Error
+
+A **Type II** error is failing to reject the null hypothesis when it is actually false. This is normally considered *worse* than **Type I** errors.
+
+---
+
+# Examples
+
+## Hypothesis Testing
+
+## Bootstrapping
+
+## Hypothesis Testing with Randomization
+
+---
+
+# R Programming
+
+## Hypothesis Testing
+
+## Bootstrapping
+
+## Hypothesis Testing with Randomization

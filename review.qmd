@@ -98,9 +98,13 @@ $E[g(X)] = \sum_{x}g(x)p(x)$
 
 ### Continuous
 
-$E[g(X)] = \int_{-\infty}^{\infty} g(X)f(X)dx$
+$E[X] = \int_{-\infty}^{\infty} xf(x)dx$
+
+$E[g(X)] = \int_{-\infty}^{\infty} g(x)f(x)dx$
 
 ### Expectation is a Linear Function
+
+$E[aX + b] = aE[X] + b$
 
 ---
 
@@ -118,7 +122,15 @@ $Var(X) = E[(X - E[X])]^2 = E[X^2] - (E[X])^2$
 
 $E[X^2]$ and $E[X]$
 
+### Standard Deviation
+
+$SD(X) = \sqrt{Var(X)}$
+
 ### Independence in Variance
+
+If $X$ and $Y$ are independent, then
+
+$Var(X + Y) = Var(X) + Var(Y)$
 
 ---
 
@@ -502,9 +514,11 @@ In conclusion, the WLLN says no matter how small we pick $c$ to be, the probabil
 
 This leads us to the **Central Limit Theorem (CLT)**:
 
-As $n \rightarrow \infty$ for $\frac{\sqrt{n}(\bar{X_n}-\mu)}{\sigma} \sim N(0, 1)$,
+As $n \rightarrow \infty$ for $\bar{X} \sim N(\mu, \frac{\sigma}{\sqrt{n}})$,
 
 which holds regardless of what the underlying population distribution is.
+
+In other words, the **CLT** tells us that the as the sample size $n$ increases, the sample mean of $X$ is close to normally distributed with expected value $\mu$ and standard deviation $\frac{\sigma}{\sqrt{n}}$.
 
 ---
 
@@ -670,6 +684,14 @@ A useful assortment of functions in R are available through the *apply* family:
 ### Sample and Replicate
 
 The `sample` and `replicate` functions are useful individually and when combined can be incredibly useful for statistical modeling.
+
+---
+
+# Explanatory vs. Predictive Modeling
+
+> Explanatory Modeling is taking a data set and making inferences on the underlying distribution (i.e. hypothesis testing). When looking at explanatory modeling from a causality perspective, we're examining how a given variable behaves in the presecne of other variables. In other words, how does $X$ cause $Y$?
+
+> Predictive Modeling is any method that produces predictions given a data set. In association with causality, a predictive model is more useful for establishing the correlation between an event and an outcome. It's best used to find possible future data from past data.
 
 ---
 

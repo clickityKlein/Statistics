@@ -4,7 +4,84 @@
     "href": "statistical_hypotheses.html",
     "title": "Statistical Hypotheses",
     "section": "",
-    "text": "This page features theories involving statistical hypotheses, including:\n\nNull vs. Alternative Hypothesis\nAnalogy\nTest Statistic\nRejection Region & Significance Levels\nType I and Type II Errors\nPower and Statistical Learning\nBootstrapping\nHypothesis Testing with Randomization"
+    "text": "This page features theories involving statistical hypotheses, including:"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#classic-jury-analogy",
+    "href": "statistical_hypotheses.html#classic-jury-analogy",
+    "title": "Statistical Hypotheses",
+    "section": "Classic Jury Analogy",
+    "text": "Classic Jury Analogy\nConsider a jury in a criminal trial. When a defendant is accused of a crime, the jury presumes that they are not guilty.\n\n\\(H_0\\): Not Guilty\n\\(H_A\\): Guilty\n\nThe jury is then presented with evidence. If the evidence seems implausible under the assumption of non-guilt, we might reject the null hypothesis of non-guilt, and claim that the defendant is (likely) guilty.\n\nIn the case of statistical hypothesis testing, we use data to find evidence, leading us to arrive at two possible conclusions:\n\n\nReject the null hypothesis, \\(H_0\\), in favor of the alternative hypothesis, \\(H_A\\)\nFail to reject the null hypothesis, \\(H_0\\)"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#setting-up-the-hypothesis-test",
+    "href": "statistical_hypotheses.html#setting-up-the-hypothesis-test",
+    "title": "Statistical Hypotheses",
+    "section": "Setting Up the Hypothesis Test",
+    "text": "Setting Up the Hypothesis Test\nThe null hypothesis will almost always be represented with equivalence. The alternative hypothesis will be then be represented with an inequality or shown to be not equivalent.\n\n\\(H_0\\): \\(\\theta = \\theta_0\\)\n\\(H_A\\): One of the Following:\n\n\\(\\theta &gt; \\theta_0\\)\n\\(\\theta &lt; \\theta_0\\)\n\\(\\theta \\neq \\theta_0\\)\n\n\nThe alternative hypothesis is the hypothesis for which we are seeking statistical evidence for."
+  },
+  {
+    "objectID": "statistical_hypotheses.html#rejection-regions-for-alternative-hypotheses",
+    "href": "statistical_hypotheses.html#rejection-regions-for-alternative-hypotheses",
+    "title": "Statistical Hypotheses",
+    "section": "Rejection Regions for Alternative Hypotheses",
+    "text": "Rejection Regions for Alternative Hypotheses\nThe following example uses the \\(z\\) statistic, but the concept holds for other statistics and critical values.\n\n\n\n\n\n\n\nAlternative Hypothesis\nRejection Region for Level \\(\\alpha\\) Test\n\n\n\n\n\\(H_A\\): \\(\\theta &gt; \\theta_0\\)\n\\(z \\geq z_{\\alpha}\\)\n\n\n\\(H_A\\): \\(\\theta &lt; \\theta_0\\)\n\\(z \\leq z_{\\alpha}\\)\n\n\n\\(H_A\\): \\(\\theta \\neq \\theta_0\\)\n\\(z \\geq z_{\\alpha}\\) OR \\(z \\leq \\z_{\\alpha}\\)"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#type-i-error",
+    "href": "statistical_hypotheses.html#type-i-error",
+    "title": "Statistical Hypotheses",
+    "section": "Type I Error",
+    "text": "Type I Error\nA Type I error is rejecting the null hypothesis when it is actually true. This is actually representing by \\(\\alpha\\), where significance level is set at \\(100*(1-\\alpha)\\)."
+  },
+  {
+    "objectID": "statistical_hypotheses.html#type-ii-error",
+    "href": "statistical_hypotheses.html#type-ii-error",
+    "title": "Statistical Hypotheses",
+    "section": "Type II Error",
+    "text": "Type II Error\nA Type II error is failing to reject the null hypothesis when it is actually false. This is normally considered worse than Type I errors."
+  },
+  {
+    "objectID": "statistical_hypotheses.html#hypothesis-testing",
+    "href": "statistical_hypotheses.html#hypothesis-testing",
+    "title": "Statistical Hypotheses",
+    "section": "Hypothesis Testing",
+    "text": "Hypothesis Testing"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#bootstrapping",
+    "href": "statistical_hypotheses.html#bootstrapping",
+    "title": "Statistical Hypotheses",
+    "section": "Bootstrapping",
+    "text": "Bootstrapping"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#hypothesis-testing-with-randomization",
+    "href": "statistical_hypotheses.html#hypothesis-testing-with-randomization",
+    "title": "Statistical Hypotheses",
+    "section": "Hypothesis Testing with Randomization",
+    "text": "Hypothesis Testing with Randomization"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#hypothesis-testing-1",
+    "href": "statistical_hypotheses.html#hypothesis-testing-1",
+    "title": "Statistical Hypotheses",
+    "section": "Hypothesis Testing",
+    "text": "Hypothesis Testing"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#bootstrapping-1",
+    "href": "statistical_hypotheses.html#bootstrapping-1",
+    "title": "Statistical Hypotheses",
+    "section": "Bootstrapping",
+    "text": "Bootstrapping"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#hypothesis-testing-with-randomization-1",
+    "href": "statistical_hypotheses.html#hypothesis-testing-with-randomization-1",
+    "title": "Statistical Hypotheses",
+    "section": "Hypothesis Testing with Randomization",
+    "text": "Hypothesis Testing with Randomization"
   },
   {
     "objectID": "inference.html",
@@ -19,6 +96,27 @@
     "title": "Confidence Intervals",
     "section": "",
     "text": "This page features confidence intervals’ definition, interpretation, and programming."
+  },
+  {
+    "objectID": "confidence_intervals.html#ci-for-means",
+    "href": "confidence_intervals.html#ci-for-means",
+    "title": "Confidence Intervals",
+    "section": "CI for Means",
+    "text": "CI for Means\nThe following example is for a \\(100 * (1 - \\alpha) \\%\\) confidence interval for mean \\(\\mu\\) when the value of \\(\\sigma\\) is known:\n\\([\\bar{x} - z_{\\alpha/2} \\frac{\\sigma}{\\sqrt{n}}, \\bar{x} + z_{\\alpha/2} \\frac{\\sigma}{\\sqrt{n}}]\\)"
+  },
+  {
+    "objectID": "confidence_intervals.html#ci-for-difference-in-means",
+    "href": "confidence_intervals.html#ci-for-difference-in-means",
+    "title": "Confidence Intervals",
+    "section": "CI for Difference in Means",
+    "text": "CI for Difference in Means\n\\(\\bar{x} - \\bar{y} \\pm z_{\\alpha/2} \\sqrt{\\frac{\\sigma_{x}^{2}}{n_x} + \\frac{\\sigma_{y}^{2}}{n_y}}\\)"
+  },
+  {
+    "objectID": "confidence_intervals.html#ci-for-proportions-and-difference-in-proportions",
+    "href": "confidence_intervals.html#ci-for-proportions-and-difference-in-proportions",
+    "title": "Confidence Intervals",
+    "section": "CI for Proportions and Difference in Proportions",
+    "text": "CI for Proportions and Difference in Proportions"
   },
   {
     "objectID": "about.html",
@@ -74,14 +172,14 @@
     "href": "review.html#expected-value",
     "title": "Basic Review",
     "section": "Expected Value",
-    "text": "Expected Value\nExpected value, also known as expectation, mean, or average has slightly different methods of being calculated depending on if the random variable is discrete or continuous.\nDiscrete\n\\(E[X] = \\sum_{x}xp(x)\\)\n\\(E[g(X)] = \\sum_{x}g(x)p(x)\\)\nContinuous\n\\(E[g(X)] = \\int_{-\\infty}^{\\infty} g(X)f(X)dx\\)\nExpectation is a Linear Function"
+    "text": "Expected Value\nExpected value, also known as expectation, mean, or average has slightly different methods of being calculated depending on if the random variable is discrete or continuous.\nDiscrete\n\\(E[X] = \\sum_{x}xp(x)\\)\n\\(E[g(X)] = \\sum_{x}g(x)p(x)\\)\nContinuous\n\\(E[X] = \\int_{-\\infty}^{\\infty} xf(x)dx\\)\n\\(E[g(X)] = \\int_{-\\infty}^{\\infty} g(x)f(x)dx\\)\nExpectation is a Linear Function\n\\(E[aX + b] = aE[X] + b\\)"
   },
   {
     "objectID": "review.html#variance-and-standard-deviation",
     "href": "review.html#variance-and-standard-deviation",
     "title": "Basic Review",
     "section": "Variance and Standard Deviation",
-    "text": "Variance and Standard Deviation\nVariance, which essentially describes the spread of the data, particularly in reference to the mean, also has slightly different methods of being calculated depending on if the random variable is discrete or continuous.\nDiscrete\n\\(Var(X) = E[(X - E[X])]^2 = E[X^2] - (E[X])^2\\)\nContinuous\nNote: Notice from the formula above, all we really need to find are two different instances of expected value, namely\n\\(E[X^2]\\) and \\(E[X]\\)\nIndependence in Variance"
+    "text": "Variance and Standard Deviation\nVariance, which essentially describes the spread of the data, particularly in reference to the mean, also has slightly different methods of being calculated depending on if the random variable is discrete or continuous.\nDiscrete\n\\(Var(X) = E[(X - E[X])]^2 = E[X^2] - (E[X])^2\\)\nContinuous\nNote: Notice from the formula above, all we really need to find are two different instances of expected value, namely\n\\(E[X^2]\\) and \\(E[X]\\)\nStandard Deviation\n\\(SD(X) = \\sqrt{Var(X)}\\)\nIndependence in Variance\nIf \\(X\\) and \\(Y\\) are independent, then\n\\(Var(X + Y) = Var(X) + Var(Y)\\)"
   },
   {
     "objectID": "review.html#percentiles-quantiles",
@@ -137,7 +235,7 @@
     "href": "review.html#central-limit-theorem",
     "title": "Basic Review",
     "section": "Central Limit Theorem",
-    "text": "Central Limit Theorem\nThe idea behind the central limit theorem begins with the law of large numbers.\n\nLaw of Large Numbers\n\nAs the number of samples increases, the sample mean approaches the true mean:\nAs \\(n \\rightarrow \\infty\\), \\(\\bar{X_n} = \\frac{\\sum\\limits_x x_i}{n} \\rightarrow \\mu\\).\nAn application of Chebyshev’s Inequality provides the Weak LLN:\n\\(\\lim\\limits_{n \\rightarrow \\infty} P(|\\bar{X_n} - \\mu| &lt; \\epsilon) = 1\\)\n\nWeak Law of Large Numbers (WLLN)\n\nSpecifically, given\n\\(P(|\\bar{X_n} - \\mu| &gt; c) \\leq \\frac{\\sigma^2}{n * c^2}\\),\nThen taking the limit as \\(n \\rightarrow \\infty\\),\n\\(\\lim\\limits_{n \\to +\\infty} P(|\\bar{X}_n - \\mu| &gt; c) \\leq \\lim\\limits_{n \\to +\\infty} \\frac{\\sigma^2}{nc^2} = 0\\)\nDue to the axiom of probability, for any event \\(A\\), \\(P(A) \\geq 0\\), then we know that\n\\(0 \\leq (|\\bar{X}_n - \\mu| &gt; c) \\leq 0\\), then it follows that\n\\(\\lim\\limits_{n \\to +\\infty} P(|\\bar{X}_n - \\mu| &gt; c) = 0\\).\nIn conclusion, the WLLN says no matter how small we pick \\(c\\) to be, the probability of the sample mean being further away from the mean than that small number \\(c\\) goes to zero. Or, no matter how small we pick \\(c\\) to be, the probability of sample mean being with \\(c\\) of the true mean eventually approaches 1.\n\nThe Central Limit Theorem\n\nThis leads us to the Central Limit Theorem (CLT):\nAs \\(n \\rightarrow \\infty\\) for \\(\\frac{\\sqrt{n}(\\bar{X_n}-\\mu)}{\\sigma} \\sim N(0, 1)\\),\nwhich holds regardless of what the underlying population distribution is."
+    "text": "Central Limit Theorem\nThe idea behind the central limit theorem begins with the law of large numbers.\n\nLaw of Large Numbers\n\nAs the number of samples increases, the sample mean approaches the true mean:\nAs \\(n \\rightarrow \\infty\\), \\(\\bar{X_n} = \\frac{\\sum\\limits_x x_i}{n} \\rightarrow \\mu\\).\nAn application of Chebyshev’s Inequality provides the Weak LLN:\n\\(\\lim\\limits_{n \\rightarrow \\infty} P(|\\bar{X_n} - \\mu| &lt; \\epsilon) = 1\\)\n\nWeak Law of Large Numbers (WLLN)\n\nSpecifically, given\n\\(P(|\\bar{X_n} - \\mu| &gt; c) \\leq \\frac{\\sigma^2}{n * c^2}\\),\nThen taking the limit as \\(n \\rightarrow \\infty\\),\n\\(\\lim\\limits_{n \\to +\\infty} P(|\\bar{X}_n - \\mu| &gt; c) \\leq \\lim\\limits_{n \\to +\\infty} \\frac{\\sigma^2}{nc^2} = 0\\)\nDue to the axiom of probability, for any event \\(A\\), \\(P(A) \\geq 0\\), then we know that\n\\(0 \\leq (|\\bar{X}_n - \\mu| &gt; c) \\leq 0\\), then it follows that\n\\(\\lim\\limits_{n \\to +\\infty} P(|\\bar{X}_n - \\mu| &gt; c) = 0\\).\nIn conclusion, the WLLN says no matter how small we pick \\(c\\) to be, the probability of the sample mean being further away from the mean than that small number \\(c\\) goes to zero. Or, no matter how small we pick \\(c\\) to be, the probability of sample mean being with \\(c\\) of the true mean eventually approaches 1.\n\nThe Central Limit Theorem\n\nThis leads us to the Central Limit Theorem (CLT):\nAs \\(n \\rightarrow \\infty\\) for \\(\\bar{X} \\sim N(\\mu, \\frac{\\sigma}{\\sqrt{n}})\\),\nwhich holds regardless of what the underlying population distribution is.\nIn other words, the CLT tells us that the as the sample size \\(n\\) increases, the sample mean of \\(X\\) is close to normally distributed with expected value \\(\\mu\\) and standard deviation \\(\\frac{\\sigma}{\\sqrt{n}}\\)."
   },
   {
     "objectID": "review.html#joint-variable-distributions",

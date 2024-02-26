@@ -3,3 +3,37 @@ title: "Confidence Intervals"
 ---
 
 This page features confidence intervals' definition, interpretation, and programming.
+
+# Definition
+
+There are different versions of how to compute a confidence interval (CI) based on sample size and the shape of the parent distribution.
+
+## CI for Means
+
+The following example is for a $100 * (1 - \alpha) \%$ confidence interval for mean $\mu$ when the value of $\sigma$ is known:
+
+$[\bar{x} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \bar{x} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}]$
+
+## CI for Difference in Means
+
+$\bar{x} - \bar{y} \pm z_{\alpha/2} \sqrt{\frac{\sigma_{x}^{2}}{n_x} + \frac{\sigma_{y}^{2}}{n_y}}$
+
+## CI for Proportions and Difference in Proportions
+
+---
+
+# Interpretation
+
+> Question: What does it mean to say that we are 95% confident that the true population mean is in this
+interval?
+
+> Answer: In repeated sampling, 95% of all CIs obtained from sampling will
+actually contain the true population mean. The other 5% of CIs will not.
+
+---
+
+# Examples
+
+---
+
+# R Programming
