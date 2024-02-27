@@ -193,7 +193,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#covariance-correlation" id="toc-covariance-correlation" class="nav-link" data-scroll-target="#covariance-correlation">Covariance &amp; Correlation</a></li>
   </ul>
 </li>
-  <li><a href="#individual-t-tests" id="toc-individual-t-tests" class="nav-link" data-scroll-target="#individual-t-tests">Individual t-tests</a></li>
+  <li>
+<a href="#individual-t-tests" id="toc-individual-t-tests" class="nav-link" data-scroll-target="#individual-t-tests">Individual t-tests</a>
+  <ul class="collapse">
+<li><a href="#mlr-in-r-individual-t-test-output-from-summary" id="toc-mlr-in-r-individual-t-test-output-from-summary" class="nav-link" data-scroll-target="#mlr-in-r-individual-t-test-output-from-summary">MLR in R: Individual t-test Output from <code>summary</code></a></li>
+  <li><a href="#type-i-errors-in-multiple-t-tests" id="toc-type-i-errors-in-multiple-t-tests" class="nav-link" data-scroll-target="#type-i-errors-in-multiple-t-tests">Type I Errors in Multiple t-tests</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#f-test" id="toc-f-test" class="nav-link" data-scroll-target="#f-test">F-test</a>
+  <ul class="collapse">
+<li><a href="#the-full-f-test" id="toc-the-full-f-test" class="nav-link" data-scroll-target="#the-full-f-test">The Full F-test</a></li>
+  <li><a href="#the-partial-f-test" id="toc-the-partial-f-test" class="nav-link" data-scroll-target="#the-partial-f-test">The Partial F-test</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection">Feature Selection</a>
+  <ul class="collapse">
+<li><a href="#forward-selection" id="toc-forward-selection" class="nav-link" data-scroll-target="#forward-selection">Forward Selection</a></li>
+  <li><a href="#backward-selection" id="toc-backward-selection" class="nav-link" data-scroll-target="#backward-selection">Backward Selection</a></li>
+  </ul>
+</li>
   </ul>
 </li>
   </ul></nav>
@@ -457,7 +477,7 @@ F-statistic: 2.054e+04 on 1 and 7174 DF,  p-value: &lt; 2.2e-16</code></pre>
 </h3>
 <p>Like in SLR, we can also calculate measures like <strong>SSE</strong>, <strong>SST</strong>, and <strong><span class="math inline">\(R^2\)</span></strong> for MLR.</p>
 <ul>
-<li><span class="math inline">\(SSE = \sum\limits_{i=1}^n (y_i - \hat{y_i})^2 = \sum\limits_{i=1}^n (y_i - (\beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p})})^2\)</span></li>
+<li><span class="math inline">\(SSE = \sum\limits_{i=1}^n (y_i - \hat{y_i})^2 = \sum\limits_{i=1}^n (y_i - (\beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p}))^2\)</span></li>
 <li><span class="math inline">\(SST = \sum\limits_{i=1}^n (y_i - \bar{y})^2\)</span></li>
 <li><span class="math inline">\(R^2 = 1 - \frac{SSE}{SST}\)</span></li>
 </ul>
@@ -481,9 +501,186 @@ F-statistic: 2.054e+04 on 1 and 7174 DF,  p-value: &lt; 2.2e-16</code></pre>
 </ul>
 <p><em>where <span class="math inline">\(S^2_{X}\)</span> and <span class="math inline">\(S^2_{Y}\)</span> are the variances for <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, respectively</em>.</p>
 </section></section><section id="individual-t-tests" class="level2"><h2 class="anchored" data-anchor-id="individual-t-tests">Individual t-tests</h2>
+<p>Suppose we want to test:</p>
+<ul>
+<li>
+<span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_j = c\)</span>
+</li>
+<li>
+<span class="math inline">\(H_A\)</span>: <span class="math inline">\(\beta_j \neq c\)</span>
+</li>
+</ul>
+<p>for some <span class="math inline">\(c \in \mathbb{R}\)</span>.</p>
+<p>We would use a t-test with the test statistic:</p>
+<p><span class="math inline">\(t_{stat} = \frac{\hat{\beta_j} - \hat{\beta_j}}{\hat{SE(\hat{\beta_j})}}\)</span></p>
+<p>Recall our CI for <span class="math inline">\(\beta\)</span>:</p>
+<p>CI: <span class="math inline">\(\hat{\beta} \pm t_{\alpha/2, df = n - 2} \frac{\hat{\sigma}}{\sqrt{\sum_{i=1}^n(x_i - \bar{x})^2}}\)</span></p>
+<p><span class="math inline">\(= \hat{\beta} \pm t_{\alpha/2, df = n - 2} \hat{SE(\hat{\beta_j})}\)</span></p>
+<p>Compare the test statistic with the t-test critical value (<span class="math inline">\(t_{\alpha/2, df = n - 2}\)</span>) and proceed from there.</p>
+<section id="mlr-in-r-individual-t-test-output-from-summary" class="level3"><h3 class="anchored" data-anchor-id="mlr-in-r-individual-t-test-output-from-summary">MLR in R: Individual t-test Output from <code>summary</code>
+</h3>
+<blockquote class="blockquote">
+<p>From same dataset used in SLR, create MLR. Note: we can specify all variables like <code>y ~ x1 + x2 + ... + xn</code>, or we can call all of the variables besides the response variable by using <code>.</code>.</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mlr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">volume</span> <span class="op">~</span> <span class="va">month</span> <span class="op">+</span> <span class="va">sales</span> <span class="op">+</span> <span class="va">listings</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mlr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = volume ~ month + sales + listings, data = df)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-425617453   -8326819    1919907    8285352  451201576 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -7064965.5  1055382.2  -6.694 2.33e-11 ***
+month        -103150.3   141167.5  -0.731    0.465    
+sales         274509.7     1078.4 254.559  &lt; 2e-16 ***
+listings      -12218.7      209.8 -58.251  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 41190000 on 7172 degrees of freedom
+  (1426 observations deleted due to missingness)
+Multiple R-squared:  0.9742,    Adjusted R-squared:  0.9742 
+F-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>In the above summary printout, note that:</p>
+<ul>
+<li>Std. Error = <span class="math inline">\(SE(\hat{\beta})\)</span>
+</li>
+<li>t value: <span class="math inline">\(t_stat\)</span>
+</li>
+<li>Pr(&gt;|t|): p-value</li>
+</ul>
+<p>Note that the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and <code>summary</code> functions asume a hypothesis test of:</p>
+<ul>
+<li>
+<span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_j = 0\)</span>
+</li>
+<li>
+<span class="math inline">\(H_A\)</span>: <span class="math inline">\(\beta_j \neq 0\)</span>
+</li>
+</ul>
+<p>So, depending on the significance level we had set beforehand, we either reject the null hypothesis in favor of the alternative hypothesis or fail to reject the null hypothesis. In the case of a small <em>enough</em> p-value, we can reject the null hypothesis in favor of the alternative hypothesis which means there is statistical evidence that the associated feature (variable) has an effect on the response variable.</p>
+</section><section id="type-i-errors-in-multiple-t-tests" class="level3"><h3 class="anchored" data-anchor-id="type-i-errors-in-multiple-t-tests">Type I Errors in Multiple t-tests</h3>
+<blockquote class="blockquote">
+<p>However, it is not a good idea to conduct several t-tests at a time!</p>
+</blockquote>
+<p><strong>Example</strong>: Suppose that we conduct 10 hypothesis tests at significance level <span class="math inline">\(\alpha = 0.05\)</span>. So, the probability of type 1 error is 0.05 for any individual test.</p>
+<p>What is the probability of a type I error ocurring in at least one of these 10 tests?</p>
+<p><span class="math inline">\(P(\text{at least 1 type I error}) = 1 - P(\text{no type I error})\)</span></p>
+<p><span class="math inline">\(= 1 - (0.95)^{10}\)</span></p>
+<p><span class="math inline">\(\approx 0.40\)</span></p>
+<p>Which is high!</p>
+</section></section><section id="f-test" class="level2"><h2 class="anchored" data-anchor-id="f-test">F-test</h2>
+<p>How do control the <strong>overall</strong> type I error rate when we need to test whether to drop several predictors from a model. We can use a simultaneous test, the <strong>F-test</strong>.</p>
+<p>Consider two different models from a dataset with <span class="math inline">\(p\)</span> features:</p>
+<ul>
+<li>Full Model: <span class="math inline">\(\Omega\)</span>: <span class="math inline">\(Y = \beta_0 + \beta_1 X_1 + \dots + \beta_p X_p\)</span>
+</li>
+<li>Reduced Model: <span class="math inline">\(\omega\)</span>: <span class="math inline">\(Y = \beta_0 + \beta_1 X_1 + \dots + \beta_q X_q\)</span>, where <span class="math inline">\(q &lt; p\)</span>
+</li>
+</ul>
+<p>We can consider testing the following hypothesis:</p>
+<ul>
+<li>
+<span class="math inline">\(H_0\)</span>: <span class="math inline">\(\omega\)</span> is sufficient</li>
+<li>
+<span class="math inline">\(H_A\)</span>: <span class="math inline">\(\omega\)</span> is not sufficient</li>
+</ul>
+<section id="the-full-f-test" class="level3"><h3 class="anchored" data-anchor-id="the-full-f-test">The Full F-test</h3>
+<p>The null hypothesis is the <strong>most reduced model possible</strong></p>
+<p>The idea:</p>
+<ul>
+<li>
+<span class="math inline">\(H_0\)</span>: <span class="math inline">\(y_i = \beta_0 + \epsilon_i\)</span>
+</li>
+<li>
+<span class="math inline">\(H_A\)</span>: at least 1 <span class="math inline">\(B_j \neq 0\)</span>, where <span class="math inline">\(j = 1, \dots, p\)</span>
+</li>
+</ul>
+<p>In other words, we want to check whether ALL coefficients are 0:</p>
+<ul>
+<li>
+<span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_1 = \beta_2 = \dots = \beta_p = 0\)</span>
+</li>
+<li>
+<span class="math inline">\(H_A\)</span>: <span class="math inline">\(B_k \neq 0\)</span> for at least one value of <span class="math inline">\(k = 1, \dots, p\)</span>
+</li>
+</ul>
+<blockquote class="blockquote">
+<p>The null hypothesis in the MLR case says that there is no useful linear relationship between <span class="math inline">\(y\)</span> and any of the <span class="math inline">\(p\)</span> predictors.</p>
+</blockquote>
+<p><span class="math inline">\(F_{stat} = \frac{\frac{SST - SSE}{p}}{\frac{SSE}{n-p-1}}\)</span></p>
+<p>where <span class="math inline">\(p = df_{SST} - df_{SSE}\)</span></p>
+<p>The <span class="math inline">\(F_{stat}\)</span> is a measure of how much better our model is than just using the mean.</p>
+<blockquote class="blockquote">
+<p>If <span class="math inline">\(H_0\)</span> were true, then we would expect to see <span class="math inline">\(F_{stat} \approx 1\)</span>. In other words, if we see an <span class="math inline">\(F_{stat}\)</span> around 1, we will likely fail to reject the null hypothesis.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>If <span class="math inline">\(H_A\)</span> were true, then <span class="math inline">\(SSE &lt; SST \rightarrow F_{stat} &gt;&gt; 1\)</span></p>
+</blockquote>
+</section><section id="the-partial-f-test" class="level3"><h3 class="anchored" data-anchor-id="the-partial-f-test">The Partial F-test</h3>
+<p>Suppose we have the following setup:</p>
+<ul>
+<li>Full Model: <span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4\)</span>
+</li>
+<li>Reduced Model: <span class="math inline">\(y = \beta_0 + \beta_2 x_2 + \beta_4 x_4\)</span>
+</li>
+</ul>
+<p>Are the missing features important, or are we okay with the reduced model?</p>
+<p><strong>Hypothesis Test for the Partial F-test</strong>:</p>
+<ul>
+<li>
+<span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_1 = \beta_3 = 0\)</span>
+</li>
+<li>
+<span class="math inline">\(H_A\)</span>: at least one of <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_3\)</span> <span class="math inline">\(\neq 0\)</span>
+</li>
+</ul>
+<p><strong>Strategy: fit the full and reduced models, then determine if the difference in performance is real or just due to chance.</strong></p>
+<p>Let’s examine some measurements from the <em>full</em> and <em>reduced</em> models.</p>
+<ul>
+<li>$SSE_{full} = $ variation unexplained by the full model</li>
+<li>$SSE_{reduced} = $ variation unexplained by the reduced model</li>
+</ul>
+<p>Intuitively, if <span class="math inline">\(SSE_{full}\)</span> is much smaller than <span class="math inline">\(SSE_{reduced}\)</span>, the full model fits the data much better than the reduced model. Therefore, the appropriate test statistic should depend on the difference between the unexplained variation.</p>
+<p>Give a full model with <span class="math inline">\(p\)</span> features and a reduced model with <span class="math inline">\(k\)</span> features:</p>
+<p><span class="math inline">\(F_{stat-partial} = \frac{(SSE_{reduced} - SSE_{full}) / p - k}{SSE_{full} / (n-p-1)} \sim F_{p-k, n-p-1}\)</span></p>
+<p>with the rejection region: <span class="math inline">\(F \geq F_{\alpha, p-k, n-p-1}\)</span></p>
+<p><em>Note that <span class="math inline">\(p-k\)</span> comes from the differences in degrees of freedom</em>:</p>
+<p><span class="math inline">\(df_{reduced} - df_{full} = (n-k-1) - (n-p-1) = p - k\)</span></p>
+<blockquote class="blockquote">
+<p>Large <span class="math inline">\(F_{stat} \rightarrow\)</span> Low P-Value from F-distribution <span class="math inline">\(\rightarrow\)</span> Well Fitting Model</p>
+</blockquote>
+<p><strong>Principal of Parsimony</strong>: The principle that the most acceptable explanation of an occurrence, phenomenon, or event is the simplest, involving the fewest entities, assumptions, or changes.</p>
+<p>We’re striving to create an MLR model which explains the variation in the data with relatively few features that are easily interpreted.</p>
+</section></section><section id="feature-selection" class="level2"><h2 class="anchored" data-anchor-id="feature-selection">Feature Selection</h2>
+<p>The number of models to test can exponentially increase with the number of features.</p>
+<p>Given <span class="math inline">\(p\)</span> features, there are <span class="math inline">\(\sum\limits_{i=0}^p = 2^p\)</span> possible models.</p>
+<p>What are some ways we can reduce the impossible amount of models to try?</p>
+<section id="forward-selection" class="level3"><h3 class="anchored" data-anchor-id="forward-selection">Forward Selection</h3>
+<p>A greedy algorithm for adding features.</p>
+<ol type="1">
+<li>Fit a null model with an intercept but no slopes</li>
+<li>Fit p individual SLR models - one for each possible feature. Add to the null model the one that improves the performance the most, based on some measure (i.e.&nbsp;decreases SSE the most, increases F-statistic the most, etc.)</li>
+<li>Fit (p - 1) MLR models - one for each of the remaining features along with the feature we isolated from step 2. Add the one that improves model performance the most.</li>
+<li>Repeat until some stopping criterion is reached (i.e.&nbsp;some threshold SSE, or some fixed number of features, etc.)</li>
+</ol></section><section id="backward-selection" class="level3"><h3 class="anchored" data-anchor-id="backward-selection">Backward Selection</h3>
+<p>A greedy algorithm for removing features.</p>
+<ol type="1">
+<li>Fit model with available features.</li>
+<li>Remove the feature with the largest p-value (i.e.&nbsp;the least significant feature).</li>
+<li>Repeat until some stopping criterion is reached (i.e.&nbsp;some threshold SSE, or some fixed number of features, etc.).</li>
+</ol>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

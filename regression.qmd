@@ -234,7 +234,7 @@ Given $y_i = \beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p} + \epsilon_i$, parame
 
 Like in SLR, we can also calculate measures like **SSE**, **SST**, and **$R^2$** for MLR.
 
-- $SSE = \sum\limits_{i=1}^n (y_i - \hat{y_i})^2 = \sum\limits_{i=1}^n (y_i - (\beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p})})^2$
+- $SSE = \sum\limits_{i=1}^n (y_i - \hat{y_i})^2 = \sum\limits_{i=1}^n (y_i - (\beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p}))^2$
 - $SST = \sum\limits_{i=1}^n (y_i - \bar{y})^2$
 - $R^2 = 1 - \frac{SSE}{SST}$
 
@@ -259,6 +259,172 @@ However, in an MLR, we estimate these relationships using formulas analogous to 
 *where $S^2_{X}$ and $S^2_{Y}$ are the variances for $X$ and $Y$, respectively*.
 
 ## Individual t-tests
+
+Suppose we want to test:
+
+- $H_0$: $\beta_j = c$
+- $H_A$: $\beta_j \neq c$
+
+for some $c \in \mathbb{R}$.
+
+We would use a t-test with the test statistic:
+
+$t_{stat} = \frac{\hat{\beta_j} - \hat{\beta_j}}{\hat{SE(\hat{\beta_j})}}$
+
+Recall our CI for $\beta$:
+
+CI: $\hat{\beta} \pm t_{\alpha/2, df = n - 2} \frac{\hat{\sigma}}{\sqrt{\sum_{i=1}^n(x_i - \bar{x})^2}}$
+
+$= \hat{\beta} \pm t_{\alpha/2, df = n - 2} \hat{SE(\hat{\beta_j})}$
+
+Compare the test statistic with the t-test critical value ($t_{\alpha/2, df = n - 2}$) and proceed from there.
+
+### MLR in R: Individual t-test Output from `summary`
+
+> From same dataset used in SLR, create MLR. Note: we can specify all variables like `y ~ x1 + x2 + ... + xn`, or we can call all of the variables besides the response variable by using `.`.
+
+```{r}
+mlr <- lm(volume ~ month + sales + listings, data = df)
+summary(mlr)
+```
+In the above summary printout, note that:
+
+- Std. Error = $SE(\hat{\beta})$
+- t value: $t_stat$
+- Pr(>|t|): p-value
+
+Note that the `lm()` and `summary` functions asume a hypothesis test of:
+
+- $H_0$: $\beta_j = 0$
+- $H_A$: $\beta_j \neq 0$
+
+So, depending on the significance level we had set beforehand, we either reject the null hypothesis in favor of the alternative hypothesis or fail to reject the null hypothesis. In the case of a small *enough* p-value, we can reject the null hypothesis in favor of the alternative hypothesis which means there is statistical evidence that the associated feature (variable) has an effect on the response variable.
+
+### Type I Errors in Multiple t-tests
+
+> However, it is not a good idea to conduct several t-tests at a time!
+
+**Example**: Suppose that we conduct 10 hypothesis tests at significance level $\alpha = 0.05$. So, the probability of type 1 error is 0.05 for any individual test.
+
+What is the probability of a type I error ocurring in at least one of these 10 tests?
+
+$P(\text{at least 1 type I error}) = 1 - P(\text{no type I error})$
+
+$= 1 - (0.95)^{10}$
+
+$\approx 0.40$
+
+Which is high!
+
+## F-test
+
+How do control the **overall** type I error rate when we need to test whether to drop several predictors from a model. We can use a simultaneous test, the **F-test**.
+
+Consider two different models from a dataset with $p$ features:
+
+- Full Model: $\Omega$: $Y = \beta_0 + \beta_1 X_1 + \dots + \beta_p X_p$
+- Reduced Model: $\omega$: $Y = \beta_0 + \beta_1 X_1 + \dots + \beta_q X_q$, where $q < p$
+
+We can consider testing the following hypothesis:
+
+- $H_0$: $\omega$ is sufficient
+- $H_A$: $\omega$ is not sufficient
+
+### The Full F-test
+
+The null hypothesis is the **most reduced model possible**
+
+The idea:
+
+- $H_0$: $y_i = \beta_0 + \epsilon_i$
+- $H_A$: at least 1 $B_j \neq 0$, where $j = 1, \dots, p$
+
+In other words, we want to check whether ALL coefficients are 0:
+
+- $H_0$: $\beta_1 = \beta_2 = \dots = \beta_p = 0$
+- $H_A$: $B_k \neq 0$ for at least one value of $k = 1, \dots, p$
+
+> The null hypothesis in the MLR case says that there is no useful linear relationship between $y$ and any of the $p$ predictors.
+
+$F_{stat} = \frac{\frac{SST - SSE}{p}}{\frac{SSE}{n-p-1}}$
+
+where $p = df_{SST} - df_{SSE}$
+
+The $F_{stat}$ is a measure of how much better our model is than just using the mean.
+
+> If $H_0$ were true, then we would expect to see $F_{stat} \approx 1$. In other words, if we see an $F_{stat}$ around 1, we will likely fail to reject the null hypothesis.
+
+> If $H_A$ were true, then $SSE < SST \rightarrow F_{stat} >> 1$
+
+### The Partial F-test
+
+Suppose we have the following setup:
+
+- Full Model: $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4$
+- Reduced Model: $y = \beta_0 + \beta_2 x_2 + \beta_4 x_4$
+
+Are the missing features important, or are we okay with the reduced model?
+
+**Hypothesis Test for the Partial F-test**:
+
+- $H_0$: $\beta_1 = \beta_3 = 0$
+- $H_A$: at least one of $\beta_1$, $\beta_3$ $\neq 0$
+
+**Strategy: fit the full and reduced models, then determine if the difference in performance is real or just due to chance.**
+
+Let's examine some measurements from the *full* and *reduced* models.
+
+- $SSE_{full} = $ variation unexplained by the full model
+- $SSE_{reduced} = $ variation unexplained by the reduced model
+
+Intuitively, if $SSE_{full}$ is much smaller than $SSE_{reduced}$, the full model fits the data much better than the reduced model. Therefore, the appropriate test statistic should depend on the difference between the unexplained variation.
+
+Give a full model with $p$ features and a reduced model with $k$ features:
+
+$F_{stat-partial} = \frac{(SSE_{reduced} - SSE_{full}) / p - k}{SSE_{full} / (n-p-1)} \sim F_{p-k, n-p-1}$
+
+with the rejection region: $F \geq F_{\alpha, p-k, n-p-1}$
+
+*Note that $p-k$ comes from the differences in degrees of freedom*:
+
+$df_{reduced} - df_{full} = (n-k-1) - (n-p-1) = p - k$
+
+> Large $F_{stat} \rightarrow$ Low P-Value from F-distribution $\rightarrow$ Well Fitting Model
+
+**Principal of Parsimony**: The principle that the most acceptable explanation of an occurrence, phenomenon, or event is the simplest, involving the fewest entities, assumptions, or changes.
+
+We're striving to create an MLR model which explains the variation in the data with relatively few features that are easily interpreted.
+
+## Feature Selection
+
+The number of models to test can exponentially increase with the number of features.
+
+Given $p$ features, there are $\sum\limits_{i=0}^p = 2^p$ possible models.
+
+What are some ways we can reduce the impossible amount of models to try?
+
+### Forward Selection
+
+A greedy algorithm for adding features.
+
+1. Fit a null model with an intercept but no slopes
+2. Fit p individual SLR models - one for each possible feature. Add to the null model the one that improves the performance the most, based on some measure (i.e. decreases SSE the most, increases F-statistic the most, etc.)
+3. Fit (p - 1) MLR models - one for each of the remaining features along with the feature we isolated from step 2. Add the one that improves model performance the most.
+4. Repeat until some stopping criterion is reached (i.e. some threshold SSE, or some fixed number of features, etc.)
+
+### Backward Selection
+
+A greedy algorithm for removing features.
+
+1. Fit model with available features.
+2. Remove the feature with the largest p-value (i.e. the least significant feature).
+3. Repeat until some stopping criterion is reached (i.e. some threshold SSE, or some fixed number of features, etc.).
+
+
+
+
+
+
 
 
 
