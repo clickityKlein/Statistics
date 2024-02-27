@@ -685,6 +685,8 @@ A useful assortment of functions in R are available through the *apply* family:
 
 The `sample` and `replicate` functions are useful individually and when combined can be incredibly useful for statistical modeling.
 
+Additionally useful in statistical modeling is the `quantile` function.
+
 ---
 
 # Explanatory vs. Predictive Modeling

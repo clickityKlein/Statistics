@@ -25,7 +25,7 @@
     "href": "statistical_hypotheses.html#rejection-regions-for-alternative-hypotheses",
     "title": "Statistical Hypotheses",
     "section": "Rejection Regions for Alternative Hypotheses",
-    "text": "Rejection Regions for Alternative Hypotheses\nThe following example uses the \\(z\\) statistic, but the concept holds for other statistics and critical values.\n\n\n\n\n\n\n\nAlternative Hypothesis\nRejection Region for Level \\(\\alpha\\) Test\n\n\n\n\n\\(H_A\\): \\(\\theta &gt; \\theta_0\\)\n\\(z \\geq z_{\\alpha}\\)\n\n\n\\(H_A\\): \\(\\theta &lt; \\theta_0\\)\n\\(z \\leq z_{\\alpha}\\)\n\n\n\\(H_A\\): \\(\\theta \\neq \\theta_0\\)\n\\(z \\geq z_{\\alpha}\\) OR \\(z \\leq \\z_{\\alpha}\\)"
+    "text": "Rejection Regions for Alternative Hypotheses\nThe following example uses the \\(z\\) statistic, but the concept holds for other statistics and critical values.\n\n\n\n\n\n\n\nAlternative Hypothesis\nRejection Region for Level \\(\\alpha\\) Test\n\n\n\n\n\\(H_A\\): \\(\\theta &gt; \\theta_0\\)\n\\(z \\geq z_{\\alpha}\\)\n\n\n\\(H_A\\): \\(\\theta &lt; \\theta_0\\)\n\\(z \\leq z_{\\alpha}\\)\n\n\n\\(H_A\\): \\(\\theta \\neq \\theta_0\\)\n\\(z \\geq z_{\\alpha}\\) OR \\(z \\leq z_{\\alpha}\\)"
   },
   {
     "objectID": "statistical_hypotheses.html#type-i-error",
@@ -42,29 +42,64 @@
     "text": "Type II Error\nA Type II error is failing to reject the null hypothesis when it is actually false. This is normally considered worse than Type I errors."
   },
   {
+    "objectID": "statistical_hypotheses.html#visualizing-errors",
+    "href": "statistical_hypotheses.html#visualizing-errors",
+    "title": "Statistical Hypotheses",
+    "section": "Visualizing Errors",
+    "text": "Visualizing Errors"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#power",
+    "href": "statistical_hypotheses.html#power",
+    "title": "Statistical Hypotheses",
+    "section": "Power",
+    "text": "Power\nConsidering power helps to ensure high quality hypothesis tests.Recall” - Type I errors are when we reject the null hypothesis when it is true - Type II errors are when we fail to reject the null hypothesis when the alternative hypothesis is true\nThe power of a hypothesis test is the probability of making the correct decision if the alternative hypothesis is true. In other words, it is the probability of rejecting the null hypothesis when the alternative hypothesis is true.\nIf \\(\\beta\\) is the probability of making a Type II error, then\n\\(Power = 1 - \\beta\\)\nIn general, we want to minimize \\(\\alpha\\) and maximize power."
+  },
+  {
+    "objectID": "statistical_hypotheses.html#visualizing-power",
+    "href": "statistical_hypotheses.html#visualizing-power",
+    "title": "Statistical Hypotheses",
+    "section": "Visualizing Power",
+    "text": "Visualizing Power"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#the-bootstrap-process",
+    "href": "statistical_hypotheses.html#the-bootstrap-process",
+    "title": "Statistical Hypotheses",
+    "section": "The Bootstrap Process",
+    "text": "The Bootstrap Process\n\nTake re-samples (with replacement) of the same size as the original sample.\nCompute the desired statistic for each re-sample. These statistics form the distribution.\nIf we’re specifically targeting a \\((100-\\alpha)\\%\\) confidence interval, then find the \\(\\alpha^{th}\\) and \\((1-\\alpha)^{th}\\) percentiles. This will be the CI."
+  },
+  {
+    "objectID": "statistical_hypotheses.html#the-randomization-process",
+    "href": "statistical_hypotheses.html#the-randomization-process",
+    "title": "Statistical Hypotheses",
+    "section": "The Randomization Process",
+    "text": "The Randomization Process\nImage we have boolean results from two separate groups. In other words, within each group, some have the results of yes and some have the results of no. Between the two groups, there are different proportions of yes values. We want to test if there is an explanatory variable causing the difference in proportions, or if it is due to inherent variability.\nIn the following process, let’s consider each result a card, and each card will have a label of yes or no.\nThe groups will likely not be the same size, let’s call the length of Group 1 \\(n_1\\) and the length of Group 2 \\(n_2\\).\n\nCreating the Distribution\n\nShuffle all the cards. Group displacement will occur (i.e. after shuffling there will only be a total count of yes and no, and sense of group will be removed).\nPut \\(n_1\\) cards into Group 1 and \\(n_2\\) cards into Group 2\nCompute the different in proportions between yes for each group\nRepeat this many times to get a distribution of the differences in proportions\n\n\n\nPerforming the Hypothesis Test\nThe hypothesis test will look something of the form (alternative depends on how the test is setup):\n\n\\(H_0\\): \\(p_1 = p_2\\) (i.e. the true proportions of the group are equivalent)\n\\(H_A\\): \\(p_1 &gt; p_2\\) (i.e. the true proportions of Group 1 is greater than Group 2, or different in some manner depending on how the test is constructed)\n\nWhen performing the hypothesis test, we want to compare the critical value on rejection region with the test statistic.\nIf the test statistic is at least as extreme as the critical value calculated from the distribution (i.e. test statistic lies within the rejection region), for a specified significance level, then we can reject the null hypothesis in favor of the alternative hypothesis. If not, we lack sufficient evidence to reject the null hypothesis."
+  },
+  {
+    "objectID": "statistical_hypotheses.html#inference-on-mean-and-proportions",
+    "href": "statistical_hypotheses.html#inference-on-mean-and-proportions",
+    "title": "Statistical Hypotheses",
+    "section": "Inference on Mean and Proportions",
+    "text": "Inference on Mean and Proportions\n\n\n\nCategory\n\\(n \\geq 30\\)\n\\(n &lt; 30\\)\n\n\n\n\nNormal Data, Known \\(\\sigma\\)\nz-test\nz-test\n\n\nNormal Data, Unknown \\(\\sigma\\)\nz-test\nt-test\n\n\nNon-Normal Data, Known \\(\\sigma\\)\nz-test\nbootstrap\n\n\nNon-Normal Data, Unknown \\(\\sigma\\)\nz-test\nbootstrap"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#inference-on-variance",
+    "href": "statistical_hypotheses.html#inference-on-variance",
+    "title": "Statistical Hypotheses",
+    "section": "Inference on Variance",
+    "text": "Inference on Variance\n\n\n\nCategory\n\\(n \\geq 30\\)\n\\(n &lt; 30\\)\n\n\n\n\nNormal Data\nchi-squared\nchi-squared\n\n\nNon-Normal Data\nfurther research required\nbootstrap"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#inference-on-anything-else-median-skew-discrimination-rate-etc.",
+    "href": "statistical_hypotheses.html#inference-on-anything-else-median-skew-discrimination-rate-etc.",
+    "title": "Statistical Hypotheses",
+    "section": "Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)",
+    "text": "Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)\n\n\n\nCategory\n\\(n \\geq 30\\)\n\\(n &lt; 30\\)\n\n\n\n\nNormal Data\nbootstrap\nbootstrap\n\n\nNon-Normal Data\nbootstrap\nbootstrap"
+  },
+  {
     "objectID": "statistical_hypotheses.html#hypothesis-testing",
     "href": "statistical_hypotheses.html#hypothesis-testing",
-    "title": "Statistical Hypotheses",
-    "section": "Hypothesis Testing",
-    "text": "Hypothesis Testing"
-  },
-  {
-    "objectID": "statistical_hypotheses.html#bootstrapping",
-    "href": "statistical_hypotheses.html#bootstrapping",
-    "title": "Statistical Hypotheses",
-    "section": "Bootstrapping",
-    "text": "Bootstrapping"
-  },
-  {
-    "objectID": "statistical_hypotheses.html#hypothesis-testing-with-randomization",
-    "href": "statistical_hypotheses.html#hypothesis-testing-with-randomization",
-    "title": "Statistical Hypotheses",
-    "section": "Hypothesis Testing with Randomization",
-    "text": "Hypothesis Testing with Randomization"
-  },
-  {
-    "objectID": "statistical_hypotheses.html#hypothesis-testing-1",
-    "href": "statistical_hypotheses.html#hypothesis-testing-1",
     "title": "Statistical Hypotheses",
     "section": "Hypothesis Testing",
     "text": "Hypothesis Testing"
@@ -84,11 +119,88 @@
     "text": "Hypothesis Testing with Randomization"
   },
   {
-    "objectID": "inference.html",
-    "href": "inference.html",
+    "objectID": "statistical_hypotheses.html#hypothesis-testing-1",
+    "href": "statistical_hypotheses.html#hypothesis-testing-1",
+    "title": "Statistical Hypotheses",
+    "section": "Hypothesis Testing",
+    "text": "Hypothesis Testing"
+  },
+  {
+    "objectID": "statistical_hypotheses.html#bootstrapping-2",
+    "href": "statistical_hypotheses.html#bootstrapping-2",
+    "title": "Statistical Hypotheses",
+    "section": "Bootstrapping",
+    "text": "Bootstrapping\nLecture 5: replace, sample, and quantile."
+  },
+  {
+    "objectID": "statistical_hypotheses.html#hypothesis-testing-with-randomization-2",
+    "href": "statistical_hypotheses.html#hypothesis-testing-with-randomization-2",
+    "title": "Statistical Hypotheses",
+    "section": "Hypothesis Testing with Randomization",
+    "text": "Hypothesis Testing with Randomization"
+  },
+  {
+    "objectID": "regression.html",
+    "href": "regression.html",
     "title": "Inference Models",
     "section": "",
-    "text": "This page features information about creating and interpreting inference models.\n\nSimple Linear Regression (math, programming, and interpretation)\nMultiple Linear Regression (math, programming, and interpretation)"
+    "text": "This page features information about creating and interpreting regression models."
+  },
+  {
+    "objectID": "regression.html#the-expected-value-of-the-response-variable",
+    "href": "regression.html#the-expected-value-of-the-response-variable",
+    "title": "Inference Models",
+    "section": "The Expected Value of the Response Variable",
+    "text": "The Expected Value of the Response Variable\nGiven \\(Y = \\alpha + \\beta X + \\epsilon\\), what is \\(E[Y]\\)?\n\\(E[Y] = E[\\alpha + \\beta X + \\epsilon]\\)\n\\(= E[\\alpha] + E[\\beta X] + E[\\epsilon]\\)\n\\(= \\alpha + \\beta E[X] + 0\\)\n\\(= \\alpha + \\beta X\\)"
+  },
+  {
+    "objectID": "regression.html#interpreting-parameters",
+    "href": "regression.html#interpreting-parameters",
+    "title": "Inference Models",
+    "section": "Interpreting Parameters",
+    "text": "Interpreting Parameters\n\\(\\beta\\): the slope of our true regression line represents the increase in our response from a unit increase in our feature."
+  },
+  {
+    "objectID": "regression.html#minimizing-the-residuals",
+    "href": "regression.html#minimizing-the-residuals",
+    "title": "Inference Models",
+    "section": "Minimizing the Residuals",
+    "text": "Minimizing the Residuals\nGiven our data, \\((x_1, y_1), \\dots, (x_n, y_n)\\) how do we minimize the residuals, \\(\\epsilon_i = y_i - (\\alpha + \\beta x_i)\\)? In other words, how do we minimize the sum of the squared errors?\n\ninsert image of vertical line from regression line to point, label it e_i\n\nGiven:\n\n\\(y_i\\): the actual value of the data point\n\\(\\hat{y_i}\\): the predicted value of the \\(i^{th}\\) data point\n\n\\(SSE = \\sum\\limits_{i=1}^{n} (y_i - \\hat{y_i})^2\\)\n\nthe point-estimates (single value estimated from the data) of the slope and intercept parameters are called the least-squares estimates, and are defined to be the values that minimize the SSE. The SSE can be thought of as a measure of how much variation in \\(Y\\) is left unexplained by the model."
+  },
+  {
+    "objectID": "regression.html#how-we-find-the-parameter-estimates",
+    "href": "regression.html#how-we-find-the-parameter-estimates",
+    "title": "Inference Models",
+    "section": "How we Find the Parameter Estimates?",
+    "text": "How we Find the Parameter Estimates?\n\\(SSE = \\sum\\limits_{i=1}^{n} (y_i - \\hat{y_i})^2\\)\n\\(= \\sum\\limits_{i=1}^{n} (y_i - (\\alpha - \\beta x_i))^2\\)\nAfter making this substitution, compute…\n\n\\(\\frac{\\partial SSE}{\\partial \\alpha} = 0\\)\n\\(\\frac{\\partial SSE}{\\partial \\beta} = 0\\)\n\nWhich yield the following solutions, respectively…\n\n\\(\\alpha = \\bar{y} - \\beta \\bar{x}\\)\n\\(\\beta = \\frac{\\bar{xy} - \\bar{x} \\bar{y}}{\\bar{x^2} - (\\bar{x})^2}\\)"
+  },
+  {
+    "objectID": "regression.html#estimating-the-variance",
+    "href": "regression.html#estimating-the-variance",
+    "title": "Inference Models",
+    "section": "Estimating the Variance",
+    "text": "Estimating the Variance\nGiven that the parameter \\(\\sigma^2\\) determines the spread of the data about the true regression line, our estimate of the variance is \\(\\hat{\\sigma^2}\\), which is equivalent to:\n\\(\\hat{\\sigma^2} = \\frac{SSE}{n-2}\\)"
+  },
+  {
+    "objectID": "regression.html#coefficient-of-determination",
+    "href": "regression.html#coefficient-of-determination",
+    "title": "Inference Models",
+    "section": "Coefficient of Determination",
+    "text": "Coefficient of Determination\nThe coefficient of determination, \\(R^2\\), quantifies how well the model explains the data. \\(R^2\\) ranges from \\(0\\) to \\(1\\).\nThe regression sum of squares is given by:\n\\(SSR = \\sum\\limits_{i=1}^n (\\hat{y_i} - \\bar{y})^2\\)\nand gives a sense of much variation in \\(Y\\) is explained by our model.\nA quantitative measure of the total amount of variation in observed \\(Y\\) values is given by the total sum of squares:\n\\(SST = \\sum\\limits_{i=1}^n (y_i - \\bar{y})^2\\)\nSST is what we would get if we used the mean of the data as our model.\nNote that the sum of squared deviations about the least-squares line is smaller than the sum of squared deviations about nay other line.\n\\(SSE \\leq SST\\)\n\nInclude image of the three measures.\n\n\\(R^2\\)\nTherefore, the ratio of \\(\\frac{SSE}{SST}\\) is the proportion of the total variation in the data (SST) that cannot be explained by the SLR model (SSE). So we define the coefficient of determination \\(R^2\\) to be the proportion that can be explained by the model.\n\\(R^2\\) has a magnitude between \\(0\\) and \\(1\\), with the closer to \\(1\\) be the better (i.e. the higher the number the more of the variation that can be explained by the model).\n\\(R^2 = 1 - \\frac{SSE}{SST}\\)"
+  },
+  {
+    "objectID": "regression.html#slope-distribution",
+    "href": "regression.html#slope-distribution",
+    "title": "Inference Models",
+    "section": "Slope Distribution",
+    "text": "Slope Distribution\nDistribution\n\\(\\hat{\\beta} \\sim N(\\beta, \\frac{\\sigma^2}{\\sum_{i=1}^n (x_i - \\bar{x})^2}\\)\n\\(SE(\\hat{\\beta}) = \\frac{\\sigma^2}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}}\\)\nHypothesis Tests\n\\(H_0\\): \\(\\beta = 0\\)\n\\(H_A\\): \\(\\beta \\neq 0\\)\nConfidence Intervals\n\\(\\hat{\\beta} \\pm t_{\\alpha / 2, df = n-2} SE(\\hat{\\beta})\\)"
+  },
+  {
+    "objectID": "regression.html#summary-of-slr",
+    "href": "regression.html#summary-of-slr",
+    "title": "Inference Models",
+    "section": "SUMMARY OF SLR",
+    "text": "SUMMARY OF SLR"
   },
   {
     "objectID": "confidence_intervals.html",
@@ -263,6 +375,6 @@
     "href": "review.html#helpful-functions",
     "title": "Basic Review",
     "section": "Helpful Functions",
-    "text": "Helpful Functions\nThe Apply Family\nA useful assortment of functions in R are available through the apply family:\n\napply\nlapply\nsapply\ntapply\nSample and Replicate\nThe sample and replicate functions are useful individually and when combined can be incredibly useful for statistical modeling."
+    "text": "Helpful Functions\nThe Apply Family\nA useful assortment of functions in R are available through the apply family:\n\napply\nlapply\nsapply\ntapply\nSample and Replicate\nThe sample and replicate functions are useful individually and when combined can be incredibly useful for statistical modeling.\nAdditionally useful in statistical modeling is the quantile function."
   }
 ]

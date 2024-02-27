@@ -1,8 +1,0 @@
----
-title: "Inference Models"
----
-
-This page features information about creating and interpreting inference models.
-
-- Simple Linear Regression (math, programming, and interpretation)
-- Multiple Linear Regression (math, programming, and interpretation)

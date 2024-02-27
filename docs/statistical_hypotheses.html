@@ -103,8 +103,8 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Statistical Hypotheses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./inference.html"> 
-<span class="menu-text">Inference Models</span></a>
+    <a class="nav-link" href="./regression.html"> 
+<span class="menu-text">Regression Models</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -155,18 +155,40 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#type-i-error" id="toc-type-i-error" class="nav-link" data-scroll-target="#type-i-error">Type I Error</a></li>
   <li><a href="#type-ii-error" id="toc-type-ii-error" class="nav-link" data-scroll-target="#type-ii-error">Type II Error</a></li>
+  <li><a href="#visualizing-errors" id="toc-visualizing-errors" class="nav-link" data-scroll-target="#visualizing-errors">Visualizing Errors</a></li>
+  <li><a href="#power" id="toc-power" class="nav-link" data-scroll-target="#power">Power</a></li>
+  <li><a href="#visualizing-power" id="toc-visualizing-power" class="nav-link" data-scroll-target="#visualizing-power">Visualizing Power</a></li>
   </ul></li>
+  <li><a href="#bootstrapping" id="toc-bootstrapping" class="nav-link" data-scroll-target="#bootstrapping">Bootstrapping</a>
+  <ul class="collapse">
+  <li><a href="#the-bootstrap-process" id="toc-the-bootstrap-process" class="nav-link" data-scroll-target="#the-bootstrap-process">The Bootstrap Process</a></li>
+  </ul></li>
+  <li><a href="#hypothesis-testing-with-randomization" id="toc-hypothesis-testing-with-randomization" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization">Hypothesis Testing with Randomization</a>
+  <ul class="collapse">
+  <li><a href="#the-randomization-process" id="toc-the-randomization-process" class="nav-link" data-scroll-target="#the-randomization-process">The Randomization Process</a>
+  <ul class="collapse">
+  <li><a href="#creating-the-distribution" id="toc-creating-the-distribution" class="nav-link" data-scroll-target="#creating-the-distribution">Creating the Distribution</a></li>
+  <li><a href="#performing-the-hypothesis-test" id="toc-performing-the-hypothesis-test" class="nav-link" data-scroll-target="#performing-the-hypothesis-test">Performing the Hypothesis Test</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#when-to-use-what" id="toc-when-to-use-what" class="nav-link" data-scroll-target="#when-to-use-what">When to Use What?</a>
+  <ul class="collapse">
+  <li><a href="#inference-on-mean-and-proportions" id="toc-inference-on-mean-and-proportions" class="nav-link" data-scroll-target="#inference-on-mean-and-proportions">Inference on Mean and Proportions</a></li>
+  <li><a href="#inference-on-variance" id="toc-inference-on-variance" class="nav-link" data-scroll-target="#inference-on-variance">Inference on Variance</a></li>
+  <li><a href="#inference-on-anything-else-median-skew-discrimination-rate-etc." id="toc-inference-on-anything-else-median-skew-discrimination-rate-etc." class="nav-link" data-scroll-target="#inference-on-anything-else-median-skew-discrimination-rate-etc.">Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)</a></li>
+  </ul></li>
+  <li><a href="#some-notes" id="toc-some-notes" class="nav-link" data-scroll-target="#some-notes">Some Notes</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
   <ul class="collapse">
   <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a></li>
-  <li><a href="#bootstrapping" id="toc-bootstrapping" class="nav-link" data-scroll-target="#bootstrapping">Bootstrapping</a></li>
-  <li><a href="#hypothesis-testing-with-randomization" id="toc-hypothesis-testing-with-randomization" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization">Hypothesis Testing with Randomization</a></li>
+  <li><a href="#bootstrapping-1" id="toc-bootstrapping-1" class="nav-link" data-scroll-target="#bootstrapping-1">Bootstrapping</a></li>
+  <li><a href="#hypothesis-testing-with-randomization-1" id="toc-hypothesis-testing-with-randomization-1" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization-1">Hypothesis Testing with Randomization</a></li>
   </ul></li>
   <li><a href="#r-programming" id="toc-r-programming" class="nav-link" data-scroll-target="#r-programming">R Programming</a>
   <ul class="collapse">
   <li><a href="#hypothesis-testing-1" id="toc-hypothesis-testing-1" class="nav-link" data-scroll-target="#hypothesis-testing-1">Hypothesis Testing</a></li>
-  <li><a href="#bootstrapping-1" id="toc-bootstrapping-1" class="nav-link" data-scroll-target="#bootstrapping-1">Bootstrapping</a></li>
-  <li><a href="#hypothesis-testing-with-randomization-1" id="toc-hypothesis-testing-with-randomization-1" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization-1">Hypothesis Testing with Randomization</a></li>
+  <li><a href="#bootstrapping-2" id="toc-bootstrapping-2" class="nav-link" data-scroll-target="#bootstrapping-2">Bootstrapping</a></li>
+  <li><a href="#hypothesis-testing-with-randomization-2" id="toc-hypothesis-testing-with-randomization-2" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization-2">Hypothesis Testing with Randomization</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -284,7 +306,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\theta \neq \theta_0\)</span></td>
-<td><span class="math inline">\(z \geq z_{\alpha}\)</span> OR <span class="math inline">\(z \leq \z_{\alpha}\)</span></td>
+<td><span class="math inline">\(z \geq z_{\alpha}\)</span> OR <span class="math inline">\(z \leq z_{\alpha}\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -300,19 +322,185 @@ ul.task-list li input[type="checkbox"] {
 <section id="type-ii-error" class="level2">
 <h2 class="anchored" data-anchor-id="type-ii-error">Type II Error</h2>
 <p>A <strong>Type II</strong> error is failing to reject the null hypothesis when it is actually false. This is normally considered <em>worse</em> than <strong>Type I</strong> errors.</p>
+</section>
+<section id="visualizing-errors" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-errors">Visualizing Errors</h2>
+</section>
+<section id="power" class="level2">
+<h2 class="anchored" data-anchor-id="power">Power</h2>
+<p>Considering <strong>power</strong> helps to ensure high quality hypothesis tests.Recall” - Type I errors are when we reject the null hypothesis when it is true - Type II errors are when we fail to reject the null hypothesis when the alternative hypothesis is true</p>
+<p>The <strong>power</strong> of a hypothesis test is the probability of making the correct decision if the alternative hypothesis is true. In other words, it is the probability of rejecting the null hypothesis when the alternative hypothesis is true.</p>
+<p>If <span class="math inline">\(\beta\)</span> is the probability of making a Type II error, then</p>
+<p><span class="math inline">\(Power = 1 - \beta\)</span></p>
+<p>In general, we want to minimize <span class="math inline">\(\alpha\)</span> and maximize power.</p>
+</section>
+<section id="visualizing-power" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-power">Visualizing Power</h2>
 <hr>
 </section>
+</section>
+<section id="bootstrapping" class="level1">
+<h1>Bootstrapping</h1>
+<p>Data can be expensive, and we don’t always want to examine means, proportions, and variances. Enter the <strong>The Bootstrap Principal</strong>, which allows us to use a smaller data set without sacrificing statistical rigor or collecting more samples. Some use cases include when we don’t have enough data, when we can’t use the CLT, and when we’re trying to compute CIs for unknown distributions. Consider a sample <span class="math inline">\(X_1, \dots , X_n\)</span>, but instaed of computing a CI from the sample, we instead re-sample <em>with replacement</em> many times and then examine the re-samples.</p>
+<blockquote class="blockquote">
+<p>A bootstrapped resample is a set of n draws from the original sample set with replacement.</p>
+</blockquote>
+<section id="the-bootstrap-process" class="level2">
+<h2 class="anchored" data-anchor-id="the-bootstrap-process">The Bootstrap Process</h2>
+<ol type="1">
+<li>Take re-samples (with replacement) of the same size as the original sample.</li>
+<li>Compute the desired statistic for each re-sample. These statistics form the distribution.</li>
+<li>If we’re specifically targeting a <span class="math inline">\((100-\alpha)\%\)</span> confidence interval, then find the <span class="math inline">\(\alpha^{th}\)</span> and <span class="math inline">\((1-\alpha)^{th}\)</span> percentiles. This will be the CI.</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="hypothesis-testing-with-randomization" class="level1">
+<h1>Hypothesis Testing with Randomization</h1>
+<p>Statistical inference is primarily concerned with understanding and quantifying the uncertainty of parameter estimates.</p>
+<p>Almost always variability in data – one dataset will not be identical to a second dataset even if they are both collected from the same population using the same methods. How different Is one dataset from another?</p>
+<p>Studying randomness of this form is a key focus of statistics. <strong>Hypothesis Testing with Randomization</strong> helps us study this randomness. In other words, we’re examining whether variability is due to:</p>
+<ul>
+<li>The Casual Mechanism (one variable actually causes the change in a second variable)</li>
+<li>Natural Variability Inherent to the Data (<em>coincidence</em>)</li>
+</ul>
+<p>To form a conclusion, we compare the actual experiment to the randomly assigned experiment. If the actual experiment demonstrates results that are more extreme that the randomly assigned experiments, then we may suspect that the explanatory variable is causing the result, and not just inherent variability.</p>
+<section id="the-randomization-process" class="level2">
+<h2 class="anchored" data-anchor-id="the-randomization-process">The Randomization Process</h2>
+<p>Image we have boolean results from two separate groups. In other words, within each group, some have the results of <code>yes</code> and some have the results of <code>no</code>. Between the two groups, there are different proportions of <code>yes</code> values. We want to test if there is an explanatory variable causing the difference in proportions, or if it is due to inherent variability.</p>
+<p>In the following process, let’s consider each result a <em>card</em>, and each card will have a <em>label</em> of <code>yes</code> or <code>no</code>.</p>
+<p>The groups will likely not be the same size, let’s call the length of Group 1 <span class="math inline">\(n_1\)</span> and the length of Group 2 <span class="math inline">\(n_2\)</span>.</p>
+<section id="creating-the-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="creating-the-distribution">Creating the Distribution</h3>
+<ol type="1">
+<li>Shuffle all the <em>cards</em>. Group displacement will occur (i.e.&nbsp;after shuffling there will only be a total count of <code>yes</code> and <code>no</code>, and sense of group will be removed).</li>
+<li>Put <span class="math inline">\(n_1\)</span> <em>cards</em> into Group 1 and <span class="math inline">\(n_2\)</span> cards into Group 2</li>
+<li>Compute the different in proportions between <code>yes</code> for each group</li>
+<li>Repeat this many times to get a distribution of the differences in proportions</li>
+</ol>
+</section>
+<section id="performing-the-hypothesis-test" class="level3">
+<h3 class="anchored" data-anchor-id="performing-the-hypothesis-test">Performing the Hypothesis Test</h3>
+<p>The hypothesis test will look something of the form (alternative depends on how the test is setup):</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p_1 = p_2\)</span> (i.e.&nbsp;the true proportions of the group are equivalent)</li>
+<li><span class="math inline">\(H_A\)</span>: <span class="math inline">\(p_1 &gt; p_2\)</span> (i.e.&nbsp;the true proportions of Group 1 is greater than Group 2, or different in some manner depending on how the test is constructed)</li>
+</ul>
+<p>When performing the hypothesis test, we want to compare the critical value on rejection region with the test statistic.</p>
+<p>If the test statistic is at least as extreme as the critical value calculated from the distribution (i.e.&nbsp;test statistic lies within the rejection region), for a specified significance level, then we can reject the null hypothesis in favor of the alternative hypothesis. If not, we lack sufficient evidence to reject the null hypothesis.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="when-to-use-what" class="level1">
+<h1>When to Use What?</h1>
+<section id="inference-on-mean-and-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="inference-on-mean-and-proportions">Inference on Mean and Proportions</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Category</th>
+<th><span class="math inline">\(n \geq 30\)</span></th>
+<th><span class="math inline">\(n &lt; 30\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Normal Data, Known <span class="math inline">\(\sigma\)</span></td>
+<td>z-test</td>
+<td>z-test</td>
+</tr>
+<tr class="even">
+<td>Normal Data, Unknown <span class="math inline">\(\sigma\)</span></td>
+<td>z-test</td>
+<td>t-test</td>
+</tr>
+<tr class="odd">
+<td>Non-Normal Data, Known <span class="math inline">\(\sigma\)</span></td>
+<td>z-test</td>
+<td>bootstrap</td>
+</tr>
+<tr class="even">
+<td>Non-Normal Data, Unknown <span class="math inline">\(\sigma\)</span></td>
+<td>z-test</td>
+<td>bootstrap</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="inference-on-variance" class="level2">
+<h2 class="anchored" data-anchor-id="inference-on-variance">Inference on Variance</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Category</th>
+<th><span class="math inline">\(n \geq 30\)</span></th>
+<th><span class="math inline">\(n &lt; 30\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Normal Data</td>
+<td>chi-squared</td>
+<td>chi-squared</td>
+</tr>
+<tr class="even">
+<td>Non-Normal Data</td>
+<td><em>further research required</em></td>
+<td>bootstrap</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="inference-on-anything-else-median-skew-discrimination-rate-etc." class="level2">
+<h2 class="anchored" data-anchor-id="inference-on-anything-else-median-skew-discrimination-rate-etc.">Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Category</th>
+<th><span class="math inline">\(n \geq 30\)</span></th>
+<th><span class="math inline">\(n &lt; 30\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Normal Data</td>
+<td>bootstrap</td>
+<td>bootstrap</td>
+</tr>
+<tr class="even">
+<td>Non-Normal Data</td>
+<td>bootstrap</td>
+<td>bootstrap</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="some-notes" class="level1">
+<h1>Some Notes</h1>
+<blockquote class="blockquote">
+<p>Bootstrapped p-values are about uncertainty over the specific sample of the population that you drew, while randomization inference p-values are about uncertainty over which units within your sample are assigned to the treatment.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Bootstrap resamples are the same size as the original because <strong>variance of the statistic depends on the size of the sample.</strong> If we want to approximate this variation, we need to use resamples of the same size.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Randomization Inference is all about using nothing but the act of physical randomization to make inferences about causal effects.</p>
+</blockquote>
+<hr>
 </section>
 <section id="examples" class="level1">
 <h1>Examples</h1>
 <section id="hypothesis-testing" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
 </section>
-<section id="bootstrapping" class="level2">
-<h2 class="anchored" data-anchor-id="bootstrapping">Bootstrapping</h2>
+<section id="bootstrapping-1" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrapping-1">Bootstrapping</h2>
 </section>
-<section id="hypothesis-testing-with-randomization" class="level2">
-<h2 class="anchored" data-anchor-id="hypothesis-testing-with-randomization">Hypothesis Testing with Randomization</h2>
+<section id="hypothesis-testing-with-randomization-1" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing-with-randomization-1">Hypothesis Testing with Randomization</h2>
 <hr>
 </section>
 </section>
@@ -321,11 +509,12 @@ ul.task-list li input[type="checkbox"] {
 <section id="hypothesis-testing-1" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-testing-1">Hypothesis Testing</h2>
 </section>
-<section id="bootstrapping-1" class="level2">
-<h2 class="anchored" data-anchor-id="bootstrapping-1">Bootstrapping</h2>
+<section id="bootstrapping-2" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrapping-2">Bootstrapping</h2>
+<p><em>Lecture 5</em>: <code>replace</code>, <code>sample</code>, and <code>quantile</code>.</p>
 </section>
-<section id="hypothesis-testing-with-randomization-1" class="level2">
-<h2 class="anchored" data-anchor-id="hypothesis-testing-with-randomization-1">Hypothesis Testing with Randomization</h2>
+<section id="hypothesis-testing-with-randomization-2" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing-with-randomization-2">Hypothesis Testing with Randomization</h2>
 
 
 </section>

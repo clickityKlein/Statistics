@@ -1,0 +1,140 @@
+---
+title: "Inference Models"
+---
+
+This page features information about creating and interpreting regression models.
+
+- Simple Linear Regression (math, programming, and interpretation)
+- Multiple Linear Regression (math, programming, and interpretation)
+
+# Simple Linear Regression
+
+The goal of simple linear regression is to figure out an equation of a line through the data in an attempt to find the relationship between feature and response to predict future values. The equation is of the form:
+
+$y_i = \alpha + \beta x_i + \epsilon_i$
+
+where
+
+- $y_i$ is the prediction at $x_i$
+- $\alpha$ is the "y-intercept"
+- $\beta$ is the "slope"
+- $\epsilon_i \sim N(0, \sigma^2)$, and each are independent
+
+In vector (or set) form:
+
+$Y = \alpha + \beta X + \epsilon$
+
+where
+
+- $X$: the independent variable, the predictor, the explanatory variable, the feature
+- $Y$: the dependent variable, the response variable
+- $\epsilon$: the random deviation, random error – accounts for the fact that the world is uncertain and that there are random deviations around the true process.
+
+## The Expected Value of the Response Variable
+
+Given $Y = \alpha + \beta X + \epsilon$, what is $E[Y]$?
+
+$E[Y] = E[\alpha + \beta X + \epsilon]$
+
+$= E[\alpha] + E[\beta X] + E[\epsilon]$
+
+$= \alpha + \beta E[X] + 0$
+
+$= \alpha + \beta X$
+
+## Interpreting Parameters
+
+$\beta$: the slope of our true regression line represents the increase in our response from a unit increase in our feature.
+
+## Minimizing the Residuals
+
+Given our data, $(x_1, y_1), \dots, (x_n, y_n)$ how do we minimize the residuals, $\epsilon_i = y_i - (\alpha + \beta x_i)$? In other words, how do we minimize the sum of the squared errors?
+
+> insert image of vertical line from regression line to point, label it e_i
+
+Given:
+
+- $y_i$: the actual value of the data point
+- $\hat{y_i}$: the predicted value of the $i^{th}$ data point
+
+$SSE = \sum\limits_{i=1}^{n} (y_i - \hat{y_i})^2$
+
+> the point-estimates (single value estimated from the data) of the slope and intercept parameters are called the least-squares estimates, and are defined to be the values that minimize the SSE. The SSE can be thought of as a measure of how much variation in $Y$ is left unexplained by the model.
+
+## How we Find the Parameter Estimates?
+
+$SSE = \sum\limits_{i=1}^{n} (y_i - \hat{y_i})^2$
+
+$= \sum\limits_{i=1}^{n} (y_i - (\alpha - \beta x_i))^2$
+
+**After making this substitution, compute...**
+
+- $\frac{\partial SSE}{\partial \alpha} = 0$
+- $\frac{\partial SSE}{\partial \beta} = 0$
+
+**Which yield the following solutions, respectively...**
+
+- $\alpha = \bar{y} - \beta \bar{x}$
+- $\beta = \frac{\bar{xy} - \bar{x} \bar{y}}{\bar{x^2} - (\bar{x})^2}$
+
+## Estimating the Variance
+
+Given that the parameter $\sigma^2$ determines the spread of the data about the true regression line, our estimate of the variance is $\hat{\sigma^2}$, which is equivalent to:
+
+$\hat{\sigma^2} = \frac{SSE}{n-2}$
+
+## Coefficient of Determination
+
+The coefficient of determination, $R^2$, quantifies how well the model explains the data. $R^2$ ranges from $0$ to $1$.
+
+The regression sum of squares is given by:
+
+$SSR = \sum\limits_{i=1}^n (\hat{y_i} - \bar{y})^2$
+
+and gives a sense of much variation in $Y$ is explained by our model.
+
+A quantitative measure of the total amount of variation in observed $Y$ values is given by the total sum of squares:
+
+$SST = \sum\limits_{i=1}^n (y_i - \bar{y})^2$
+
+SST is what we would get if we used the mean of the data as our model.
+
+Note that the sum of squared deviations about the least-squares line is smaller than the sum of squared deviations about nay other line.
+
+$SSE \leq SST$
+
+> Include image of the three measures. 
+
+**$R^2$**
+
+Therefore, the ratio of $\frac{SSE}{SST}$ is the proportion of the total variation in the data (SST) that cannot be explained by the SLR model (SSE). So we define the coefficient of determination $R^2$ to be the proportion that can be explained by the model.
+
+$R^2$ has a magnitude between $0$ and $1$, with the closer to $1$ be the better (i.e. the higher the number the more of the variation that can be explained by the model).
+
+$R^2 = 1 - \frac{SSE}{SST}$
+
+## Slope Distribution
+
+**Distribution**
+
+$\hat{\beta} \sim N(\beta, \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}$
+
+$SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}$
+
+**Hypothesis Tests**
+
+$H_0$: $\beta = 0$
+
+$H_A$: $\beta \neq 0$
+
+**Confidence Intervals**
+
+$\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})$
+
+## SUMMARY OF SLR
+
+
+
+
+
+

@@ -34,6 +34,8 @@ actually contain the true population mean. The other 5% of CIs will not.
 
 # Examples
 
+**See bootstrapping confidence intervals in other section**
+
 ---
 
 # R Programming

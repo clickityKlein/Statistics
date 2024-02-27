@@ -73,7 +73,7 @@ The following example uses the $z$ statistic, but the concept holds for other st
 |------------------------|----------------------------------------------------|
 | $H_A$:  $\theta > \theta_0$    | $z \geq z_{\alpha}$                        |
 | $H_A$:  $\theta < \theta_0$    | $z \leq z_{\alpha}$                        |
-| $H_A$:  $\theta \neq \theta_0$ | $z \geq z_{\alpha}$ OR $z \leq \z_{\alpha}$|
+| $H_A$:  $\theta \neq \theta_0$ | $z \geq z_{\alpha}$ OR $z \leq z_{\alpha}$ |
 
 : {.striped .hover}
 
@@ -88,6 +88,120 @@ A **Type I** error is rejecting the null hypothesis when it is actually true. Th
 ## Type II Error
 
 A **Type II** error is failing to reject the null hypothesis when it is actually false. This is normally considered *worse* than **Type I** errors.
+
+## Visualizing Errors
+
+## Power
+
+Considering **power** helps to ensure high quality hypothesis tests.Recall"
+- Type I errors are when we reject the null hypothesis when it is true
+- Type II errors are when we fail to reject the null hypothesis when the alternative hypothesis is true
+
+The **power** of a hypothesis test is the probability of making the correct decision if the alternative hypothesis is true. In other words, it is the probability of rejecting the null hypothesis when the alternative hypothesis is true.
+
+If $\beta$ is the probability of making a Type II error, then
+
+$Power = 1 - \beta$
+
+In general, we want to minimize $\alpha$ and maximize power.
+
+## Visualizing Power
+
+---
+
+# Bootstrapping
+
+Data can be expensive, and we don't always want to examine means, proportions, and variances. Enter the **The Bootstrap Principal**, which allows us to use a smaller data set without sacrificing statistical rigor or collecting more samples. Some use cases include when we don't have enough data, when we can't use the CLT, and when we're trying to compute CIs for unknown distributions. Consider a sample $X_1, \dots , X_n$, but instaed of computing a CI from the sample, we instead re-sample *with replacement* many times and then examine the re-samples.
+
+> A bootstrapped resample is a set of n draws from the original sample set with replacement.
+
+## The Bootstrap Process
+
+1. Take re-samples (with replacement) of the same size as the original sample.
+2. Compute the desired statistic for each re-sample. These statistics form the distribution.
+3. If we're specifically targeting a $(100-\alpha)\%$ confidence interval, then find the $\alpha^{th}$ and $(1-\alpha)^{th}$ percentiles. This will be the CI.
+
+---
+
+# Hypothesis Testing with Randomization
+
+Statistical inference is primarily concerned with understanding and quantifying the uncertainty of
+parameter estimates.
+
+Almost always variability in data – one dataset will not be identical to a second dataset even if they are
+both collected from the same population using the same methods. How different Is one dataset from
+another?
+
+Studying randomness of this form is a key focus of statistics. **Hypothesis Testing with Randomization** helps us study this randomness. In other words, we're examining whether variability is due to:
+
+- The Casual Mechanism (one variable actually causes the change in a second variable)
+- Natural Variability Inherent to the Data (*coincidence*)
+
+To form a conclusion, we compare the actual experiment to the randomly assigned experiment. If the actual experiment demonstrates results that are more extreme that the randomly assigned experiments, then we may suspect that the explanatory variable is causing the result, and not just inherent variability.
+
+## The Randomization Process
+
+Image we have boolean results from two separate groups. In other words, within each group, some have the results of `yes` and some have the results of `no`. Between the two groups, there are different proportions of `yes` values. We want to test if there is an explanatory variable causing the difference in proportions, or if it is due to inherent variability.
+
+In the following process, let's consider each result a *card*, and each card will have a *label* of `yes` or `no`.
+
+The groups will likely not be the same size, let's call the length of Group 1 $n_1$ and the length of Group 2 $n_2$.
+
+### Creating the Distribution
+
+1. Shuffle all the *cards*. Group displacement will occur (i.e. after shuffling there will only be a total count of `yes` and `no`, and sense of group will be removed).
+2. Put $n_1$ *cards* into Group 1 and $n_2$ cards into Group 2
+3. Compute the different in proportions between `yes` for each group
+4. Repeat this many times to get a distribution of the differences in proportions
+
+### Performing the Hypothesis Test
+
+The hypothesis test will look something of the form (alternative depends on how the test is setup):
+
+- $H_0$: $p_1 = p_2$ (i.e. the true proportions of the group are equivalent)
+- $H_A$: $p_1 > p_2$ (i.e. the true proportions of Group 1 is greater than Group 2, or different in some manner depending on how the test is constructed)
+
+
+When performing the hypothesis test, we want to compare the critical value on rejection region with the test statistic.
+
+If the test statistic is at least as extreme as the critical value calculated from the distribution (i.e. test statistic lies within the rejection region), for a specified significance level, then we can reject the null hypothesis in favor of the alternative hypothesis. If not, we lack sufficient evidence to reject the null hypothesis.
+
+---
+
+# When to Use What?
+
+## Inference on Mean and Proportions
+
+| Category |$n \geq 30$ | $n < 30$ |
+|---|---|---|
+| Normal Data, Known $\sigma$   | z-test | z-test |
+| Normal Data, Unknown $\sigma$ | z-test | t-test |
+| Non-Normal Data, Known $\sigma$ | z-test| bootstrap |
+| Non-Normal Data, Unknown $\sigma$ | z-test | bootstrap |
+
+## Inference on Variance
+
+| Category |$n \geq 30$ | $n < 30$ |
+|---|---|---|
+| Normal Data | chi-squared | chi-squared |
+| Non-Normal Data | *further research required* | bootstrap |
+
+## Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)
+
+| Category |$n \geq 30$ | $n < 30$ |
+|---|---|---|
+| Normal Data | bootstrap | bootstrap |
+| Non-Normal Data | bootstrap | bootstrap |
+
+---
+
+# Some Notes
+
+> Bootstrapped p-values are about uncertainty over the specific sample of the population that you drew, while randomization inference p-values are about uncertainty over which units within your sample are assigned to the treatment.
+
+> Bootstrap resamples are the same size as the original because **variance of the statistic depends on the size of the sample.** If we want to approximate this variation, we need to use resamples of the same size.
+
+> Randomization Inference is all about using nothing but the act of physical randomization to make inferences about causal effects.
 
 ---
 
@@ -106,5 +220,7 @@ A **Type II** error is failing to reject the null hypothesis when it is actually
 ## Hypothesis Testing
 
 ## Bootstrapping
+
+*Lecture 5*: `replace`, `sample`, and `quantile`.
 
 ## Hypothesis Testing with Randomization

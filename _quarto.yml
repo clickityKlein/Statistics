@@ -21,8 +21,8 @@ website:
         text: "Confidence Intervals"
       - href: statistical_hypotheses.qmd
         text: "Statistical Hypotheses"
-      - href: inference.qmd
-        text: "Inference Models"
+      - href: regression.qmd
+        text: "Regression Models"
     right:
       - icon: github
         menu:
