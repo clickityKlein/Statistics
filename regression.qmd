@@ -91,7 +91,7 @@ The regression sum of squares is given by:
 
 $SSR = \sum\limits_{i=1}^n (\hat{y_i} - \bar{y})^2$
 
-and gives a sense of much variation in $Y$ is explained by our model.
+and gives a sense of how much variation in $Y$ is explained by our model.
 
 A quantitative measure of the total amount of variation in observed $Y$ values is given by the total sum of squares:
 
@@ -107,7 +107,7 @@ $SSE \leq SST$
 
 **$R^2$**
 
-Therefore, the ratio of $\frac{SSE}{SST}$ is the proportion of the total variation in the data (SST) that cannot be explained by the SLR model (SSE). So we define the coefficient of determination $R^2$ to be the proportion that can be explained by the model.
+Therefore, the ratio of $\frac{SSE}{SST}$ is the proportion of the total variation in the data (SST) that cannot be explained by the SLR model (SSE). So we define the coefficient of determination $R^2$ to be the proportion of variance that can be explained by the model.
 
 $R^2$ has a magnitude between $0$ and $1$, with the closer to $1$ be the better (i.e. the higher the number the more of the variation that can be explained by the model).
 
@@ -132,6 +132,145 @@ $H_A$: $\beta \neq 0$
 $\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})$
 
 ## SUMMARY OF SLR
+
+### Main Formula
+
+$Y = \alpha + \beta X + \epsilon$
+
+### Variance & Slope Distribution ($\beta$s)
+
+$\hat{\sigma^2} = \frac{SSE}{n-2}$
+
+$SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}$
+
+### CI for t-tests on $\beta$
+
+$\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})$
+
+### Coefficient of Determination
+
+| | SSE | SSR | SST | $R^2$ |
+|---|---|---|---|---|
+| Description | Measure of how much variation in $Y$ is left unexplained by the model | How much variation in $Y$ is explained by our model | Total amount of variation in observed $Y$ values (what we would get if we used the mean of the data as our model) | The proportion of variance that can be explained by the model |
+| Formula | $\sum\limits_{i=1}^{n} (y_i - \hat{y_i})^2$ | $\sum\limits_{i=1}^n (\hat{y_i} - \bar{y})^2$ | $\sum\limits_{i=1}^n (y_i - \bar{y})^2$ | $1 - \frac{SSE}{SST}$ |
+
+: {.striped .hover}
+
+**The closer to 1 $R^2$ is, the better the model fits the data.**
+
+## Workflow for Simple Linear Regression
+
+1. Plot the data as a scatter plot
+  a. Does linearity seem appropriate?
+  b. Compute and overlay best-fit line
+2. Consider assumptions in SLR
+  a. Plot a histogram of the residuals (are they normal?): **WANT NORMAL** 
+  b. Plot the residuals against x (are they changing?): **WANT RANDOM**
+  
+> Include Plots
+
+## Simple Linear Regression in R
+
+The following functions are paramount in implementing and interpreting simple linear regression in R:
+
+- `lm()`
+- `summary()`
+
+> Load Library
+
+```{r message = FALSE}
+# import libraries
+library(tidyverse)
+```
+
+> Load Data (use txhousing from built in data)
+
+```{r}
+df <- txhousing
+head(df)
+```
+
+> Create a simple linear regression model to see if we can explain and predict volume from listings
+
+```{r}
+slr <- lm(volume ~ listings, data = df)
+summary(slr)
+```
+From this summary, we can see that `listings` is a statistically significant factor (low p-value) and that the $R^2$ for the model is somewhat acceptable at $0.7411$. Although the intercept being negative does raise some concern, this would mean that for a time period with $0$ `listings`, we would get a negative `volume`. The model also says that for each new `listing`, we can expect the `volume` to increase by $36990$.
+
+# Multiple Linear Regression
+
+We can extend the **simple linear regression model** to accommodate more variables. *Note that we'll now refer to $\alpha$ as $\beta_0$*.
+
+The main vector model can be represented as:
+
+$Y = \beta_0 + B_1 X_1 + \dots + B_p X_p + \epsilon$
+
+where for each of the $n$ data points (each vector has the same number of data points), we assume for $i = 1, \dots, n$, the $i^{th}$ response variable is represented as:
+
+$y_i = \beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p} + \epsilon_i$
+
+## Matrix Algebra Applications & Solutions
+
+If we have a perfectly square $X$ matrix, then we can solve for $\beta$ via:
+
+$Y = X \beta \rightarrow X^{-1} Y = \beta$.
+
+However, we can almost **guarantee** that $X$ will not be square. Look at this following linear algebra application:
+
+> Given a matrix $A$ of any dimensions, both $A^TA$ and $AA^T$ will result in square matrices.
+
+Therefore, given $Y = X \beta$, we can solve via the following:
+
+$(X^TX)^{-1}X^TY = \beta$
+
+## Interpreting MLR
+
+Given $y_i = \beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p} + \epsilon_i$, parameter $\beta_k$ is the expected change in the response associated with a unit change in the value of feature $x_k$ while all of the other features are held fixed.
+
+## Quantifying Goodness of Fit
+
+### $R^2$ vs. $R_a^2$
+
+Like in SLR, we can also calculate measures like **SSE**, **SST**, and **$R^2$** for MLR.
+
+- $SSE = \sum\limits_{i=1}^n (y_i - \hat{y_i})^2 = \sum\limits_{i=1}^n (y_i - (\beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p})})^2$
+- $SST = \sum\limits_{i=1}^n (y_i - \bar{y})^2$
+- $R^2 = 1 - \frac{SSE}{SST}$
+
+Although we can calculate $R^2$ for an MLR model, we run into the issue of multiple comparisons. The **Adjusted $R^2$**, $R_a^2$, is a better indicator of goodness of fit for MLR models. The adjusted version penalizes for having too many features that are not reducing SSE.
+
+$R_a^2 = 1 - \frac{SSE/(n-p-1)}{SST/(n-1)}$
+
+### Covariance & Correlation
+
+We can discover relationships among features by performing a correlation analysis. If the value of one feature changes, how will this affect the other features.
+
+Traditionally, these measurements are calculated via:
+
+- Covariance: $Cov(X, Y) = E[(X - E[X])(Y -E[Y])]$
+- Correlation (Pearson's): $\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) Var(Y)}}$
+
+However, in an MLR, we estimate these relationships using formulas analogous to the sample variance.
+
+- Sample Covariance: $S^2_{XY} = \frac{1}{n-1} \sum\limits_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})$
+- Sample Correlation $\hat{\rho}(X < Y) = \frac{S^2_{XY}}{\sqrt{S^2_{X}S^2_{Y}}}$
+
+*where $S^2_{X}$ and $S^2_{Y}$ are the variances for $X$ and $Y$, respectively*.
+
+## Individual t-tests
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.525">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>Advanced Statistics - Inference Models</title>
 <style>
 code{white-space: pre-wrap;}
@@ -20,8 +17,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -38,8 +68,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -65,20 +94,12 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="styles.css">
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Advanced Statistics</span>
@@ -90,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="./review.html"> 
 <span class="menu-text">Basic Review</span></a>
   </li>  
@@ -107,15 +128,15 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Regression Models</span></a>
   </li>  
 </ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item dropdown ">
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       <i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
-        <li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">
+<li>
     <a class="dropdown-item" href="https://github.com/clickityKlein/Statistics">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
@@ -124,42 +145,61 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Carl Klein’s Main Page</span></a>
   </li>  
     </ul>
-  </li>
+</li>
 </ul>
-          </div> <!-- /navcollapse -->
+</div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link active" data-scroll-target="#simple-linear-regression">Simple Linear Regression</a>
+<li>
+<a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link active" data-scroll-target="#simple-linear-regression">Simple Linear Regression</a>
   <ul class="collapse">
-  <li><a href="#the-expected-value-of-the-response-variable" id="toc-the-expected-value-of-the-response-variable" class="nav-link" data-scroll-target="#the-expected-value-of-the-response-variable">The Expected Value of the Response Variable</a></li>
+<li><a href="#the-expected-value-of-the-response-variable" id="toc-the-expected-value-of-the-response-variable" class="nav-link" data-scroll-target="#the-expected-value-of-the-response-variable">The Expected Value of the Response Variable</a></li>
   <li><a href="#interpreting-parameters" id="toc-interpreting-parameters" class="nav-link" data-scroll-target="#interpreting-parameters">Interpreting Parameters</a></li>
   <li><a href="#minimizing-the-residuals" id="toc-minimizing-the-residuals" class="nav-link" data-scroll-target="#minimizing-the-residuals">Minimizing the Residuals</a></li>
   <li><a href="#how-we-find-the-parameter-estimates" id="toc-how-we-find-the-parameter-estimates" class="nav-link" data-scroll-target="#how-we-find-the-parameter-estimates">How we Find the Parameter Estimates?</a></li>
   <li><a href="#estimating-the-variance" id="toc-estimating-the-variance" class="nav-link" data-scroll-target="#estimating-the-variance">Estimating the Variance</a></li>
   <li><a href="#coefficient-of-determination" id="toc-coefficient-of-determination" class="nav-link" data-scroll-target="#coefficient-of-determination">Coefficient of Determination</a></li>
   <li><a href="#slope-distribution" id="toc-slope-distribution" class="nav-link" data-scroll-target="#slope-distribution">Slope Distribution</a></li>
-  <li><a href="#summary-of-slr" id="toc-summary-of-slr" class="nav-link" data-scroll-target="#summary-of-slr">SUMMARY OF SLR</a></li>
-  </ul></li>
+  <li>
+<a href="#summary-of-slr" id="toc-summary-of-slr" class="nav-link" data-scroll-target="#summary-of-slr">SUMMARY OF SLR</a>
+  <ul class="collapse">
+<li><a href="#main-formula" id="toc-main-formula" class="nav-link" data-scroll-target="#main-formula">Main Formula</a></li>
+  <li><a href="#variance-slope-distribution-betas" id="toc-variance-slope-distribution-betas" class="nav-link" data-scroll-target="#variance-slope-distribution-betas">Variance &amp; Slope Distribution (<span class="math inline">\(\beta\)</span>s)</a></li>
+  <li><a href="#ci-for-t-tests-on-beta" id="toc-ci-for-t-tests-on-beta" class="nav-link" data-scroll-target="#ci-for-t-tests-on-beta">CI for t-tests on <span class="math inline">\(\beta\)</span></a></li>
+  <li><a href="#coefficient-of-determination-1" id="toc-coefficient-of-determination-1" class="nav-link" data-scroll-target="#coefficient-of-determination-1">Coefficient of Determination</a></li>
   </ul>
-</nav>
+</li>
+  <li><a href="#workflow-for-simple-linear-regression" id="toc-workflow-for-simple-linear-regression" class="nav-link" data-scroll-target="#workflow-for-simple-linear-regression">Workflow for Simple Linear Regression</a></li>
+  <li><a href="#simple-linear-regression-in-r" id="toc-simple-linear-regression-in-r" class="nav-link" data-scroll-target="#simple-linear-regression-in-r">Simple Linear Regression in R</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression</a>
+  <ul class="collapse">
+<li><a href="#matrix-algebra-applications-solutions" id="toc-matrix-algebra-applications-solutions" class="nav-link" data-scroll-target="#matrix-algebra-applications-solutions">Matrix Algebra Applications &amp; Solutions</a></li>
+  <li><a href="#interpreting-mlr" id="toc-interpreting-mlr" class="nav-link" data-scroll-target="#interpreting-mlr">Interpreting MLR</a></li>
+  <li>
+<a href="#quantifying-goodness-of-fit" id="toc-quantifying-goodness-of-fit" class="nav-link" data-scroll-target="#quantifying-goodness-of-fit">Quantifying Goodness of Fit</a>
+  <ul class="collapse">
+<li><a href="#r2-vs.-r_a2" id="toc-r2-vs.-r_a2" class="nav-link" data-scroll-target="#r2-vs.-r_a2"><span class="math inline">\(R^2\)</span> vs.&nbsp;<span class="math inline">\(R_a^2\)</span></a></li>
+  <li><a href="#covariance-correlation" id="toc-covariance-correlation" class="nav-link" data-scroll-target="#covariance-correlation">Covariance &amp; Correlation</a></li>
+  </ul>
+</li>
+  <li><a href="#individual-t-tests" id="toc-individual-t-tests" class="nav-link" data-scroll-target="#individual-t-tests">Individual t-tests</a></li>
+  </ul>
+</li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Inference Models</h1>
 </div>
 
@@ -174,63 +214,62 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
-
-
-<p>This page features information about creating and interpreting regression models.</p>
+</header><p>This page features information about creating and interpreting regression models.</p>
 <ul>
 <li>Simple Linear Regression (math, programming, and interpretation)</li>
 <li>Multiple Linear Regression (math, programming, and interpretation)</li>
 </ul>
-<section id="simple-linear-regression" class="level1">
-<h1>Simple Linear Regression</h1>
+<section id="simple-linear-regression" class="level1"><h1>Simple Linear Regression</h1>
 <p>The goal of simple linear regression is to figure out an equation of a line through the data in an attempt to find the relationship between feature and response to predict future values. The equation is of the form:</p>
 <p><span class="math inline">\(y_i = \alpha + \beta x_i + \epsilon_i\)</span></p>
 <p>where</p>
 <ul>
-<li><span class="math inline">\(y_i\)</span> is the prediction at <span class="math inline">\(x_i\)</span></li>
-<li><span class="math inline">\(\alpha\)</span> is the “y-intercept”</li>
-<li><span class="math inline">\(\beta\)</span> is the “slope”</li>
-<li><span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>, and each are independent</li>
+<li>
+<span class="math inline">\(y_i\)</span> is the prediction at <span class="math inline">\(x_i\)</span>
+</li>
+<li>
+<span class="math inline">\(\alpha\)</span> is the “y-intercept”</li>
+<li>
+<span class="math inline">\(\beta\)</span> is the “slope”</li>
+<li>
+<span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>, and each are independent</li>
 </ul>
 <p>In vector (or set) form:</p>
 <p><span class="math inline">\(Y = \alpha + \beta X + \epsilon\)</span></p>
 <p>where</p>
 <ul>
-<li><span class="math inline">\(X\)</span>: the independent variable, the predictor, the explanatory variable, the feature</li>
-<li><span class="math inline">\(Y\)</span>: the dependent variable, the response variable</li>
-<li><span class="math inline">\(\epsilon\)</span>: the random deviation, random error – accounts for the fact that the world is uncertain and that there are random deviations around the true process.</li>
+<li>
+<span class="math inline">\(X\)</span>: the independent variable, the predictor, the explanatory variable, the feature</li>
+<li>
+<span class="math inline">\(Y\)</span>: the dependent variable, the response variable</li>
+<li>
+<span class="math inline">\(\epsilon\)</span>: the random deviation, random error – accounts for the fact that the world is uncertain and that there are random deviations around the true process.</li>
 </ul>
-<section id="the-expected-value-of-the-response-variable" class="level2">
-<h2 class="anchored" data-anchor-id="the-expected-value-of-the-response-variable">The Expected Value of the Response Variable</h2>
+<section id="the-expected-value-of-the-response-variable" class="level2"><h2 class="anchored" data-anchor-id="the-expected-value-of-the-response-variable">The Expected Value of the Response Variable</h2>
 <p>Given <span class="math inline">\(Y = \alpha + \beta X + \epsilon\)</span>, what is <span class="math inline">\(E[Y]\)</span>?</p>
 <p><span class="math inline">\(E[Y] = E[\alpha + \beta X + \epsilon]\)</span></p>
 <p><span class="math inline">\(= E[\alpha] + E[\beta X] + E[\epsilon]\)</span></p>
 <p><span class="math inline">\(= \alpha + \beta E[X] + 0\)</span></p>
 <p><span class="math inline">\(= \alpha + \beta X\)</span></p>
-</section>
-<section id="interpreting-parameters" class="level2">
-<h2 class="anchored" data-anchor-id="interpreting-parameters">Interpreting Parameters</h2>
+</section><section id="interpreting-parameters" class="level2"><h2 class="anchored" data-anchor-id="interpreting-parameters">Interpreting Parameters</h2>
 <p><span class="math inline">\(\beta\)</span>: the slope of our true regression line represents the increase in our response from a unit increase in our feature.</p>
-</section>
-<section id="minimizing-the-residuals" class="level2">
-<h2 class="anchored" data-anchor-id="minimizing-the-residuals">Minimizing the Residuals</h2>
+</section><section id="minimizing-the-residuals" class="level2"><h2 class="anchored" data-anchor-id="minimizing-the-residuals">Minimizing the Residuals</h2>
 <p>Given our data, <span class="math inline">\((x_1, y_1), \dots, (x_n, y_n)\)</span> how do we minimize the residuals, <span class="math inline">\(\epsilon_i = y_i - (\alpha + \beta x_i)\)</span>? In other words, how do we minimize the sum of the squared errors?</p>
 <blockquote class="blockquote">
 <p>insert image of vertical line from regression line to point, label it e_i</p>
 </blockquote>
 <p>Given:</p>
 <ul>
-<li><span class="math inline">\(y_i\)</span>: the actual value of the data point</li>
-<li><span class="math inline">\(\hat{y_i}\)</span>: the predicted value of the <span class="math inline">\(i^{th}\)</span> data point</li>
+<li>
+<span class="math inline">\(y_i\)</span>: the actual value of the data point</li>
+<li>
+<span class="math inline">\(\hat{y_i}\)</span>: the predicted value of the <span class="math inline">\(i^{th}\)</span> data point</li>
 </ul>
 <p><span class="math inline">\(SSE = \sum\limits_{i=1}^{n} (y_i - \hat{y_i})^2\)</span></p>
 <blockquote class="blockquote">
 <p>the point-estimates (single value estimated from the data) of the slope and intercept parameters are called the least-squares estimates, and are defined to be the values that minimize the SSE. The SSE can be thought of as a measure of how much variation in <span class="math inline">\(Y\)</span> is left unexplained by the model.</p>
 </blockquote>
-</section>
-<section id="how-we-find-the-parameter-estimates" class="level2">
-<h2 class="anchored" data-anchor-id="how-we-find-the-parameter-estimates">How we Find the Parameter Estimates?</h2>
+</section><section id="how-we-find-the-parameter-estimates" class="level2"><h2 class="anchored" data-anchor-id="how-we-find-the-parameter-estimates">How we Find the Parameter Estimates?</h2>
 <p><span class="math inline">\(SSE = \sum\limits_{i=1}^{n} (y_i - \hat{y_i})^2\)</span></p>
 <p><span class="math inline">\(= \sum\limits_{i=1}^{n} (y_i - (\alpha - \beta x_i))^2\)</span></p>
 <p><strong>After making this substitution, compute…</strong></p>
@@ -242,19 +281,14 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><span class="math inline">\(\alpha = \bar{y} - \beta \bar{x}\)</span></li>
 <li><span class="math inline">\(\beta = \frac{\bar{xy} - \bar{x} \bar{y}}{\bar{x^2} - (\bar{x})^2}\)</span></li>
-</ul>
-</section>
-<section id="estimating-the-variance" class="level2">
-<h2 class="anchored" data-anchor-id="estimating-the-variance">Estimating the Variance</h2>
+</ul></section><section id="estimating-the-variance" class="level2"><h2 class="anchored" data-anchor-id="estimating-the-variance">Estimating the Variance</h2>
 <p>Given that the parameter <span class="math inline">\(\sigma^2\)</span> determines the spread of the data about the true regression line, our estimate of the variance is <span class="math inline">\(\hat{\sigma^2}\)</span>, which is equivalent to:</p>
 <p><span class="math inline">\(\hat{\sigma^2} = \frac{SSE}{n-2}\)</span></p>
-</section>
-<section id="coefficient-of-determination" class="level2">
-<h2 class="anchored" data-anchor-id="coefficient-of-determination">Coefficient of Determination</h2>
+</section><section id="coefficient-of-determination" class="level2"><h2 class="anchored" data-anchor-id="coefficient-of-determination">Coefficient of Determination</h2>
 <p>The coefficient of determination, <span class="math inline">\(R^2\)</span>, quantifies how well the model explains the data. <span class="math inline">\(R^2\)</span> ranges from <span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span>.</p>
 <p>The regression sum of squares is given by:</p>
 <p><span class="math inline">\(SSR = \sum\limits_{i=1}^n (\hat{y_i} - \bar{y})^2\)</span></p>
-<p>and gives a sense of much variation in <span class="math inline">\(Y\)</span> is explained by our model.</p>
+<p>and gives a sense of how much variation in <span class="math inline">\(Y\)</span> is explained by our model.</p>
 <p>A quantitative measure of the total amount of variation in observed <span class="math inline">\(Y\)</span> values is given by the total sum of squares:</p>
 <p><span class="math inline">\(SST = \sum\limits_{i=1}^n (y_i - \bar{y})^2\)</span></p>
 <p>SST is what we would get if we used the mean of the data as our model.</p>
@@ -264,12 +298,10 @@ ul.task-list li input[type="checkbox"] {
 <p>Include image of the three measures.</p>
 </blockquote>
 <p><strong><span class="math inline">\(R^2\)</span></strong></p>
-<p>Therefore, the ratio of <span class="math inline">\(\frac{SSE}{SST}\)</span> is the proportion of the total variation in the data (SST) that cannot be explained by the SLR model (SSE). So we define the coefficient of determination <span class="math inline">\(R^2\)</span> to be the proportion that can be explained by the model.</p>
+<p>Therefore, the ratio of <span class="math inline">\(\frac{SSE}{SST}\)</span> is the proportion of the total variation in the data (SST) that cannot be explained by the SLR model (SSE). So we define the coefficient of determination <span class="math inline">\(R^2\)</span> to be the proportion of variance that can be explained by the model.</p>
 <p><span class="math inline">\(R^2\)</span> has a magnitude between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, with the closer to <span class="math inline">\(1\)</span> be the better (i.e.&nbsp;the higher the number the more of the variation that can be explained by the model).</p>
 <p><span class="math inline">\(R^2 = 1 - \frac{SSE}{SST}\)</span></p>
-</section>
-<section id="slope-distribution" class="level2">
-<h2 class="anchored" data-anchor-id="slope-distribution">Slope Distribution</h2>
+</section><section id="slope-distribution" class="level2"><h2 class="anchored" data-anchor-id="slope-distribution">Slope Distribution</h2>
 <p><strong>Distribution</strong></p>
 <p><span class="math inline">\(\hat{\beta} \sim N(\beta, \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}\)</span></p>
 <p><span class="math inline">\(SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\)</span></p>
@@ -278,16 +310,180 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\beta \neq 0\)</span></p>
 <p><strong>Confidence Intervals</strong></p>
 <p><span class="math inline">\(\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})\)</span></p>
-</section>
-<section id="summary-of-slr" class="level2">
-<h2 class="anchored" data-anchor-id="summary-of-slr">SUMMARY OF SLR</h2>
+</section><section id="summary-of-slr" class="level2"><h2 class="anchored" data-anchor-id="summary-of-slr">SUMMARY OF SLR</h2>
+<section id="main-formula" class="level3"><h3 class="anchored" data-anchor-id="main-formula">Main Formula</h3>
+<p><span class="math inline">\(Y = \alpha + \beta X + \epsilon\)</span></p>
+</section><section id="variance-slope-distribution-betas" class="level3"><h3 class="anchored" data-anchor-id="variance-slope-distribution-betas">Variance &amp; Slope Distribution (<span class="math inline">\(\beta\)</span>s)</h3>
+<p><span class="math inline">\(\hat{\sigma^2} = \frac{SSE}{n-2}\)</span></p>
+<p><span class="math inline">\(SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\)</span></p>
+</section><section id="ci-for-t-tests-on-beta" class="level3"><h3 class="anchored" data-anchor-id="ci-for-t-tests-on-beta">CI for t-tests on <span class="math inline">\(\beta\)</span>
+</h3>
+<p><span class="math inline">\(\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})\)</span></p>
+</section><section id="coefficient-of-determination-1" class="level3"><h3 class="anchored" data-anchor-id="coefficient-of-determination-1">Coefficient of Determination</h3>
+<table class="table-striped table-hover table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead><tr class="header">
+<th></th>
+<th>SSE</th>
+<th>SSR</th>
+<th>SST</th>
+<th><span class="math inline">\(R^2\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Description</td>
+<td>Measure of how much variation in <span class="math inline">\(Y\)</span> is left unexplained by the model</td>
+<td>How much variation in <span class="math inline">\(Y\)</span> is explained by our model</td>
+<td>Total amount of variation in observed <span class="math inline">\(Y\)</span> values (what we would get if we used the mean of the data as our model)</td>
+<td>The proportion of variance that can be explained by the model</td>
+</tr>
+<tr class="even">
+<td>Formula</td>
+<td><span class="math inline">\(\sum\limits_{i=1}^{n} (y_i - \hat{y_i})^2\)</span></td>
+<td><span class="math inline">\(\sum\limits_{i=1}^n (\hat{y_i} - \bar{y})^2\)</span></td>
+<td><span class="math inline">\(\sum\limits_{i=1}^n (y_i - \bar{y})^2\)</span></td>
+<td><span class="math inline">\(1 - \frac{SSE}{SST}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The closer to 1 <span class="math inline">\(R^2\)</span> is, the better the model fits the data.</strong></p>
+</section></section><section id="workflow-for-simple-linear-regression" class="level2"><h2 class="anchored" data-anchor-id="workflow-for-simple-linear-regression">Workflow for Simple Linear Regression</h2>
+<ol type="1">
+<li>Plot the data as a scatter plot</li>
+</ol>
+<ol type="a">
+<li>Does linearity seem appropriate?</li>
+<li>Compute and overlay best-fit line</li>
+</ol>
+<ol start="2" type="1">
+<li>Consider assumptions in SLR</li>
+</ol>
+<ol type="a">
+<li>Plot a histogram of the residuals (are they normal?): <strong>WANT NORMAL</strong>
+</li>
+<li>Plot the residuals against x (are they changing?): <strong>WANT RANDOM</strong>
+</li>
+</ol>
+<blockquote class="blockquote">
+<p>Include Plots</p>
+</blockquote>
+</section><section id="simple-linear-regression-in-r" class="level2"><h2 class="anchored" data-anchor-id="simple-linear-regression-in-r">Simple Linear Regression in R</h2>
+<p>The following functions are paramount in implementing and interpreting simple linear regression in R:</p>
+<ul>
+<li><code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code></li>
+<li><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code></li>
+</ul>
+<blockquote class="blockquote">
+<p>Load Library</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># import libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<blockquote class="blockquote">
+<p>Load Data (use txhousing from built in data)</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">txhousing</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  city     year month sales   volume median listings inventory  date
+  &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+1 Abilene  2000     1    72  5380000  71400      701       6.3 2000 
+2 Abilene  2000     2    98  6505000  58700      746       6.6 2000.
+3 Abilene  2000     3   130  9285000  58100      784       6.8 2000.
+4 Abilene  2000     4    98  9730000  68600      785       6.9 2000.
+5 Abilene  2000     5   141 10590000  67300      794       6.8 2000.
+6 Abilene  2000     6   156 13910000  66900      780       6.6 2000.</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Create a simple linear regression model to see if we can explain and predict volume from listings</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">volume</span> <span class="op">~</span> <span class="va">listings</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">slr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = volume ~ listings, data = df)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-704067392  -27385680  -12084812    -951885 1686521981 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -1501601.1  1750052.1  -0.858    0.391    
+listings       36990.0      258.1 143.319   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 130500000 on 7174 degrees of freedom
+  (1426 observations deleted due to missingness)
+Multiple R-squared:  0.7411,    Adjusted R-squared:  0.7411 
+F-statistic: 2.054e+04 on 1 and 7174 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>From this summary, we can see that <code>listings</code> is a statistically significant factor (low p-value) and that the <span class="math inline">\(R^2\)</span> for the model is somewhat acceptable at <span class="math inline">\(0.7411\)</span>. Although the intercept being negative does raise some concern, this would mean that for a time period with <span class="math inline">\(0\)</span> <code>listings</code>, we would get a negative <code>volume</code>. The model also says that for each new <code>listing</code>, we can expect the <code>volume</code> to increase by <span class="math inline">\(36990\)</span>.</p>
+</section></section><section id="multiple-linear-regression" class="level1"><h1>Multiple Linear Regression</h1>
+<p>We can extend the <strong>simple linear regression model</strong> to accommodate more variables. <em>Note that we’ll now refer to <span class="math inline">\(\alpha\)</span> as <span class="math inline">\(\beta_0\)</span></em>.</p>
+<p>The main vector model can be represented as:</p>
+<p><span class="math inline">\(Y = \beta_0 + B_1 X_1 + \dots + B_p X_p + \epsilon\)</span></p>
+<p>where for each of the <span class="math inline">\(n\)</span> data points (each vector has the same number of data points), we assume for <span class="math inline">\(i = 1, \dots, n\)</span>, the <span class="math inline">\(i^{th}\)</span> response variable is represented as:</p>
+<p><span class="math inline">\(y_i = \beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p} + \epsilon_i\)</span></p>
+<section id="matrix-algebra-applications-solutions" class="level2"><h2 class="anchored" data-anchor-id="matrix-algebra-applications-solutions">Matrix Algebra Applications &amp; Solutions</h2>
+<p>If we have a perfectly square <span class="math inline">\(X\)</span> matrix, then we can solve for <span class="math inline">\(\beta\)</span> via:</p>
+<p><span class="math inline">\(Y = X \beta \rightarrow X^{-1} Y = \beta\)</span>.</p>
+<p>However, we can almost <strong>guarantee</strong> that <span class="math inline">\(X\)</span> will not be square. Look at this following linear algebra application:</p>
+<blockquote class="blockquote">
+<p>Given a matrix <span class="math inline">\(A\)</span> of any dimensions, both <span class="math inline">\(A^TA\)</span> and <span class="math inline">\(AA^T\)</span> will result in square matrices.</p>
+</blockquote>
+<p>Therefore, given <span class="math inline">\(Y = X \beta\)</span>, we can solve via the following:</p>
+<p><span class="math inline">\((X^TX)^{-1}X^TY = \beta\)</span></p>
+</section><section id="interpreting-mlr" class="level2"><h2 class="anchored" data-anchor-id="interpreting-mlr">Interpreting MLR</h2>
+<p>Given <span class="math inline">\(y_i = \beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p} + \epsilon_i\)</span>, parameter <span class="math inline">\(\beta_k\)</span> is the expected change in the response associated with a unit change in the value of feature <span class="math inline">\(x_k\)</span> while all of the other features are held fixed.</p>
+</section><section id="quantifying-goodness-of-fit" class="level2"><h2 class="anchored" data-anchor-id="quantifying-goodness-of-fit">Quantifying Goodness of Fit</h2>
+<section id="r2-vs.-r_a2" class="level3"><h3 class="anchored" data-anchor-id="r2-vs.-r_a2">
+<span class="math inline">\(R^2\)</span> vs.&nbsp;<span class="math inline">\(R_a^2\)</span>
+</h3>
+<p>Like in SLR, we can also calculate measures like <strong>SSE</strong>, <strong>SST</strong>, and <strong><span class="math inline">\(R^2\)</span></strong> for MLR.</p>
+<ul>
+<li><span class="math inline">\(SSE = \sum\limits_{i=1}^n (y_i - \hat{y_i})^2 = \sum\limits_{i=1}^n (y_i - (\beta_0 + B_1 x_{i, 1} + \dots + B_p x_{i, p})})^2\)</span></li>
+<li><span class="math inline">\(SST = \sum\limits_{i=1}^n (y_i - \bar{y})^2\)</span></li>
+<li><span class="math inline">\(R^2 = 1 - \frac{SSE}{SST}\)</span></li>
+</ul>
+<p>Although we can calculate <span class="math inline">\(R^2\)</span> for an MLR model, we run into the issue of multiple comparisons. The <strong>Adjusted <span class="math inline">\(R^2\)</span></strong>, <span class="math inline">\(R_a^2\)</span>, is a better indicator of goodness of fit for MLR models. The adjusted version penalizes for having too many features that are not reducing SSE.</p>
+<p><span class="math inline">\(R_a^2 = 1 - \frac{SSE/(n-p-1)}{SST/(n-1)}\)</span></p>
+</section><section id="covariance-correlation" class="level3"><h3 class="anchored" data-anchor-id="covariance-correlation">Covariance &amp; Correlation</h3>
+<p>We can discover relationships among features by performing a correlation analysis. If the value of one feature changes, how will this affect the other features.</p>
+<p>Traditionally, these measurements are calculated via:</p>
+<ul>
+<li>Covariance: <span class="math inline">\(Cov(X, Y) = E[(X - E[X])(Y -E[Y])]\)</span>
+</li>
+<li>Correlation (Pearson’s): <span class="math inline">\(\rho(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) Var(Y)}}\)</span>
+</li>
+</ul>
+<p>However, in an MLR, we estimate these relationships using formulas analogous to the sample variance.</p>
+<ul>
+<li>Sample Covariance: <span class="math inline">\(S^2_{XY} = \frac{1}{n-1} \sum\limits_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})\)</span>
+</li>
+<li>Sample Correlation <span class="math inline">\(\hat{\rho}(X &lt; Y) = \frac{S^2_{XY}}{\sqrt{S^2_{X}S^2_{Y}}}\)</span>
+</li>
+</ul>
+<p><em>where <span class="math inline">\(S^2_{X}\)</span> and <span class="math inline">\(S^2_{Y}\)</span> are the variances for <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, respectively</em>.</p>
+</section></section><section id="individual-t-tests" class="level2"><h2 class="anchored" data-anchor-id="individual-t-tests">Individual t-tests</h2>
 
 
-</section>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -685,8 +881,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -698,8 +893,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

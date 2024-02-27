@@ -165,7 +165,7 @@
     "href": "regression.html#minimizing-the-residuals",
     "title": "Inference Models",
     "section": "Minimizing the Residuals",
-    "text": "Minimizing the Residuals\nGiven our data, \\((x_1, y_1), \\dots, (x_n, y_n)\\) how do we minimize the residuals, \\(\\epsilon_i = y_i - (\\alpha + \\beta x_i)\\)? In other words, how do we minimize the sum of the squared errors?\n\ninsert image of vertical line from regression line to point, label it e_i\n\nGiven:\n\n\\(y_i\\): the actual value of the data point\n\\(\\hat{y_i}\\): the predicted value of the \\(i^{th}\\) data point\n\n\\(SSE = \\sum\\limits_{i=1}^{n} (y_i - \\hat{y_i})^2\\)\n\nthe point-estimates (single value estimated from the data) of the slope and intercept parameters are called the least-squares estimates, and are defined to be the values that minimize the SSE. The SSE can be thought of as a measure of how much variation in \\(Y\\) is left unexplained by the model."
+    "text": "Minimizing the Residuals\nGiven our data, \\((x_1, y_1), \\dots, (x_n, y_n)\\) how do we minimize the residuals, \\(\\epsilon_i = y_i - (\\alpha + \\beta x_i)\\)? In other words, how do we minimize the sum of the squared errors?\n\ninsert image of vertical line from regression line to point, label it e_i\n\nGiven:\n\n\n\\(y_i\\): the actual value of the data point\n\n\\(\\hat{y_i}\\): the predicted value of the \\(i^{th}\\) data point\n\n\\(SSE = \\sum\\limits_{i=1}^{n} (y_i - \\hat{y_i})^2\\)\n\nthe point-estimates (single value estimated from the data) of the slope and intercept parameters are called the least-squares estimates, and are defined to be the values that minimize the SSE. The SSE can be thought of as a measure of how much variation in \\(Y\\) is left unexplained by the model."
   },
   {
     "objectID": "regression.html#how-we-find-the-parameter-estimates",
@@ -186,7 +186,7 @@
     "href": "regression.html#coefficient-of-determination",
     "title": "Inference Models",
     "section": "Coefficient of Determination",
-    "text": "Coefficient of Determination\nThe coefficient of determination, \\(R^2\\), quantifies how well the model explains the data. \\(R^2\\) ranges from \\(0\\) to \\(1\\).\nThe regression sum of squares is given by:\n\\(SSR = \\sum\\limits_{i=1}^n (\\hat{y_i} - \\bar{y})^2\\)\nand gives a sense of much variation in \\(Y\\) is explained by our model.\nA quantitative measure of the total amount of variation in observed \\(Y\\) values is given by the total sum of squares:\n\\(SST = \\sum\\limits_{i=1}^n (y_i - \\bar{y})^2\\)\nSST is what we would get if we used the mean of the data as our model.\nNote that the sum of squared deviations about the least-squares line is smaller than the sum of squared deviations about nay other line.\n\\(SSE \\leq SST\\)\n\nInclude image of the three measures.\n\n\\(R^2\\)\nTherefore, the ratio of \\(\\frac{SSE}{SST}\\) is the proportion of the total variation in the data (SST) that cannot be explained by the SLR model (SSE). So we define the coefficient of determination \\(R^2\\) to be the proportion that can be explained by the model.\n\\(R^2\\) has a magnitude between \\(0\\) and \\(1\\), with the closer to \\(1\\) be the better (i.e. the higher the number the more of the variation that can be explained by the model).\n\\(R^2 = 1 - \\frac{SSE}{SST}\\)"
+    "text": "Coefficient of Determination\nThe coefficient of determination, \\(R^2\\), quantifies how well the model explains the data. \\(R^2\\) ranges from \\(0\\) to \\(1\\).\nThe regression sum of squares is given by:\n\\(SSR = \\sum\\limits_{i=1}^n (\\hat{y_i} - \\bar{y})^2\\)\nand gives a sense of how much variation in \\(Y\\) is explained by our model.\nA quantitative measure of the total amount of variation in observed \\(Y\\) values is given by the total sum of squares:\n\\(SST = \\sum\\limits_{i=1}^n (y_i - \\bar{y})^2\\)\nSST is what we would get if we used the mean of the data as our model.\nNote that the sum of squared deviations about the least-squares line is smaller than the sum of squared deviations about nay other line.\n\\(SSE \\leq SST\\)\n\nInclude image of the three measures.\n\n\\(R^2\\)\nTherefore, the ratio of \\(\\frac{SSE}{SST}\\) is the proportion of the total variation in the data (SST) that cannot be explained by the SLR model (SSE). So we define the coefficient of determination \\(R^2\\) to be the proportion of variance that can be explained by the model.\n\\(R^2\\) has a magnitude between \\(0\\) and \\(1\\), with the closer to \\(1\\) be the better (i.e. the higher the number the more of the variation that can be explained by the model).\n\\(R^2 = 1 - \\frac{SSE}{SST}\\)"
   },
   {
     "objectID": "regression.html#slope-distribution",
@@ -200,7 +200,49 @@
     "href": "regression.html#summary-of-slr",
     "title": "Inference Models",
     "section": "SUMMARY OF SLR",
-    "text": "SUMMARY OF SLR"
+    "text": "SUMMARY OF SLR\nMain Formula\n\\(Y = \\alpha + \\beta X + \\epsilon\\)\nVariance & Slope Distribution (\\(\\beta\\)s)\n\\(\\hat{\\sigma^2} = \\frac{SSE}{n-2}\\)\n\\(SE(\\hat{\\beta}) = \\frac{\\sigma^2}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}}\\)\nCI for t-tests on \\(\\beta\\)\n\n\\(\\hat{\\beta} \\pm t_{\\alpha / 2, df = n-2} SE(\\hat{\\beta})\\)\nCoefficient of Determination\n\n\n\n\n\n\n\n\n\n\nSSE\nSSR\nSST\n\\(R^2\\)\n\n\n\nDescription\nMeasure of how much variation in \\(Y\\) is left unexplained by the model\nHow much variation in \\(Y\\) is explained by our model\nTotal amount of variation in observed \\(Y\\) values (what we would get if we used the mean of the data as our model)\nThe proportion of variance that can be explained by the model\n\n\nFormula\n\\(\\sum\\limits_{i=1}^{n} (y_i - \\hat{y_i})^2\\)\n\\(\\sum\\limits_{i=1}^n (\\hat{y_i} - \\bar{y})^2\\)\n\\(\\sum\\limits_{i=1}^n (y_i - \\bar{y})^2\\)\n\\(1 - \\frac{SSE}{SST}\\)\n\n\n\nThe closer to 1 \\(R^2\\) is, the better the model fits the data."
+  },
+  {
+    "objectID": "regression.html#workflow-for-simple-linear-regression",
+    "href": "regression.html#workflow-for-simple-linear-regression",
+    "title": "Inference Models",
+    "section": "Workflow for Simple Linear Regression",
+    "text": "Workflow for Simple Linear Regression\n\nPlot the data as a scatter plot\n\n\nDoes linearity seem appropriate?\nCompute and overlay best-fit line\n\n\nConsider assumptions in SLR\n\n\nPlot a histogram of the residuals (are they normal?): WANT NORMAL\n\nPlot the residuals against x (are they changing?): WANT RANDOM\n\n\n\nInclude Plots"
+  },
+  {
+    "objectID": "regression.html#simple-linear-regression-in-r",
+    "href": "regression.html#simple-linear-regression-in-r",
+    "title": "Inference Models",
+    "section": "Simple Linear Regression in R",
+    "text": "Simple Linear Regression in R\nThe following functions are paramount in implementing and interpreting simple linear regression in R:\n\nlm()\nsummary()\n\n\nLoad Library\n\n\nCode# import libraries\nlibrary(tidyverse)\n\n\n\nLoad Data (use txhousing from built in data)\n\n\nCodedf &lt;- txhousing\nhead(df)\n\n# A tibble: 6 × 9\n  city     year month sales   volume median listings inventory  date\n  &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;\n1 Abilene  2000     1    72  5380000  71400      701       6.3 2000 \n2 Abilene  2000     2    98  6505000  58700      746       6.6 2000.\n3 Abilene  2000     3   130  9285000  58100      784       6.8 2000.\n4 Abilene  2000     4    98  9730000  68600      785       6.9 2000.\n5 Abilene  2000     5   141 10590000  67300      794       6.8 2000.\n6 Abilene  2000     6   156 13910000  66900      780       6.6 2000.\n\n\n\nCreate a simple linear regression model to see if we can explain and predict volume from listings\n\n\nCodeslr &lt;- lm(volume ~ listings, data = df)\nsummary(slr)\n\n\nCall:\nlm(formula = volume ~ listings, data = df)\n\nResiduals:\n       Min         1Q     Median         3Q        Max \n-704067392  -27385680  -12084812    -951885 1686521981 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -1501601.1  1750052.1  -0.858    0.391    \nlistings       36990.0      258.1 143.319   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 130500000 on 7174 degrees of freedom\n  (1426 observations deleted due to missingness)\nMultiple R-squared:  0.7411,    Adjusted R-squared:  0.7411 \nF-statistic: 2.054e+04 on 1 and 7174 DF,  p-value: &lt; 2.2e-16\n\n\nFrom this summary, we can see that listings is a statistically significant factor (low p-value) and that the \\(R^2\\) for the model is somewhat acceptable at \\(0.7411\\). Although the intercept being negative does raise some concern, this would mean that for a time period with \\(0\\) listings, we would get a negative volume. The model also says that for each new listing, we can expect the volume to increase by \\(36990\\)."
+  },
+  {
+    "objectID": "regression.html#matrix-algebra-applications-solutions",
+    "href": "regression.html#matrix-algebra-applications-solutions",
+    "title": "Inference Models",
+    "section": "Matrix Algebra Applications & Solutions",
+    "text": "Matrix Algebra Applications & Solutions\nIf we have a perfectly square \\(X\\) matrix, then we can solve for \\(\\beta\\) via:\n\\(Y = X \\beta \\rightarrow X^{-1} Y = \\beta\\).\nHowever, we can almost guarantee that \\(X\\) will not be square. Look at this following linear algebra application:\n\nGiven a matrix \\(A\\) of any dimensions, both \\(A^TA\\) and \\(AA^T\\) will result in square matrices.\n\nTherefore, given \\(Y = X \\beta\\), we can solve via the following:\n\\((X^TX)^{-1}X^TY = \\beta\\)"
+  },
+  {
+    "objectID": "regression.html#interpreting-mlr",
+    "href": "regression.html#interpreting-mlr",
+    "title": "Inference Models",
+    "section": "Interpreting MLR",
+    "text": "Interpreting MLR\nGiven \\(y_i = \\beta_0 + B_1 x_{i, 1} + \\dots + B_p x_{i, p} + \\epsilon_i\\), parameter \\(\\beta_k\\) is the expected change in the response associated with a unit change in the value of feature \\(x_k\\) while all of the other features are held fixed."
+  },
+  {
+    "objectID": "regression.html#quantifying-goodness-of-fit",
+    "href": "regression.html#quantifying-goodness-of-fit",
+    "title": "Inference Models",
+    "section": "Quantifying Goodness of Fit",
+    "text": "Quantifying Goodness of Fit\n\n\\(R^2\\) vs. \\(R_a^2\\)\n\nLike in SLR, we can also calculate measures like SSE, SST, and \\(R^2\\) for MLR.\n\n\\(SSE = \\sum\\limits_{i=1}^n (y_i - \\hat{y_i})^2 = \\sum\\limits_{i=1}^n (y_i - (\\beta_0 + B_1 x_{i, 1} + \\dots + B_p x_{i, p})})^2\\)\n\\(SST = \\sum\\limits_{i=1}^n (y_i - \\bar{y})^2\\)\n\\(R^2 = 1 - \\frac{SSE}{SST}\\)\n\nAlthough we can calculate \\(R^2\\) for an MLR model, we run into the issue of multiple comparisons. The Adjusted \\(R^2\\), \\(R_a^2\\), is a better indicator of goodness of fit for MLR models. The adjusted version penalizes for having too many features that are not reducing SSE.\n\\(R_a^2 = 1 - \\frac{SSE/(n-p-1)}{SST/(n-1)}\\)\nCovariance & Correlation\nWe can discover relationships among features by performing a correlation analysis. If the value of one feature changes, how will this affect the other features.\nTraditionally, these measurements are calculated via:\n\nCovariance: \\(Cov(X, Y) = E[(X - E[X])(Y -E[Y])]\\)\n\nCorrelation (Pearson’s): \\(\\rho(X, Y) = \\frac{Cov(X, Y)}{\\sqrt{Var(X) Var(Y)}}\\)\n\n\nHowever, in an MLR, we estimate these relationships using formulas analogous to the sample variance.\n\nSample Covariance: \\(S^2_{XY} = \\frac{1}{n-1} \\sum\\limits_{i=1}^n (x_i - \\bar{x})(y_i - \\bar{y})\\)\n\nSample Correlation \\(\\hat{\\rho}(X &lt; Y) = \\frac{S^2_{XY}}{\\sqrt{S^2_{X}S^2_{Y}}}\\)\n\n\nwhere \\(S^2_{X}\\) and \\(S^2_{Y}\\) are the variances for \\(X\\) and \\(Y\\), respectively."
+  },
+  {
+    "objectID": "regression.html#individual-t-tests",
+    "href": "regression.html#individual-t-tests",
+    "title": "Inference Models",
+    "section": "Individual t-tests",
+    "text": "Individual t-tests"
   },
   {
     "objectID": "confidence_intervals.html",
