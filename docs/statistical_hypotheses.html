@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.525">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>Advanced Statistics - Statistical Hypotheses</title>
 <style>
 code{white-space: pre-wrap;}
@@ -20,8 +17,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -38,8 +68,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -65,20 +94,12 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="styles.css">
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Advanced Statistics</span>
@@ -90,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="./review.html"> 
 <span class="menu-text">Basic Review</span></a>
   </li>  
@@ -107,15 +128,15 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Regression Models</span></a>
   </li>  
 </ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item dropdown ">
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       <i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
-        <li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">
+<li>
     <a class="dropdown-item" href="https://github.com/clickityKlein/Statistics">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
@@ -124,80 +145,90 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Carl Klein’s Main Page</span></a>
   </li>  
     </ul>
-  </li>
+</li>
 </ul>
-          </div> <!-- /navcollapse -->
+</div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#competing-hypotheses" id="toc-competing-hypotheses" class="nav-link active" data-scroll-target="#competing-hypotheses">Competing Hypotheses</a>
+<li>
+<a href="#competing-hypotheses" id="toc-competing-hypotheses" class="nav-link active" data-scroll-target="#competing-hypotheses">Competing Hypotheses</a>
   <ul class="collapse">
-  <li><a href="#classic-jury-analogy" id="toc-classic-jury-analogy" class="nav-link" data-scroll-target="#classic-jury-analogy">Classic Jury Analogy</a></li>
+<li><a href="#classic-jury-analogy" id="toc-classic-jury-analogy" class="nav-link" data-scroll-target="#classic-jury-analogy">Classic Jury Analogy</a></li>
   <li><a href="#setting-up-the-hypothesis-test" id="toc-setting-up-the-hypothesis-test" class="nav-link" data-scroll-target="#setting-up-the-hypothesis-test">Setting Up the Hypothesis Test</a></li>
-  </ul></li>
+  </ul>
+</li>
   <li><a href="#test-statistic-and-finding-evidence" id="toc-test-statistic-and-finding-evidence" class="nav-link" data-scroll-target="#test-statistic-and-finding-evidence">Test Statistic and Finding Evidence</a></li>
-  <li><a href="#rejection-regions-and-significance-level" id="toc-rejection-regions-and-significance-level" class="nav-link" data-scroll-target="#rejection-regions-and-significance-level">Rejection Regions and Significance Level</a>
+  <li>
+<a href="#rejection-regions-and-significance-level" id="toc-rejection-regions-and-significance-level" class="nav-link" data-scroll-target="#rejection-regions-and-significance-level">Rejection Regions and Significance Level</a>
   <ul class="collapse">
-  <li><a href="#rejection-regions-for-alternative-hypotheses" id="toc-rejection-regions-for-alternative-hypotheses" class="nav-link" data-scroll-target="#rejection-regions-for-alternative-hypotheses">Rejection Regions for Alternative Hypotheses</a></li>
-  </ul></li>
-  <li><a href="#type-i-and-type-ii-errors" id="toc-type-i-and-type-ii-errors" class="nav-link" data-scroll-target="#type-i-and-type-ii-errors">Type I and Type II Errors</a>
+<li><a href="#rejection-regions-for-alternative-hypotheses" id="toc-rejection-regions-for-alternative-hypotheses" class="nav-link" data-scroll-target="#rejection-regions-for-alternative-hypotheses">Rejection Regions for Alternative Hypotheses</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#type-i-and-type-ii-errors" id="toc-type-i-and-type-ii-errors" class="nav-link" data-scroll-target="#type-i-and-type-ii-errors">Type I and Type II Errors</a>
   <ul class="collapse">
-  <li><a href="#type-i-error" id="toc-type-i-error" class="nav-link" data-scroll-target="#type-i-error">Type I Error</a></li>
+<li><a href="#type-i-error" id="toc-type-i-error" class="nav-link" data-scroll-target="#type-i-error">Type I Error</a></li>
   <li><a href="#type-ii-error" id="toc-type-ii-error" class="nav-link" data-scroll-target="#type-ii-error">Type II Error</a></li>
   <li><a href="#visualizing-errors" id="toc-visualizing-errors" class="nav-link" data-scroll-target="#visualizing-errors">Visualizing Errors</a></li>
   <li><a href="#power" id="toc-power" class="nav-link" data-scroll-target="#power">Power</a></li>
   <li><a href="#visualizing-power" id="toc-visualizing-power" class="nav-link" data-scroll-target="#visualizing-power">Visualizing Power</a></li>
-  </ul></li>
-  <li><a href="#bootstrapping" id="toc-bootstrapping" class="nav-link" data-scroll-target="#bootstrapping">Bootstrapping</a>
+  </ul>
+</li>
+  <li>
+<a href="#bootstrapping" id="toc-bootstrapping" class="nav-link" data-scroll-target="#bootstrapping">Bootstrapping</a>
   <ul class="collapse">
-  <li><a href="#the-bootstrap-process" id="toc-the-bootstrap-process" class="nav-link" data-scroll-target="#the-bootstrap-process">The Bootstrap Process</a></li>
-  </ul></li>
-  <li><a href="#hypothesis-testing-with-randomization" id="toc-hypothesis-testing-with-randomization" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization">Hypothesis Testing with Randomization</a>
+<li><a href="#the-bootstrap-process" id="toc-the-bootstrap-process" class="nav-link" data-scroll-target="#the-bootstrap-process">The Bootstrap Process</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#hypothesis-testing-with-randomization" id="toc-hypothesis-testing-with-randomization" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization">Hypothesis Testing with Randomization</a>
   <ul class="collapse">
-  <li><a href="#the-randomization-process" id="toc-the-randomization-process" class="nav-link" data-scroll-target="#the-randomization-process">The Randomization Process</a>
+<li>
+<a href="#the-randomization-process" id="toc-the-randomization-process" class="nav-link" data-scroll-target="#the-randomization-process">The Randomization Process</a>
   <ul class="collapse">
-  <li><a href="#creating-the-distribution" id="toc-creating-the-distribution" class="nav-link" data-scroll-target="#creating-the-distribution">Creating the Distribution</a></li>
+<li><a href="#creating-the-distribution" id="toc-creating-the-distribution" class="nav-link" data-scroll-target="#creating-the-distribution">Creating the Distribution</a></li>
   <li><a href="#performing-the-hypothesis-test" id="toc-performing-the-hypothesis-test" class="nav-link" data-scroll-target="#performing-the-hypothesis-test">Performing the Hypothesis Test</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#when-to-use-what" id="toc-when-to-use-what" class="nav-link" data-scroll-target="#when-to-use-what">When to Use What?</a>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#when-to-use-what" id="toc-when-to-use-what" class="nav-link" data-scroll-target="#when-to-use-what">When to Use What?</a>
   <ul class="collapse">
-  <li><a href="#inference-on-mean-and-proportions" id="toc-inference-on-mean-and-proportions" class="nav-link" data-scroll-target="#inference-on-mean-and-proportions">Inference on Mean and Proportions</a></li>
+<li><a href="#inference-on-mean-and-proportions" id="toc-inference-on-mean-and-proportions" class="nav-link" data-scroll-target="#inference-on-mean-and-proportions">Inference on Mean and Proportions</a></li>
   <li><a href="#inference-on-variance" id="toc-inference-on-variance" class="nav-link" data-scroll-target="#inference-on-variance">Inference on Variance</a></li>
   <li><a href="#inference-on-anything-else-median-skew-discrimination-rate-etc." id="toc-inference-on-anything-else-median-skew-discrimination-rate-etc." class="nav-link" data-scroll-target="#inference-on-anything-else-median-skew-discrimination-rate-etc.">Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)</a></li>
-  </ul></li>
+  </ul>
+</li>
   <li><a href="#some-notes" id="toc-some-notes" class="nav-link" data-scroll-target="#some-notes">Some Notes</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <li>
+<a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
   <ul class="collapse">
-  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a></li>
+<li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a></li>
   <li><a href="#bootstrapping-1" id="toc-bootstrapping-1" class="nav-link" data-scroll-target="#bootstrapping-1">Bootstrapping</a></li>
   <li><a href="#hypothesis-testing-with-randomization-1" id="toc-hypothesis-testing-with-randomization-1" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization-1">Hypothesis Testing with Randomization</a></li>
-  </ul></li>
-  <li><a href="#r-programming" id="toc-r-programming" class="nav-link" data-scroll-target="#r-programming">R Programming</a>
+  </ul>
+</li>
+  <li>
+<a href="#r-programming" id="toc-r-programming" class="nav-link" data-scroll-target="#r-programming">R Programming</a>
   <ul class="collapse">
-  <li><a href="#hypothesis-testing-1" id="toc-hypothesis-testing-1" class="nav-link" data-scroll-target="#hypothesis-testing-1">Hypothesis Testing</a></li>
+<li><a href="#hypothesis-testing-1" id="toc-hypothesis-testing-1" class="nav-link" data-scroll-target="#hypothesis-testing-1">Hypothesis Testing</a></li>
   <li><a href="#bootstrapping-2" id="toc-bootstrapping-2" class="nav-link" data-scroll-target="#bootstrapping-2">Bootstrapping</a></li>
   <li><a href="#hypothesis-testing-with-randomization-2" id="toc-hypothesis-testing-with-randomization-2" class="nav-link" data-scroll-target="#hypothesis-testing-with-randomization-2">Hypothesis Testing with Randomization</a></li>
-  </ul></li>
   </ul>
-</nav>
+</li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Statistical Hypotheses</h1>
 </div>
 
@@ -212,10 +243,7 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
-
-
-<p>This page features theories involving statistical hypotheses, including:</p>
+</header><p>This page features theories involving statistical hypotheses, including:</p>
 <ul>
 <li>Null vs.&nbsp;Alternative Hypothesis</li>
 <li>Analogy</li>
@@ -229,134 +257,116 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p>A statistical hypothesis is a claim about the value of a parameter of a population characteristic.</p>
 </blockquote>
-<section id="competing-hypotheses" class="level1">
-<h1>Competing Hypotheses</h1>
+<section id="competing-hypotheses" class="level1"><h1>Competing Hypotheses</h1>
 <ul>
-<li><span class="math inline">\(H_0\)</span>: Null Hypothesis</li>
-<li><span class="math inline">\(H_A\)</span>: Alternative Hypothesis</li>
+<li>
+<span class="math inline">\(H_0\)</span>: Null Hypothesis</li>
+<li>
+<span class="math inline">\(H_A\)</span>: Alternative Hypothesis</li>
 </ul>
-<section id="classic-jury-analogy" class="level2">
-<h2 class="anchored" data-anchor-id="classic-jury-analogy">Classic Jury Analogy</h2>
+<section id="classic-jury-analogy" class="level2"><h2 class="anchored" data-anchor-id="classic-jury-analogy">Classic Jury Analogy</h2>
 <p>Consider a jury in a criminal trial. When a defendant is accused of a crime, the jury presumes that they are not guilty.</p>
 <ul>
-<li><span class="math inline">\(H_0\)</span>: Not Guilty</li>
-<li><span class="math inline">\(H_A\)</span>: Guilty</li>
+<li>
+<span class="math inline">\(H_0\)</span>: Not Guilty</li>
+<li>
+<span class="math inline">\(H_A\)</span>: Guilty</li>
 </ul>
 <p>The jury is then presented with evidence. If the evidence seems implausible under the assumption of non-guilt, we might reject the null hypothesis of non-guilt, and claim that the defendant is (likely) guilty.</p>
 <blockquote class="blockquote">
 <p>In the case of statistical hypothesis testing, we use data to find evidence, leading us to arrive at two possible conclusions:</p>
 </blockquote>
 <ul>
-<li>Reject the null hypothesis, <span class="math inline">\(H_0\)</span>, in favor of the alternative hypothesis, <span class="math inline">\(H_A\)</span></li>
-<li>Fail to reject the null hypothesis, <span class="math inline">\(H_0\)</span></li>
-</ul>
-</section>
-<section id="setting-up-the-hypothesis-test" class="level2">
-<h2 class="anchored" data-anchor-id="setting-up-the-hypothesis-test">Setting Up the Hypothesis Test</h2>
+<li>Reject the null hypothesis, <span class="math inline">\(H_0\)</span>, in favor of the alternative hypothesis, <span class="math inline">\(H_A\)</span>
+</li>
+<li>Fail to reject the null hypothesis, <span class="math inline">\(H_0\)</span>
+</li>
+</ul></section><section id="setting-up-the-hypothesis-test" class="level2"><h2 class="anchored" data-anchor-id="setting-up-the-hypothesis-test">Setting Up the Hypothesis Test</h2>
 <p>The <em>null hypothesis</em> will almost always be represented with equivalence. The <em>alternative hypothesis</em> will be then be represented with an inequality or shown to be not equivalent.</p>
 <ul>
-<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\theta = \theta_0\)</span></li>
-<li><span class="math inline">\(H_A\)</span>: One of the Following:
+<li>
+<span class="math inline">\(H_0\)</span>: <span class="math inline">\(\theta = \theta_0\)</span>
+</li>
+<li>
+<span class="math inline">\(H_A\)</span>: One of the Following:
 <ul>
 <li><span class="math inline">\(\theta &gt; \theta_0\)</span></li>
 <li><span class="math inline">\(\theta &lt; \theta_0\)</span></li>
 <li><span class="math inline">\(\theta \neq \theta_0\)</span></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>The <em>alternative hypothesis</em> is the hypothesis for which we are seeking statistical evidence for.</p>
-<hr>
-</section>
-</section>
-<section id="test-statistic-and-finding-evidence" class="level1">
-<h1>Test Statistic and Finding Evidence</h1>
+<hr></section></section><section id="test-statistic-and-finding-evidence" class="level1"><h1>Test Statistic and Finding Evidence</h1>
 <blockquote class="blockquote">
 <p>A test statistic is a quantity derived from the sample data and calculated assuming that the null hypothesis is true. It is used in the decision about whether or not to reject the null hypothesis.</p>
 </blockquote>
-</section>
-<section id="rejection-regions-and-significance-level" class="level1">
-<h1>Rejection Regions and Significance Level</h1>
+</section><section id="rejection-regions-and-significance-level" class="level1"><h1>Rejection Regions and Significance Level</h1>
 <blockquote class="blockquote">
 <p>The rejection region is a range of values of the test statistic that would lead you to reject the null hypothesis.</p>
 </blockquote>
 <blockquote class="blockquote">
 <p>The significance level <span class="math inline">\(\alpha\)</span> indicates the largest probability of the test statistic occurring under the null hypothesis that would lead you to reject the null hypothesis.</p>
 </blockquote>
-<section id="rejection-regions-for-alternative-hypotheses" class="level2">
-<h2 class="anchored" data-anchor-id="rejection-regions-for-alternative-hypotheses">Rejection Regions for Alternative Hypotheses</h2>
+<section id="rejection-regions-for-alternative-hypotheses" class="level2"><h2 class="anchored" data-anchor-id="rejection-regions-for-alternative-hypotheses">Rejection Regions for Alternative Hypotheses</h2>
 <p>The following example uses the <span class="math inline">\(z\)</span> statistic, but the concept holds for other statistics and critical values.</p>
 <table class="table-striped table-hover table">
 <colgroup>
 <col style="width: 31%">
 <col style="width: 68%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Alternative Hypothesis</th>
 <th>Rejection Region for Level <span class="math inline">\(\alpha\)</span> Test</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\theta &gt; \theta_0\)</span></td>
+<td>
+<span class="math inline">\(H_A\)</span>: <span class="math inline">\(\theta &gt; \theta_0\)</span>
+</td>
 <td><span class="math inline">\(z \geq z_{\alpha}\)</span></td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\theta &lt; \theta_0\)</span></td>
+<td>
+<span class="math inline">\(H_A\)</span>: <span class="math inline">\(\theta &lt; \theta_0\)</span>
+</td>
 <td><span class="math inline">\(z \leq z_{\alpha}\)</span></td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\theta \neq \theta_0\)</span></td>
-<td><span class="math inline">\(z \geq z_{\alpha}\)</span> OR <span class="math inline">\(z \leq z_{\alpha}\)</span></td>
+<td>
+<span class="math inline">\(H_A\)</span>: <span class="math inline">\(\theta \neq \theta_0\)</span>
+</td>
+<td>
+<span class="math inline">\(z \geq z_{\alpha}\)</span> OR <span class="math inline">\(z \leq z_{\alpha}\)</span>
+</td>
 </tr>
 </tbody>
 </table>
-<hr>
-</section>
-</section>
-<section id="type-i-and-type-ii-errors" class="level1">
-<h1>Type I and Type II Errors</h1>
-<section id="type-i-error" class="level2">
-<h2 class="anchored" data-anchor-id="type-i-error">Type I Error</h2>
+<hr></section></section><section id="type-i-and-type-ii-errors" class="level1"><h1>Type I and Type II Errors</h1>
+<section id="type-i-error" class="level2"><h2 class="anchored" data-anchor-id="type-i-error">Type I Error</h2>
 <p>A <strong>Type I</strong> error is rejecting the null hypothesis when it is actually true. This is actually representing by <span class="math inline">\(\alpha\)</span>, where significance level is set at <span class="math inline">\(100*(1-\alpha)\)</span>.</p>
-</section>
-<section id="type-ii-error" class="level2">
-<h2 class="anchored" data-anchor-id="type-ii-error">Type II Error</h2>
+</section><section id="type-ii-error" class="level2"><h2 class="anchored" data-anchor-id="type-ii-error">Type II Error</h2>
 <p>A <strong>Type II</strong> error is failing to reject the null hypothesis when it is actually false. This is normally considered <em>worse</em> than <strong>Type I</strong> errors.</p>
-</section>
-<section id="visualizing-errors" class="level2">
-<h2 class="anchored" data-anchor-id="visualizing-errors">Visualizing Errors</h2>
-</section>
-<section id="power" class="level2">
-<h2 class="anchored" data-anchor-id="power">Power</h2>
+</section><section id="visualizing-errors" class="level2"><h2 class="anchored" data-anchor-id="visualizing-errors">Visualizing Errors</h2>
+</section><section id="power" class="level2"><h2 class="anchored" data-anchor-id="power">Power</h2>
 <p>Considering <strong>power</strong> helps to ensure high quality hypothesis tests.Recall” - Type I errors are when we reject the null hypothesis when it is true - Type II errors are when we fail to reject the null hypothesis when the alternative hypothesis is true</p>
 <p>The <strong>power</strong> of a hypothesis test is the probability of making the correct decision if the alternative hypothesis is true. In other words, it is the probability of rejecting the null hypothesis when the alternative hypothesis is true.</p>
 <p>If <span class="math inline">\(\beta\)</span> is the probability of making a Type II error, then</p>
 <p><span class="math inline">\(Power = 1 - \beta\)</span></p>
 <p>In general, we want to minimize <span class="math inline">\(\alpha\)</span> and maximize power.</p>
-</section>
-<section id="visualizing-power" class="level2">
-<h2 class="anchored" data-anchor-id="visualizing-power">Visualizing Power</h2>
-<hr>
-</section>
-</section>
-<section id="bootstrapping" class="level1">
-<h1>Bootstrapping</h1>
+</section><section id="visualizing-power" class="level2"><h2 class="anchored" data-anchor-id="visualizing-power">Visualizing Power</h2>
+<hr></section></section><section id="bootstrapping" class="level1"><h1>Bootstrapping</h1>
 <p>Data can be expensive, and we don’t always want to examine means, proportions, and variances. Enter the <strong>The Bootstrap Principal</strong>, which allows us to use a smaller data set without sacrificing statistical rigor or collecting more samples. Some use cases include when we don’t have enough data, when we can’t use the CLT, and when we’re trying to compute CIs for unknown distributions. Consider a sample <span class="math inline">\(X_1, \dots , X_n\)</span>, but instaed of computing a CI from the sample, we instead re-sample <em>with replacement</em> many times and then examine the re-samples.</p>
 <blockquote class="blockquote">
 <p>A bootstrapped resample is a set of n draws from the original sample set with replacement.</p>
 </blockquote>
-<section id="the-bootstrap-process" class="level2">
-<h2 class="anchored" data-anchor-id="the-bootstrap-process">The Bootstrap Process</h2>
+<section id="the-bootstrap-process" class="level2"><h2 class="anchored" data-anchor-id="the-bootstrap-process">The Bootstrap Process</h2>
 <ol type="1">
 <li>Take re-samples (with replacement) of the same size as the original sample.</li>
 <li>Compute the desired statistic for each re-sample. These statistics form the distribution.</li>
 <li>If we’re specifically targeting a <span class="math inline">\((100-\alpha)\%\)</span> confidence interval, then find the <span class="math inline">\(\alpha^{th}\)</span> and <span class="math inline">\((1-\alpha)^{th}\)</span> percentiles. This will be the CI.</li>
 </ol>
-<hr>
-</section>
-</section>
-<section id="hypothesis-testing-with-randomization" class="level1">
-<h1>Hypothesis Testing with Randomization</h1>
+<hr></section></section><section id="hypothesis-testing-with-randomization" class="level1"><h1>Hypothesis Testing with Randomization</h1>
 <p>Statistical inference is primarily concerned with understanding and quantifying the uncertainty of parameter estimates.</p>
 <p>Almost always variability in data – one dataset will not be identical to a second dataset even if they are both collected from the same population using the same methods. How different Is one dataset from another?</p>
 <p>Studying randomness of this form is a key focus of statistics. <strong>Hypothesis Testing with Randomization</strong> helps us study this randomness. In other words, we’re examining whether variability is due to:</p>
@@ -365,79 +375,67 @@ ul.task-list li input[type="checkbox"] {
 <li>Natural Variability Inherent to the Data (<em>coincidence</em>)</li>
 </ul>
 <p>To form a conclusion, we compare the actual experiment to the randomly assigned experiment. If the actual experiment demonstrates results that are more extreme that the randomly assigned experiments, then we may suspect that the explanatory variable is causing the result, and not just inherent variability.</p>
-<section id="the-randomization-process" class="level2">
-<h2 class="anchored" data-anchor-id="the-randomization-process">The Randomization Process</h2>
+<section id="the-randomization-process" class="level2"><h2 class="anchored" data-anchor-id="the-randomization-process">The Randomization Process</h2>
 <p>Image we have boolean results from two separate groups. In other words, within each group, some have the results of <code>yes</code> and some have the results of <code>no</code>. Between the two groups, there are different proportions of <code>yes</code> values. We want to test if there is an explanatory variable causing the difference in proportions, or if it is due to inherent variability.</p>
 <p>In the following process, let’s consider each result a <em>card</em>, and each card will have a <em>label</em> of <code>yes</code> or <code>no</code>.</p>
 <p>The groups will likely not be the same size, let’s call the length of Group 1 <span class="math inline">\(n_1\)</span> and the length of Group 2 <span class="math inline">\(n_2\)</span>.</p>
-<section id="creating-the-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="creating-the-distribution">Creating the Distribution</h3>
+<section id="creating-the-distribution" class="level3"><h3 class="anchored" data-anchor-id="creating-the-distribution">Creating the Distribution</h3>
 <ol type="1">
 <li>Shuffle all the <em>cards</em>. Group displacement will occur (i.e.&nbsp;after shuffling there will only be a total count of <code>yes</code> and <code>no</code>, and sense of group will be removed).</li>
 <li>Put <span class="math inline">\(n_1\)</span> <em>cards</em> into Group 1 and <span class="math inline">\(n_2\)</span> cards into Group 2</li>
 <li>Compute the different in proportions between <code>yes</code> for each group</li>
 <li>Repeat this many times to get a distribution of the differences in proportions</li>
-</ol>
-</section>
-<section id="performing-the-hypothesis-test" class="level3">
-<h3 class="anchored" data-anchor-id="performing-the-hypothesis-test">Performing the Hypothesis Test</h3>
+</ol></section><section id="performing-the-hypothesis-test" class="level3"><h3 class="anchored" data-anchor-id="performing-the-hypothesis-test">Performing the Hypothesis Test</h3>
 <p>The hypothesis test will look something of the form (alternative depends on how the test is setup):</p>
 <ul>
-<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p_1 = p_2\)</span> (i.e.&nbsp;the true proportions of the group are equivalent)</li>
-<li><span class="math inline">\(H_A\)</span>: <span class="math inline">\(p_1 &gt; p_2\)</span> (i.e.&nbsp;the true proportions of Group 1 is greater than Group 2, or different in some manner depending on how the test is constructed)</li>
+<li>
+<span class="math inline">\(H_0\)</span>: <span class="math inline">\(p_1 = p_2\)</span> (i.e.&nbsp;the true proportions of the group are equivalent)</li>
+<li>
+<span class="math inline">\(H_A\)</span>: <span class="math inline">\(p_1 &gt; p_2\)</span> (i.e.&nbsp;the true proportions of Group 1 is greater than Group 2, or different in some manner depending on how the test is constructed)</li>
 </ul>
 <p>When performing the hypothesis test, we want to compare the critical value on rejection region with the test statistic.</p>
 <p>If the test statistic is at least as extreme as the critical value calculated from the distribution (i.e.&nbsp;test statistic lies within the rejection region), for a specified significance level, then we can reject the null hypothesis in favor of the alternative hypothesis. If not, we lack sufficient evidence to reject the null hypothesis.</p>
-<hr>
-</section>
-</section>
-</section>
-<section id="when-to-use-what" class="level1">
-<h1>When to Use What?</h1>
-<section id="inference-on-mean-and-proportions" class="level2">
-<h2 class="anchored" data-anchor-id="inference-on-mean-and-proportions">Inference on Mean and Proportions</h2>
+<hr></section></section></section><section id="when-to-use-what" class="level1"><h1>When to Use What?</h1>
+<section id="inference-on-mean-and-proportions" class="level2"><h2 class="anchored" data-anchor-id="inference-on-mean-and-proportions">Inference on Mean and Proportions</h2>
 <table class="table">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Category</th>
 <th><span class="math inline">\(n \geq 30\)</span></th>
 <th><span class="math inline">\(n &lt; 30\)</span></th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
-<td>Normal Data, Known <span class="math inline">\(\sigma\)</span></td>
+<td>Normal Data, Known <span class="math inline">\(\sigma\)</span>
+</td>
 <td>z-test</td>
 <td>z-test</td>
 </tr>
 <tr class="even">
-<td>Normal Data, Unknown <span class="math inline">\(\sigma\)</span></td>
+<td>Normal Data, Unknown <span class="math inline">\(\sigma\)</span>
+</td>
 <td>z-test</td>
 <td>t-test</td>
 </tr>
 <tr class="odd">
-<td>Non-Normal Data, Known <span class="math inline">\(\sigma\)</span></td>
+<td>Non-Normal Data, Known <span class="math inline">\(\sigma\)</span>
+</td>
 <td>z-test</td>
 <td>bootstrap</td>
 </tr>
 <tr class="even">
-<td>Non-Normal Data, Unknown <span class="math inline">\(\sigma\)</span></td>
+<td>Non-Normal Data, Unknown <span class="math inline">\(\sigma\)</span>
+</td>
 <td>z-test</td>
 <td>bootstrap</td>
 </tr>
 </tbody>
-</table>
-</section>
-<section id="inference-on-variance" class="level2">
-<h2 class="anchored" data-anchor-id="inference-on-variance">Inference on Variance</h2>
+</table></section><section id="inference-on-variance" class="level2"><h2 class="anchored" data-anchor-id="inference-on-variance">Inference on Variance</h2>
 <table class="table">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Category</th>
 <th><span class="math inline">\(n \geq 30\)</span></th>
 <th><span class="math inline">\(n &lt; 30\)</span></th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>Normal Data</td>
@@ -450,18 +448,13 @@ ul.task-list li input[type="checkbox"] {
 <td>bootstrap</td>
 </tr>
 </tbody>
-</table>
-</section>
-<section id="inference-on-anything-else-median-skew-discrimination-rate-etc." class="level2">
-<h2 class="anchored" data-anchor-id="inference-on-anything-else-median-skew-discrimination-rate-etc.">Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)</h2>
+</table></section><section id="inference-on-anything-else-median-skew-discrimination-rate-etc." class="level2"><h2 class="anchored" data-anchor-id="inference-on-anything-else-median-skew-discrimination-rate-etc.">Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)</h2>
 <table class="table">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Category</th>
 <th><span class="math inline">\(n \geq 30\)</span></th>
 <th><span class="math inline">\(n &lt; 30\)</span></th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>Normal Data</td>
@@ -475,11 +468,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<hr>
-</section>
-</section>
-<section id="some-notes" class="level1">
-<h1>Some Notes</h1>
+<hr></section></section><section id="some-notes" class="level1"><h1>Some Notes</h1>
 <blockquote class="blockquote">
 <p>Bootstrapped p-values are about uncertainty over the specific sample of the population that you drew, while randomization inference p-values are about uncertainty over which units within your sample are assigned to the treatment.</p>
 </blockquote>
@@ -489,39 +478,130 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p>Randomization Inference is all about using nothing but the act of physical randomization to make inferences about causal effects.</p>
 </blockquote>
-<hr>
-</section>
-<section id="examples" class="level1">
-<h1>Examples</h1>
-<section id="hypothesis-testing" class="level2">
-<h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
-</section>
-<section id="bootstrapping-1" class="level2">
-<h2 class="anchored" data-anchor-id="bootstrapping-1">Bootstrapping</h2>
-</section>
-<section id="hypothesis-testing-with-randomization-1" class="level2">
-<h2 class="anchored" data-anchor-id="hypothesis-testing-with-randomization-1">Hypothesis Testing with Randomization</h2>
-<hr>
-</section>
-</section>
-<section id="r-programming" class="level1">
-<h1>R Programming</h1>
-<section id="hypothesis-testing-1" class="level2">
-<h2 class="anchored" data-anchor-id="hypothesis-testing-1">Hypothesis Testing</h2>
-</section>
-<section id="bootstrapping-2" class="level2">
-<h2 class="anchored" data-anchor-id="bootstrapping-2">Bootstrapping</h2>
-<p><em>Lecture 5</em>: <code>replace</code>, <code>sample</code>, and <code>quantile</code>.</p>
-</section>
-<section id="hypothesis-testing-with-randomization-2" class="level2">
-<h2 class="anchored" data-anchor-id="hypothesis-testing-with-randomization-2">Hypothesis Testing with Randomization</h2>
+<hr></section><section id="examples" class="level1"><h1>Examples</h1>
+<section id="hypothesis-testing" class="level2"><h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
+</section><section id="bootstrapping-1" class="level2"><h2 class="anchored" data-anchor-id="bootstrapping-1">Bootstrapping</h2>
+</section><section id="hypothesis-testing-with-randomization-1" class="level2"><h2 class="anchored" data-anchor-id="hypothesis-testing-with-randomization-1">Hypothesis Testing with Randomization</h2>
+<hr></section></section><section id="r-programming" class="level1"><h1>R Programming</h1>
+<section id="hypothesis-testing-1" class="level2"><h2 class="anchored" data-anchor-id="hypothesis-testing-1">Hypothesis Testing</h2>
+</section><section id="bootstrapping-2" class="level2"><h2 class="anchored" data-anchor-id="bootstrapping-2">Bootstrapping</h2>
+<p><em>Lecture 5</em>: <code>replace</code>, <code>sample</code>, <code>apply</code>, and <code>quantile</code>.</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 1000 bootstrap samples</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">303</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">50</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">bootstrap_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span>, expr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">data</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">boostrap_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">bootstrap_data</span>, MARGIN <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">boostrap_mean</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="statistical_hypotheses_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># what about the CI?</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">boostrap_mean</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>    2.5%    97.5% 
+4.221890 5.638946 </code></pre>
+</div>
+</div>
+</section><section id="hypothesis-testing-with-randomization-2" class="level2"><h2 class="anchored" data-anchor-id="hypothesis-testing-with-randomization-2">Hypothesis Testing with Randomization</h2>
+<p><strong>Proportion Example</strong></p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prop_treatment</span> <span class="op">&lt;-</span> <span class="fl">45</span><span class="op">/</span><span class="fl">69</span></span>
+<span><span class="va">prop_control</span> <span class="op">&lt;-</span> <span class="fl">30</span><span class="op">/</span><span class="fl">34</span></span>
+<span><span class="va">prop_difference</span> <span class="op">&lt;-</span> <span class="va">prop_control</span> <span class="op">-</span> <span class="va">prop_treatment</span></span>
+<span><span class="va">prop_difference</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.230179</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># create_data function</span></span>
+<span><span class="va">create_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">control_total</span>, <span class="va">control_death</span>,</span>
+<span>                        <span class="va">treatment_total</span>, <span class="va">treatment_death</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">total_deaths</span> <span class="op">&lt;-</span> <span class="va">control_death</span> <span class="op">+</span> <span class="va">treatment_death</span></span>
+<span>    <span class="va">total_subjects</span> <span class="op">&lt;-</span> <span class="va">control_total</span> <span class="op">+</span> <span class="va">treatment_total</span></span>
+<span>    <span class="va">non_survivors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">total_deaths</span><span class="op">)</span></span>
+<span>    <span class="va">survivors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">total_subjects</span> <span class="op">-</span> <span class="va">total_deaths</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">non_survivors</span>, <span class="va">survivors</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># shuffle function</span></span>
+<span><span class="va">simulation</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">control_total</span> <span class="op">=</span> <span class="fl">34</span>, <span class="va">control_death</span> <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>                       <span class="va">treatment_total</span> <span class="op">=</span> <span class="fl">69</span>, <span class="va">treatment_death</span> <span class="op">=</span> <span class="fl">45</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">index_data</span> <span class="op">&lt;-</span> <span class="fu">create_data</span><span class="op">(</span><span class="va">control_total</span>, <span class="va">control_death</span>,</span>
+<span>                              <span class="va">treatment_total</span>, <span class="va">treatment_death</span><span class="op">)</span></span>
+<span>    <span class="va">shuffled_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">index_data</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">index_data</span><span class="op">)</span>,</span>
+<span>                            replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="va">control</span> <span class="op">&lt;-</span> <span class="va">shuffled_data</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">control_total</span><span class="op">]</span></span>
+<span>    <span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">shuffled_data</span><span class="op">[</span><span class="op">(</span><span class="va">control_total</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">shuffled_data</span><span class="op">)</span><span class="op">]</span></span>
+<span>    </span>
+<span>    <span class="co"># proportion of deaths in control group</span></span>
+<span>    <span class="va">control_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">control</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># proportion of deaths in treatment group</span></span>
+<span>    <span class="va">treatment_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># compute difference</span></span>
+<span>    <span class="va">difference_p</span> <span class="op">&lt;-</span> <span class="va">control_p</span> <span class="op">-</span> <span class="va">treatment_p</span></span>
+<span>    </span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">difference_p</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># run simulation 1000 times</span></span>
+<span><span class="va">randomized_differences</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fu">simulation</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">difference_quantile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">randomized_differences</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">difference_quantile</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>    95% 
+0.14237 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">randomized_differences</span>, y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span>,</span>
+<span>                       color <span class="op">=</span> <span class="st">'Differences'</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">'rect'</span>, xmin <span class="op">=</span> <span class="va">difference_quantile</span>, xmax <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>             ymin <span class="op">=</span> <span class="fl">0</span>, ymax <span class="op">=</span> <span class="fl">8</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, fill <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'Rejection'</span>, xintercept <span class="op">=</span> <span class="va">difference_quantile</span><span class="op">)</span>,</span>
+<span>               linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>mapping <span class="op">=</span></span>
+<span>               <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'Sample Proportion'</span>,</span>
+<span>                   xintercept <span class="op">=</span> <span class="va">prop_difference</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">'Differences'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">'Density'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">'Proportion Differences Histogram'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Differences'</span>, <span class="st">'Rejection'</span>,  <span class="st">'Sample Proportion'</span><span class="op">)</span>,</span>
+<span>                       values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'black'</span>, <span class="st">'blue'</span>, <span class="st">'green'</span><span class="op">)</span>,</span>
+<span>                       name <span class="op">=</span> <span class="st">'Legend'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="statistical_hypotheses_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
-</section>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -919,8 +999,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -932,8 +1011,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

@@ -221,6 +221,107 @@ If the test statistic is at least as extreme as the critical value calculated fr
 
 ## Bootstrapping
 
-*Lecture 5*: `replace`, `sample`, and `quantile`.
+*Lecture 5*: `replace`, `sample`, `apply`, and `quantile`.
+
+```{r, message = FALSE}
+library(tidyverse)
+```
+
+```{r}
+# 1000 bootstrap samples
+set.seed(303)
+data <- runif(n=50, min = 0, max = 10)
+bootstrap_data <- replicate(n = 1000, expr = sample(data, size = length(data), replace = TRUE))
+boostrap_mean <- apply(X = bootstrap_data, MARGIN = 2, FUN = mean)
+
+ggplot() +
+  geom_density(aes(x=boostrap_mean))
+```
+
+```{r}
+# what about the CI?
+quantile(boostrap_mean, c(0.025, 0.975))
+```
 
 ## Hypothesis Testing with Randomization
+
+**Proportion Example**
+
+```{r}
+prop_treatment <- 45/69
+prop_control <- 30/34
+prop_difference <- prop_control - prop_treatment
+prop_difference
+```
+
+```{r}
+# create_data function
+create_data <- function(control_total, control_death,
+                        treatment_total, treatment_death) {
+    total_deaths <- control_death + treatment_death
+    total_subjects <- control_total + treatment_total
+    non_survivors <- rep(1, total_deaths)
+    survivors <- rep(0, total_subjects - total_deaths)
+
+    return(c(non_survivors, survivors))
+}
+```
+
+```{r}
+# shuffle function
+simulation <- function(control_total = 34, control_death = 30,
+                       treatment_total = 69, treatment_death = 45) {
+    index_data <- create_data(control_total, control_death,
+                              treatment_total, treatment_death)
+    shuffled_data <- sample(x = index_data, size = length(index_data),
+                            replace = FALSE)
+    control <- shuffled_data[1:control_total]
+    treatment <- shuffled_data[(control_total+1):length(shuffled_data)]
+    
+    # proportion of deaths in control group
+    control_p <- sum(control) / length(control)
+    
+    # proportion of deaths in treatment group
+    treatment_p <- sum(treatment) / length(treatment)
+    
+    # compute difference
+    difference_p <- control_p - treatment_p
+    
+    return(difference_p)
+}
+```
+
+```{r}
+# run simulation 1000 times
+randomized_differences <- replicate(1000, simulation())
+```
+
+```{r}
+difference_quantile <- quantile(x = randomized_differences, probs = c(0.95))
+difference_quantile
+```
+
+```{r}
+ggplot() +
+    geom_histogram(aes(x = randomized_differences, y = after_stat(density),
+                       color = 'Differences'), bins = 12) +
+    annotate('rect', xmin = difference_quantile, xmax = 0.3,
+             ymin = 0, ymax = 8, alpha = 0.1, fill = 'blue') +
+    geom_vline(mapping = aes(color = 'Rejection', xintercept = difference_quantile),
+               linewidth = 2) +
+    geom_vline(mapping =
+               aes(color = 'Sample Proportion',
+                   xintercept = prop_difference), linewidth = 2) +
+    xlab('Differences') +
+    ylab('Density') +
+    ggtitle('Proportion Differences Histogram') +
+    scale_color_manual(breaks = c('Differences', 'Rejection',  'Sample Proportion'),
+                       values = c('black', 'blue', 'green'),
+                       name = 'Legend')
+```
+
+
+
+
+
+

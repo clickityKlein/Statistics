@@ -11,21 +11,21 @@
     "href": "statistical_hypotheses.html#classic-jury-analogy",
     "title": "Statistical Hypotheses",
     "section": "Classic Jury Analogy",
-    "text": "Classic Jury Analogy\nConsider a jury in a criminal trial. When a defendant is accused of a crime, the jury presumes that they are not guilty.\n\n\\(H_0\\): Not Guilty\n\\(H_A\\): Guilty\n\nThe jury is then presented with evidence. If the evidence seems implausible under the assumption of non-guilt, we might reject the null hypothesis of non-guilt, and claim that the defendant is (likely) guilty.\n\nIn the case of statistical hypothesis testing, we use data to find evidence, leading us to arrive at two possible conclusions:\n\n\nReject the null hypothesis, \\(H_0\\), in favor of the alternative hypothesis, \\(H_A\\)\nFail to reject the null hypothesis, \\(H_0\\)"
+    "text": "Classic Jury Analogy\nConsider a jury in a criminal trial. When a defendant is accused of a crime, the jury presumes that they are not guilty.\n\n\n\\(H_0\\): Not Guilty\n\n\\(H_A\\): Guilty\n\nThe jury is then presented with evidence. If the evidence seems implausible under the assumption of non-guilt, we might reject the null hypothesis of non-guilt, and claim that the defendant is (likely) guilty.\n\nIn the case of statistical hypothesis testing, we use data to find evidence, leading us to arrive at two possible conclusions:\n\n\nReject the null hypothesis, \\(H_0\\), in favor of the alternative hypothesis, \\(H_A\\)\n\nFail to reject the null hypothesis, \\(H_0\\)"
   },
   {
     "objectID": "statistical_hypotheses.html#setting-up-the-hypothesis-test",
     "href": "statistical_hypotheses.html#setting-up-the-hypothesis-test",
     "title": "Statistical Hypotheses",
     "section": "Setting Up the Hypothesis Test",
-    "text": "Setting Up the Hypothesis Test\nThe null hypothesis will almost always be represented with equivalence. The alternative hypothesis will be then be represented with an inequality or shown to be not equivalent.\n\n\\(H_0\\): \\(\\theta = \\theta_0\\)\n\\(H_A\\): One of the Following:\n\n\\(\\theta &gt; \\theta_0\\)\n\\(\\theta &lt; \\theta_0\\)\n\\(\\theta \\neq \\theta_0\\)\n\n\nThe alternative hypothesis is the hypothesis for which we are seeking statistical evidence for."
+    "text": "Setting Up the Hypothesis Test\nThe null hypothesis will almost always be represented with equivalence. The alternative hypothesis will be then be represented with an inequality or shown to be not equivalent.\n\n\n\\(H_0\\): \\(\\theta = \\theta_0\\)\n\n\n\\(H_A\\): One of the Following:\n\n\\(\\theta &gt; \\theta_0\\)\n\\(\\theta &lt; \\theta_0\\)\n\\(\\theta \\neq \\theta_0\\)\n\n\n\nThe alternative hypothesis is the hypothesis for which we are seeking statistical evidence for."
   },
   {
     "objectID": "statistical_hypotheses.html#rejection-regions-for-alternative-hypotheses",
     "href": "statistical_hypotheses.html#rejection-regions-for-alternative-hypotheses",
     "title": "Statistical Hypotheses",
     "section": "Rejection Regions for Alternative Hypotheses",
-    "text": "Rejection Regions for Alternative Hypotheses\nThe following example uses the \\(z\\) statistic, but the concept holds for other statistics and critical values.\n\n\n\n\n\n\n\nAlternative Hypothesis\nRejection Region for Level \\(\\alpha\\) Test\n\n\n\n\n\\(H_A\\): \\(\\theta &gt; \\theta_0\\)\n\\(z \\geq z_{\\alpha}\\)\n\n\n\\(H_A\\): \\(\\theta &lt; \\theta_0\\)\n\\(z \\leq z_{\\alpha}\\)\n\n\n\\(H_A\\): \\(\\theta \\neq \\theta_0\\)\n\\(z \\geq z_{\\alpha}\\) OR \\(z \\leq z_{\\alpha}\\)"
+    "text": "Rejection Regions for Alternative Hypotheses\nThe following example uses the \\(z\\) statistic, but the concept holds for other statistics and critical values.\n\n\n\n\n\n\nAlternative Hypothesis\nRejection Region for Level \\(\\alpha\\) Test\n\n\n\n\n\\(H_A\\): \\(\\theta &gt; \\theta_0\\)\n\n\\(z \\geq z_{\\alpha}\\)\n\n\n\n\\(H_A\\): \\(\\theta &lt; \\theta_0\\)\n\n\\(z \\leq z_{\\alpha}\\)\n\n\n\n\\(H_A\\): \\(\\theta \\neq \\theta_0\\)\n\n\n\\(z \\geq z_{\\alpha}\\) OR \\(z \\leq z_{\\alpha}\\)"
   },
   {
     "objectID": "statistical_hypotheses.html#type-i-error",
@@ -74,28 +74,28 @@
     "href": "statistical_hypotheses.html#the-randomization-process",
     "title": "Statistical Hypotheses",
     "section": "The Randomization Process",
-    "text": "The Randomization Process\nImage we have boolean results from two separate groups. In other words, within each group, some have the results of yes and some have the results of no. Between the two groups, there are different proportions of yes values. We want to test if there is an explanatory variable causing the difference in proportions, or if it is due to inherent variability.\nIn the following process, let’s consider each result a card, and each card will have a label of yes or no.\nThe groups will likely not be the same size, let’s call the length of Group 1 \\(n_1\\) and the length of Group 2 \\(n_2\\).\n\nCreating the Distribution\n\nShuffle all the cards. Group displacement will occur (i.e. after shuffling there will only be a total count of yes and no, and sense of group will be removed).\nPut \\(n_1\\) cards into Group 1 and \\(n_2\\) cards into Group 2\nCompute the different in proportions between yes for each group\nRepeat this many times to get a distribution of the differences in proportions\n\n\n\nPerforming the Hypothesis Test\nThe hypothesis test will look something of the form (alternative depends on how the test is setup):\n\n\\(H_0\\): \\(p_1 = p_2\\) (i.e. the true proportions of the group are equivalent)\n\\(H_A\\): \\(p_1 &gt; p_2\\) (i.e. the true proportions of Group 1 is greater than Group 2, or different in some manner depending on how the test is constructed)\n\nWhen performing the hypothesis test, we want to compare the critical value on rejection region with the test statistic.\nIf the test statistic is at least as extreme as the critical value calculated from the distribution (i.e. test statistic lies within the rejection region), for a specified significance level, then we can reject the null hypothesis in favor of the alternative hypothesis. If not, we lack sufficient evidence to reject the null hypothesis."
+    "text": "The Randomization Process\nImage we have boolean results from two separate groups. In other words, within each group, some have the results of yes and some have the results of no. Between the two groups, there are different proportions of yes values. We want to test if there is an explanatory variable causing the difference in proportions, or if it is due to inherent variability.\nIn the following process, let’s consider each result a card, and each card will have a label of yes or no.\nThe groups will likely not be the same size, let’s call the length of Group 1 \\(n_1\\) and the length of Group 2 \\(n_2\\).\nCreating the Distribution\n\nShuffle all the cards. Group displacement will occur (i.e. after shuffling there will only be a total count of yes and no, and sense of group will be removed).\nPut \\(n_1\\) cards into Group 1 and \\(n_2\\) cards into Group 2\nCompute the different in proportions between yes for each group\nRepeat this many times to get a distribution of the differences in proportions\nPerforming the Hypothesis Test\nThe hypothesis test will look something of the form (alternative depends on how the test is setup):\n\n\n\\(H_0\\): \\(p_1 = p_2\\) (i.e. the true proportions of the group are equivalent)\n\n\\(H_A\\): \\(p_1 &gt; p_2\\) (i.e. the true proportions of Group 1 is greater than Group 2, or different in some manner depending on how the test is constructed)\n\nWhen performing the hypothesis test, we want to compare the critical value on rejection region with the test statistic.\nIf the test statistic is at least as extreme as the critical value calculated from the distribution (i.e. test statistic lies within the rejection region), for a specified significance level, then we can reject the null hypothesis in favor of the alternative hypothesis. If not, we lack sufficient evidence to reject the null hypothesis."
   },
   {
     "objectID": "statistical_hypotheses.html#inference-on-mean-and-proportions",
     "href": "statistical_hypotheses.html#inference-on-mean-and-proportions",
     "title": "Statistical Hypotheses",
     "section": "Inference on Mean and Proportions",
-    "text": "Inference on Mean and Proportions\n\n\n\nCategory\n\\(n \\geq 30\\)\n\\(n &lt; 30\\)\n\n\n\n\nNormal Data, Known \\(\\sigma\\)\nz-test\nz-test\n\n\nNormal Data, Unknown \\(\\sigma\\)\nz-test\nt-test\n\n\nNon-Normal Data, Known \\(\\sigma\\)\nz-test\nbootstrap\n\n\nNon-Normal Data, Unknown \\(\\sigma\\)\nz-test\nbootstrap"
+    "text": "Inference on Mean and Proportions\n\n\nCategory\n\\(n \\geq 30\\)\n\\(n &lt; 30\\)\n\n\n\nNormal Data, Known \\(\\sigma\\)\n\nz-test\nz-test\n\n\nNormal Data, Unknown \\(\\sigma\\)\n\nz-test\nt-test\n\n\nNon-Normal Data, Known \\(\\sigma\\)\n\nz-test\nbootstrap\n\n\nNon-Normal Data, Unknown \\(\\sigma\\)\n\nz-test\nbootstrap"
   },
   {
     "objectID": "statistical_hypotheses.html#inference-on-variance",
     "href": "statistical_hypotheses.html#inference-on-variance",
     "title": "Statistical Hypotheses",
     "section": "Inference on Variance",
-    "text": "Inference on Variance\n\n\n\nCategory\n\\(n \\geq 30\\)\n\\(n &lt; 30\\)\n\n\n\n\nNormal Data\nchi-squared\nchi-squared\n\n\nNon-Normal Data\nfurther research required\nbootstrap"
+    "text": "Inference on Variance\n\n\nCategory\n\\(n \\geq 30\\)\n\\(n &lt; 30\\)\n\n\n\nNormal Data\nchi-squared\nchi-squared\n\n\nNon-Normal Data\nfurther research required\nbootstrap"
   },
   {
     "objectID": "statistical_hypotheses.html#inference-on-anything-else-median-skew-discrimination-rate-etc.",
     "href": "statistical_hypotheses.html#inference-on-anything-else-median-skew-discrimination-rate-etc.",
     "title": "Statistical Hypotheses",
     "section": "Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)",
-    "text": "Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)\n\n\n\nCategory\n\\(n \\geq 30\\)\n\\(n &lt; 30\\)\n\n\n\n\nNormal Data\nbootstrap\nbootstrap\n\n\nNon-Normal Data\nbootstrap\nbootstrap"
+    "text": "Inference on Anything Else (Median, Skew, Discrimination Rate, etc.)\n\n\nCategory\n\\(n \\geq 30\\)\n\\(n &lt; 30\\)\n\n\n\nNormal Data\nbootstrap\nbootstrap\n\n\nNon-Normal Data\nbootstrap\nbootstrap"
   },
   {
     "objectID": "statistical_hypotheses.html#hypothesis-testing",
@@ -130,14 +130,14 @@
     "href": "statistical_hypotheses.html#bootstrapping-2",
     "title": "Statistical Hypotheses",
     "section": "Bootstrapping",
-    "text": "Bootstrapping\nLecture 5: replace, sample, and quantile."
+    "text": "Bootstrapping\nLecture 5: replace, sample, apply, and quantile.\n\nCodelibrary(tidyverse)\n\n\n\nCode# 1000 bootstrap samples\nset.seed(303)\ndata &lt;- runif(n=50, min = 0, max = 10)\nbootstrap_data &lt;- replicate(n = 1000, expr = sample(data, size = length(data), replace = TRUE))\nboostrap_mean &lt;- apply(X = bootstrap_data, MARGIN = 2, FUN = mean)\n\nggplot() +\n  geom_density(aes(x=boostrap_mean))\n\n\n\n\n\n\n\n\nCode# what about the CI?\nquantile(boostrap_mean, c(0.025, 0.975))\n\n    2.5%    97.5% \n4.221890 5.638946"
   },
   {
     "objectID": "statistical_hypotheses.html#hypothesis-testing-with-randomization-2",
     "href": "statistical_hypotheses.html#hypothesis-testing-with-randomization-2",
     "title": "Statistical Hypotheses",
     "section": "Hypothesis Testing with Randomization",
-    "text": "Hypothesis Testing with Randomization"
+    "text": "Hypothesis Testing with Randomization\nProportion Example\n\nCodeprop_treatment &lt;- 45/69\nprop_control &lt;- 30/34\nprop_difference &lt;- prop_control - prop_treatment\nprop_difference\n\n[1] 0.230179\n\n\n\nCode# create_data function\ncreate_data &lt;- function(control_total, control_death,\n                        treatment_total, treatment_death) {\n    total_deaths &lt;- control_death + treatment_death\n    total_subjects &lt;- control_total + treatment_total\n    non_survivors &lt;- rep(1, total_deaths)\n    survivors &lt;- rep(0, total_subjects - total_deaths)\n\n    return(c(non_survivors, survivors))\n}\n\n\n\nCode# shuffle function\nsimulation &lt;- function(control_total = 34, control_death = 30,\n                       treatment_total = 69, treatment_death = 45) {\n    index_data &lt;- create_data(control_total, control_death,\n                              treatment_total, treatment_death)\n    shuffled_data &lt;- sample(x = index_data, size = length(index_data),\n                            replace = FALSE)\n    control &lt;- shuffled_data[1:control_total]\n    treatment &lt;- shuffled_data[(control_total+1):length(shuffled_data)]\n    \n    # proportion of deaths in control group\n    control_p &lt;- sum(control) / length(control)\n    \n    # proportion of deaths in treatment group\n    treatment_p &lt;- sum(treatment) / length(treatment)\n    \n    # compute difference\n    difference_p &lt;- control_p - treatment_p\n    \n    return(difference_p)\n}\n\n\n\nCode# run simulation 1000 times\nrandomized_differences &lt;- replicate(1000, simulation())\n\n\n\nCodedifference_quantile &lt;- quantile(x = randomized_differences, probs = c(0.95))\ndifference_quantile\n\n    95% \n0.14237 \n\n\n\nCodeggplot() +\n    geom_histogram(aes(x = randomized_differences, y = after_stat(density),\n                       color = 'Differences'), bins = 12) +\n    annotate('rect', xmin = difference_quantile, xmax = 0.3,\n             ymin = 0, ymax = 8, alpha = 0.1, fill = 'blue') +\n    geom_vline(mapping = aes(color = 'Rejection', xintercept = difference_quantile),\n               linewidth = 2) +\n    geom_vline(mapping =\n               aes(color = 'Sample Proportion',\n                   xintercept = prop_difference), linewidth = 2) +\n    xlab('Differences') +\n    ylab('Density') +\n    ggtitle('Proportion Differences Histogram') +\n    scale_color_manual(breaks = c('Differences', 'Rejection',  'Sample Proportion'),\n                       values = c('black', 'blue', 'green'),\n                       name = 'Legend')"
   },
   {
     "objectID": "regression.html",
@@ -193,7 +193,7 @@
     "href": "regression.html#slope-distribution",
     "title": "Inference Models",
     "section": "Slope Distribution",
-    "text": "Slope Distribution\nDistribution\n\\(\\hat{\\beta} \\sim N(\\beta, \\frac{\\sigma^2}{\\sum_{i=1}^n (x_i - \\bar{x})^2}\\)\n\\(SE(\\hat{\\beta}) = \\frac{\\sigma^2}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}}\\)\nHypothesis Tests\n\\(H_0\\): \\(\\beta = 0\\)\n\\(H_A\\): \\(\\beta \\neq 0\\)\nConfidence Intervals\n\\(\\hat{\\beta} \\pm t_{\\alpha / 2, df = n-2} SE(\\hat{\\beta})\\)"
+    "text": "Slope Distribution\nDistribution\n\\(\\hat{\\beta} \\sim N(\\beta, \\frac{\\sigma^2}{\\sum_{i=1}^n (x_i - \\bar{x})^2})\\)\n\\(SE(\\hat{\\beta}) = \\frac{\\sigma^2}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}}\\)\nHypothesis Tests\n\\(H_0\\): \\(\\beta = 0\\)\n\\(H_A\\): \\(\\beta \\neq 0\\)\nConfidence Intervals\n\\(\\hat{\\beta} \\pm t_{\\alpha / 2, df = n-2} SE(\\hat{\\beta})\\)"
   },
   {
     "objectID": "regression.html#summary-of-slr",
@@ -259,6 +259,20 @@
     "text": "Feature Selection\nThe number of models to test can exponentially increase with the number of features.\nGiven \\(p\\) features, there are \\(\\sum\\limits_{i=0}^p = 2^p\\) possible models.\nWhat are some ways we can reduce the impossible amount of models to try?\nForward Selection\nA greedy algorithm for adding features.\n\nFit a null model with an intercept but no slopes\nFit p individual SLR models - one for each possible feature. Add to the null model the one that improves the performance the most, based on some measure (i.e. decreases SSE the most, increases F-statistic the most, etc.)\nFit (p - 1) MLR models - one for each of the remaining features along with the feature we isolated from step 2. Add the one that improves model performance the most.\nRepeat until some stopping criterion is reached (i.e. some threshold SSE, or some fixed number of features, etc.)\nBackward Selection\nA greedy algorithm for removing features.\n\nFit model with available features.\nRemove the feature with the largest p-value (i.e. the least significant feature).\nRepeat until some stopping criterion is reached (i.e. some threshold SSE, or some fixed number of features, etc.)."
   },
   {
+    "objectID": "regression.html#basic-interpretations",
+    "href": "regression.html#basic-interpretations",
+    "title": "Inference Models",
+    "section": "Basic Interpretations",
+    "text": "Basic Interpretations\nLet’s recreate our MLR from earlier:\n\nCodemlr &lt;- lm(volume ~ month + sales + listings, data = df)\n\n\nsummary\n\nCodesummary(mlr)\n\n\nCall:\nlm(formula = volume ~ month + sales + listings, data = df)\n\nResiduals:\n       Min         1Q     Median         3Q        Max \n-425617453   -8326819    1919907    8285352  451201576 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -7064965.5  1055382.2  -6.694 2.33e-11 ***\nmonth        -103150.3   141167.5  -0.731    0.465    \nsales         274509.7     1078.4 254.559  &lt; 2e-16 ***\nlistings      -12218.7      209.8 -58.251  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 41190000 on 7172 degrees of freedom\n  (1426 observations deleted due to missingness)\nMultiple R-squared:  0.9742,    Adjusted R-squared:  0.9742 \nF-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16\n\n\nanova\n\nCodeanova(mlr)\n\nAnalysis of Variance Table\n\nResponse: volume\n            Df     Sum Sq    Mean Sq    F value    Pr(&gt;F)    \nmonth        1 1.5469e+17 1.5469e+17     91.194 &lt; 2.2e-16 ***\nsales        1 4.5387e+20 4.5387e+20 267563.442 &lt; 2.2e-16 ***\nlistings     1 5.7558e+18 5.7558e+18   3393.153 &lt; 2.2e-16 ***\nResiduals 7172 1.2166e+19 1.6963e+15                         \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nThe anova table gives us:\n\n\nDf: degrees of freedom\n\nSum Sq: SSE (for Residuals)\n\nSum Sq: SST (total column)\n\nMean Sq: SSR (for features)\n\nresiduals\n\nCodeggplot() +\n  geom_density(aes(residuals(mlr)))\n\n\n\n\n\n\n\n\nCodeggplot() +\n  geom_point(aes(x = seq(1, length(residuals(mlr))), y=residuals(mlr)))\n\n\n\n\n\n\n\nDon’t run, but this will return the predicted response values: fitted(mlr)"
+  },
+  {
+    "objectID": "regression.html#f-tests",
+    "href": "regression.html#f-tests",
+    "title": "Inference Models",
+    "section": "F-tests",
+    "text": "F-tests\nLet’s check out the F-tests.\n\nCodesummary(mlr)\n\n\nCall:\nlm(formula = volume ~ month + sales + listings, data = df)\n\nResiduals:\n       Min         1Q     Median         3Q        Max \n-425617453   -8326819    1919907    8285352  451201576 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -7064965.5  1055382.2  -6.694 2.33e-11 ***\nmonth        -103150.3   141167.5  -0.731    0.465    \nsales         274509.7     1078.4 254.559  &lt; 2e-16 ***\nlistings      -12218.7      209.8 -58.251  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 41190000 on 7172 degrees of freedom\n  (1426 observations deleted due to missingness)\nMultiple R-squared:  0.9742,    Adjusted R-squared:  0.9742 \nF-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16\n\n\nHere we notice that the individual t-tests are statistically significant, however be wary of type I errors. However, we can notice that the t-test associated with month is not significant, suggesting there is no evidence that parameter isn’t zero. Let’s check out the F-stat, which does have a high value with a low p-value associated with it. This is indicative of strong evidence that at least one of the \\(B_{k}\\)s are not \\(0\\).\nLet’s test a model removing month with a partial f-test.\n\nCodemlr_reduced &lt;- lm(volume ~ sales + listings, data = df)\n\n\n\nCodeanova(mlr_reduced, mlr)\n\nAnalysis of Variance Table\n\nModel 1: volume ~ sales + listings\nModel 2: volume ~ month + sales + listings\n  Res.Df        RSS Df  Sum of Sq      F Pr(&gt;F)\n1   7173 1.2167e+19                            \n2   7172 1.2166e+19  1 9.0568e+14 0.5339  0.465\n\n\nThe p-value for the f-test is very large, indicate that we don’t have enough evidence to reject the null hypothesis, which means that the reduced model is likely sufficient."
+  },
+  {
     "objectID": "confidence_intervals.html",
     "href": "confidence_intervals.html",
     "title": "Confidence Intervals",
@@ -270,21 +284,35 @@
     "href": "confidence_intervals.html#ci-for-means",
     "title": "Confidence Intervals",
     "section": "CI for Means",
-    "text": "CI for Means\nThe following example is for a \\(100 * (1 - \\alpha) \\%\\) confidence interval for mean \\(\\mu\\) when the value of \\(\\sigma\\) is known:\n\\([\\bar{x} - z_{\\alpha/2} \\frac{\\sigma}{\\sqrt{n}}, \\bar{x} + z_{\\alpha/2} \\frac{\\sigma}{\\sqrt{n}}]\\)"
+    "text": "CI for Means\nThe following example is for a \\(100 * (1 - \\alpha) \\%\\) confidence interval for mean \\(\\mu\\) when the value of \\(\\sigma\\) is known:\nLarge Sample CI for a Mean (Z-test)\n\\([\\bar{x} - z_{\\alpha/2} \\frac{\\sigma}{\\sqrt{n}}, \\bar{x} + z_{\\alpha/2} \\frac{\\sigma}{\\sqrt{n}}]\\)\n\\(= \\bar{x} \\pm z_{\\alpha/2} \\frac{\\sigma}{\\sqrt{n}}\\)\nSmall Sample CI for a Mean (t-test)\n\\(= \\bar{x} \\pm t_{n-1, \\alpha/2} \\frac{\\sigma}{\\sqrt{n}}\\)"
   },
   {
     "objectID": "confidence_intervals.html#ci-for-difference-in-means",
     "href": "confidence_intervals.html#ci-for-difference-in-means",
     "title": "Confidence Intervals",
     "section": "CI for Difference in Means",
-    "text": "CI for Difference in Means\n\\(\\bar{x} - \\bar{y} \\pm z_{\\alpha/2} \\sqrt{\\frac{\\sigma_{x}^{2}}{n_x} + \\frac{\\sigma_{y}^{2}}{n_y}}\\)"
+    "text": "CI for Difference in Means\nLarge Sample CI for a Mean (Z-test)\n\\(\\bar{x} - \\bar{y} \\pm z_{\\alpha/2} \\sqrt{\\frac{\\sigma_{x}^{2}}{n_x} + \\frac{\\sigma_{y}^{2}}{n_y}}\\)\nSmall Sample CI for a Mean (t-test)\n\\(\\bar{x} - \\bar{y} \\pm t \\sqrt{\\frac{\\sigma_{x}^{2}}{n_x} + \\frac{\\sigma_{y}^{2}}{n_y}}\\)\nwhere\n\\(t = t_{n_x + n_y - 2, \\alpha/2}\\)"
   },
   {
-    "objectID": "confidence_intervals.html#ci-for-proportions-and-difference-in-proportions",
-    "href": "confidence_intervals.html#ci-for-proportions-and-difference-in-proportions",
+    "objectID": "confidence_intervals.html#ci-for-proportions",
+    "href": "confidence_intervals.html#ci-for-proportions",
     "title": "Confidence Intervals",
-    "section": "CI for Proportions and Difference in Proportions",
-    "text": "CI for Proportions and Difference in Proportions"
+    "section": "CI for Proportions",
+    "text": "CI for Proportions\n\\(p \\pm \\pm z_{\\alpha/2} \\sqrt{\\frac{p(1-p)}{n}}\\)"
+  },
+  {
+    "objectID": "confidence_intervals.html#ci-for-difference-in-proportions",
+    "href": "confidence_intervals.html#ci-for-difference-in-proportions",
+    "title": "Confidence Intervals",
+    "section": "CI for Difference in Proportions",
+    "text": "CI for Difference in Proportions\n\\((\\hat{p_1} - \\hat{p_2}) \\pm z_{\\alpha/2} \\sqrt{\\frac{\\hat{p_1}(1-\\hat{p_1})}{n_1} + \\frac{\\hat{p_2}(1-\\hat{p_2})}{n_2}}\\)"
+  },
+  {
+    "objectID": "confidence_intervals.html#ci-for-slope-distribution-betas-in-regression-models",
+    "href": "confidence_intervals.html#ci-for-slope-distribution-betas-in-regression-models",
+    "title": "Confidence Intervals",
+    "section": "CI for Slope Distribution (\\(\\beta\\)s in Regression Models)",
+    "text": "CI for Slope Distribution (\\(\\beta\\)s in Regression Models)\n\\(\\hat{\\beta} \\pm t_{\\alpha / 2, df = n-2} SE(\\hat{\\beta})\\)\nwhere\n\\(SE(\\hat{\\beta}) = \\frac{\\sigma^2}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}}\\)"
   },
   {
     "objectID": "about.html",

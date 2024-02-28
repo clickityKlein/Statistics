@@ -216,6 +216,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
   </ul>
 </li>
+  <li>
+<a href="#further-interpretations-and-r-examples" id="toc-further-interpretations-and-r-examples" class="nav-link" data-scroll-target="#further-interpretations-and-r-examples">Further Interpretations and R Examples</a>
+  <ul class="collapse">
+<li><a href="#basic-interpretations" id="toc-basic-interpretations" class="nav-link" data-scroll-target="#basic-interpretations">Basic Interpretations</a></li>
+  <li><a href="#f-tests" id="toc-f-tests" class="nav-link" data-scroll-target="#f-tests">F-tests</a></li>
+  </ul>
+</li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -239,6 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Simple Linear Regression (math, programming, and interpretation)</li>
 <li>Multiple Linear Regression (math, programming, and interpretation)</li>
 </ul>
+<hr>
 <section id="simple-linear-regression" class="level1"><h1>Simple Linear Regression</h1>
 <p>The goal of simple linear regression is to figure out an equation of a line through the data in an attempt to find the relationship between feature and response to predict future values. The equation is of the form:</p>
 <p><span class="math inline">\(y_i = \alpha + \beta x_i + \epsilon_i\)</span></p>
@@ -323,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="math inline">\(R^2 = 1 - \frac{SSE}{SST}\)</span></p>
 </section><section id="slope-distribution" class="level2"><h2 class="anchored" data-anchor-id="slope-distribution">Slope Distribution</h2>
 <p><strong>Distribution</strong></p>
-<p><span class="math inline">\(\hat{\beta} \sim N(\beta, \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}\)</span></p>
+<p><span class="math inline">\(\hat{\beta} \sim N(\beta, \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2})\)</span></p>
 <p><span class="math inline">\(SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\)</span></p>
 <p><strong>Hypothesis Tests</strong></p>
 <p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta = 0\)</span></p>
@@ -454,7 +462,7 @@ F-statistic: 2.054e+04 on 1 and 7174 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>From this summary, we can see that <code>listings</code> is a statistically significant factor (low p-value) and that the <span class="math inline">\(R^2\)</span> for the model is somewhat acceptable at <span class="math inline">\(0.7411\)</span>. Although the intercept being negative does raise some concern, this would mean that for a time period with <span class="math inline">\(0\)</span> <code>listings</code>, we would get a negative <code>volume</code>. The model also says that for each new <code>listing</code>, we can expect the <code>volume</code> to increase by <span class="math inline">\(36990\)</span>.</p>
-</section></section><section id="multiple-linear-regression" class="level1"><h1>Multiple Linear Regression</h1>
+<hr></section></section><section id="multiple-linear-regression" class="level1"><h1>Multiple Linear Regression</h1>
 <p>We can extend the <strong>simple linear regression model</strong> to accommodate more variables. <em>Note that we’ll now refer to <span class="math inline">\(\alpha\)</span> as <span class="math inline">\(\beta_0\)</span></em>.</p>
 <p>The main vector model can be represented as:</p>
 <p><span class="math inline">\(Y = \beta_0 + B_1 X_1 + \dots + B_p X_p + \epsilon\)</span></p>
@@ -678,9 +686,139 @@ F-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li>Remove the feature with the largest p-value (i.e.&nbsp;the least significant feature).</li>
 <li>Repeat until some stopping criterion is reached (i.e.&nbsp;some threshold SSE, or some fixed number of features, etc.).</li>
 </ol>
+<hr></section></section></section><section id="further-interpretations-and-r-examples" class="level1"><h1>Further Interpretations and R Examples</h1>
+<section id="basic-interpretations" class="level2"><h2 class="anchored" data-anchor-id="basic-interpretations">Basic Interpretations</h2>
+<p>Let’s recreate our MLR from earlier:</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mlr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">volume</span> <span class="op">~</span> <span class="va">month</span> <span class="op">+</span> <span class="va">sales</span> <span class="op">+</span> <span class="va">listings</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><code>summary</code></p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mlr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = volume ~ month + sales + listings, data = df)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-425617453   -8326819    1919907    8285352  451201576 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -7064965.5  1055382.2  -6.694 2.33e-11 ***
+month        -103150.3   141167.5  -0.731    0.465    
+sales         274509.7     1078.4 254.559  &lt; 2e-16 ***
+listings      -12218.7      209.8 -58.251  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 41190000 on 7172 degrees of freedom
+  (1426 observations deleted due to missingness)
+Multiple R-squared:  0.9742,    Adjusted R-squared:  0.9742 
+F-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><code>anova</code></p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">mlr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: volume
+            Df     Sum Sq    Mean Sq    F value    Pr(&gt;F)    
+month        1 1.5469e+17 1.5469e+17     91.194 &lt; 2.2e-16 ***
+sales        1 4.5387e+20 4.5387e+20 267563.442 &lt; 2.2e-16 ***
+listings     1 5.7558e+18 5.7558e+18   3393.153 &lt; 2.2e-16 ***
+Residuals 7172 1.2166e+19 1.6963e+15                         
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>The anova table gives us:</p>
+<ul>
+<li>
+<code>Df</code>: degrees of freedom</li>
+<li>
+<code>Sum Sq</code>: SSE (for Residuals)</li>
+<li>
+<code>Sum Sq</code>: SST (total column)</li>
+<li>
+<code>Mean Sq</code>: SSR (for features)</li>
+</ul>
+<p><code>residuals</code></p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">mlr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="regression_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">mlr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">mlr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Don’t run, but this will return the predicted response values:</strong> <code>fitted(mlr)</code></p>
+<hr></section><section id="f-tests" class="level2"><h2 class="anchored" data-anchor-id="f-tests">F-tests</h2>
+<p><strong>Let’s check out the F-tests.</strong></p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mlr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = volume ~ month + sales + listings, data = df)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-425617453   -8326819    1919907    8285352  451201576 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -7064965.5  1055382.2  -6.694 2.33e-11 ***
+month        -103150.3   141167.5  -0.731    0.465    
+sales         274509.7     1078.4 254.559  &lt; 2e-16 ***
+listings      -12218.7      209.8 -58.251  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 41190000 on 7172 degrees of freedom
+  (1426 observations deleted due to missingness)
+Multiple R-squared:  0.9742,    Adjusted R-squared:  0.9742 
+F-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Here we notice that the individual t-tests are <em>statistically significant</em>, however be wary of type I errors. However, we can notice that the t-test associated with month is not significant, suggesting there is no evidence that parameter isn’t zero. Let’s check out the F-stat, which does have a high value with a low p-value associated with it. This is indicative of strong evidence that at least one of the <span class="math inline">\(B_{k}\)</span>s are not <span class="math inline">\(0\)</span>.</p>
+<p>Let’s test a model removing month with a partial f-test.</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mlr_reduced</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">volume</span> <span class="op">~</span> <span class="va">sales</span> <span class="op">+</span> <span class="va">listings</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">mlr_reduced</span>, <span class="va">mlr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: volume ~ sales + listings
+Model 2: volume ~ month + sales + listings
+  Res.Df        RSS Df  Sum of Sq      F Pr(&gt;F)
+1   7173 1.2167e+19                            
+2   7172 1.2166e+19  1 9.0568e+14 0.5339  0.465</code></pre>
+</div>
+</div>
+<p>The p-value for the f-test is very large, indicate that we don’t have enough evidence to reject the null hypothesis, which means that the reduced model is likely sufficient.</p>
 
 
-</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

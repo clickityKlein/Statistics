@@ -7,6 +7,8 @@ This page features information about creating and interpreting regression models
 - Simple Linear Regression (math, programming, and interpretation)
 - Multiple Linear Regression (math, programming, and interpretation)
 
+---
+
 # Simple Linear Regression
 
 The goal of simple linear regression is to figure out an equation of a line through the data in an attempt to find the relationship between feature and response to predict future values. The equation is of the form:
@@ -117,7 +119,7 @@ $R^2 = 1 - \frac{SSE}{SST}$
 
 **Distribution**
 
-$\hat{\beta} \sim N(\beta, \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}$
+$\hat{\beta} \sim N(\beta, \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2})$
 
 $SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}$
 
@@ -197,6 +199,8 @@ slr <- lm(volume ~ listings, data = df)
 summary(slr)
 ```
 From this summary, we can see that `listings` is a statistically significant factor (low p-value) and that the $R^2$ for the model is somewhat acceptable at $0.7411$. Although the intercept being negative does raise some concern, this would mean that for a time period with $0$ `listings`, we would get a negative `volume`. The model also says that for each new `listing`, we can expect the `volume` to increase by $36990$.
+
+---
 
 # Multiple Linear Regression
 
@@ -420,26 +424,63 @@ A greedy algorithm for removing features.
 2. Remove the feature with the largest p-value (i.e. the least significant feature).
 3. Repeat until some stopping criterion is reached (i.e. some threshold SSE, or some fixed number of features, etc.).
 
+---
 
+# Further Interpretations and R Examples
 
+## Basic Interpretations
 
+Let's recreate our MLR from earlier:
 
+```{r}
+mlr <- lm(volume ~ month + sales + listings, data = df)
+```
 
+`summary`
+```{r}
+summary(mlr)
+```
 
+`anova`
+```{r}
+anova(mlr)
+```
+The anova table gives us:
 
+- `Df`: degrees of freedom
+- `Sum Sq`: SSE (for Residuals)
+- `Sum Sq`: SST (total column)
+- `Mean Sq`: SSR (for features)
 
+`residuals`
+```{r}
+ggplot() +
+  geom_density(aes(residuals(mlr)))
+```
+```{r}
+ggplot() +
+  geom_point(aes(x = seq(1, length(residuals(mlr))), y=residuals(mlr)))
+```
 
+**Don't run, but this will return the predicted response values:** `fitted(mlr)`
 
+---
 
+## F-tests
 
+**Let's check out the F-tests.**
+```{r}
+summary(mlr)
+```
 
+Here we notice that the individual t-tests are *statistically significant*, however be wary of type I errors. However, we can notice that the t-test associated with month is not significant, suggesting there is no evidence that parameter isn't zero. Let's check out the F-stat, which does have a high value with a low p-value associated with it. This is indicative of strong evidence that at least one of the $B_{k}$s are not $0$.
 
+Let's test a model removing month with a partial f-test.
 
-
-
-
-
-
-
-
-
+```{r}
+mlr_reduced <- lm(volume ~ sales + listings, data = df)
+```
+```{r}
+anova(mlr_reduced, mlr)
+```
+The p-value for the f-test is very large, indicate that we don't have enough evidence to reject the null hypothesis, which means that the reduced model is likely sufficient.

@@ -145,10 +145,11 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#ci-for-means" id="toc-ci-for-means" class="nav-link" data-scroll-target="#ci-for-means">CI for Means</a></li>
   <li><a href="#ci-for-difference-in-means" id="toc-ci-for-difference-in-means" class="nav-link" data-scroll-target="#ci-for-difference-in-means">CI for Difference in Means</a></li>
-  <li><a href="#ci-for-proportions-and-difference-in-proportions" id="toc-ci-for-proportions-and-difference-in-proportions" class="nav-link" data-scroll-target="#ci-for-proportions-and-difference-in-proportions">CI for Proportions and Difference in Proportions</a></li>
+  <li><a href="#ci-for-proportions" id="toc-ci-for-proportions" class="nav-link" data-scroll-target="#ci-for-proportions">CI for Proportions</a></li>
+  <li><a href="#ci-for-difference-in-proportions" id="toc-ci-for-difference-in-proportions" class="nav-link" data-scroll-target="#ci-for-difference-in-proportions">CI for Difference in Proportions</a></li>
+  <li><a href="#ci-for-slope-distribution-betas-in-regression-models" id="toc-ci-for-slope-distribution-betas-in-regression-models" class="nav-link" data-scroll-target="#ci-for-slope-distribution-betas-in-regression-models">CI for Slope Distribution (<span class="math inline">\(\beta\)</span>s in Regression Models)</a></li>
   </ul></li>
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   <li><a href="#r-programming" id="toc-r-programming" class="nav-link" data-scroll-target="#r-programming">R Programming</a></li>
   </ul>
 </nav>
@@ -179,17 +180,39 @@ ul.task-list li input[type="checkbox"] {
 <section id="definition" class="level1">
 <h1>Definition</h1>
 <p>There are different versions of how to compute a confidence interval (CI) based on sample size and the shape of the parent distribution.</p>
+<p>The general form of a CI: <span class="math inline">\(\text{statistic} \pm \text{critical value} * \text{standard error}\)</span>,</p>
+<p>where <em>critical value</em> and <em>standard error</em> will depend o nthe <em>statistic</em>.</p>
 <section id="ci-for-means" class="level2">
 <h2 class="anchored" data-anchor-id="ci-for-means">CI for Means</h2>
 <p>The following example is for a <span class="math inline">\(100 * (1 - \alpha) \%\)</span> confidence interval for mean <span class="math inline">\(\mu\)</span> when the value of <span class="math inline">\(\sigma\)</span> is known:</p>
+<p><strong>Large Sample CI for a Mean (Z-test)</strong></p>
 <p><span class="math inline">\([\bar{x} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \bar{x} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}]\)</span></p>
+<p><span class="math inline">\(= \bar{x} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\)</span></p>
+<p><strong>Small Sample CI for a Mean (t-test)</strong></p>
+<p><span class="math inline">\(= \bar{x} \pm t_{n-1, \alpha/2} \frac{\sigma}{\sqrt{n}}\)</span></p>
 </section>
 <section id="ci-for-difference-in-means" class="level2">
 <h2 class="anchored" data-anchor-id="ci-for-difference-in-means">CI for Difference in Means</h2>
+<p><strong>Large Sample CI for a Mean (Z-test)</strong></p>
 <p><span class="math inline">\(\bar{x} - \bar{y} \pm z_{\alpha/2} \sqrt{\frac{\sigma_{x}^{2}}{n_x} + \frac{\sigma_{y}^{2}}{n_y}}\)</span></p>
+<p><strong>Small Sample CI for a Mean (t-test)</strong></p>
+<p><span class="math inline">\(\bar{x} - \bar{y} \pm t \sqrt{\frac{\sigma_{x}^{2}}{n_x} + \frac{\sigma_{y}^{2}}{n_y}}\)</span></p>
+<p>where</p>
+<p><span class="math inline">\(t = t_{n_x + n_y - 2, \alpha/2}\)</span></p>
 </section>
-<section id="ci-for-proportions-and-difference-in-proportions" class="level2">
-<h2 class="anchored" data-anchor-id="ci-for-proportions-and-difference-in-proportions">CI for Proportions and Difference in Proportions</h2>
+<section id="ci-for-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="ci-for-proportions">CI for Proportions</h2>
+<p><span class="math inline">\(p \pm \pm z_{\alpha/2} \sqrt{\frac{p(1-p)}{n}}\)</span></p>
+</section>
+<section id="ci-for-difference-in-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="ci-for-difference-in-proportions">CI for Difference in Proportions</h2>
+<p><span class="math inline">\((\hat{p_1} - \hat{p_2}) \pm z_{\alpha/2} \sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1} + \frac{\hat{p_2}(1-\hat{p_2})}{n_2}}\)</span></p>
+</section>
+<section id="ci-for-slope-distribution-betas-in-regression-models" class="level2">
+<h2 class="anchored" data-anchor-id="ci-for-slope-distribution-betas-in-regression-models">CI for Slope Distribution (<span class="math inline">\(\beta\)</span>s in Regression Models)</h2>
+<p><span class="math inline">\(\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})\)</span></p>
+<p>where</p>
+<p><span class="math inline">\(SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\)</span></p>
 <hr>
 </section>
 </section>
@@ -201,15 +224,24 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p>Answer: In repeated sampling, 95% of all CIs obtained from sampling will actually contain the true population mean. The other 5% of CIs will not.</p>
 </blockquote>
-<hr>
-</section>
-<section id="examples" class="level1">
-<h1>Examples</h1>
-<p><strong>See bootstrapping confidence intervals in other section</strong></p>
-<hr>
 </section>
 <section id="r-programming" class="level1">
 <h1>R Programming</h1>
+<p>Most of the work in calculating CIs in R are in knowing which statistic and that statistic’s standard error formula to use.</p>
+<p>These statistics are our main concern in the calculations, as the other values are normally algebraically calculated.</p>
+<ul>
+<li>z-stat: <code>qnorm(p, mean, sd)</code>
+<ul>
+<li><code>p</code>: quantile</li>
+<li><code>mean</code>: mean</li>
+<li><code>sd</code>: standard deviation</li>
+</ul></li>
+<li>t-stat: <code>qt(x, df)</code>
+<ul>
+<li><code>x</code>: quantile</li>
+<li><code>df</code>: degrees of freedom</li>
+</ul></li>
+</ul>
 
 
 </section>

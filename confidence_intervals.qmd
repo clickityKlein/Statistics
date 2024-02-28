@@ -8,17 +8,53 @@ This page features confidence intervals' definition, interpretation, and program
 
 There are different versions of how to compute a confidence interval (CI) based on sample size and the shape of the parent distribution.
 
+The general form of a CI: $\text{statistic} \pm \text{critical value} * \text{standard error}$,
+
+where *critical value* and *standard error* will depend o nthe *statistic*.
+
 ## CI for Means
 
 The following example is for a $100 * (1 - \alpha) \%$ confidence interval for mean $\mu$ when the value of $\sigma$ is known:
 
+**Large Sample CI for a Mean (Z-test)**
+
 $[\bar{x} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \bar{x} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}]$
+
+$= \bar{x} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}$
+
+**Small Sample CI for a Mean (t-test)**
+
+$= \bar{x} \pm t_{n-1, \alpha/2} \frac{\sigma}{\sqrt{n}}$
 
 ## CI for Difference in Means
 
+**Large Sample CI for a Mean (Z-test)**
+
 $\bar{x} - \bar{y} \pm z_{\alpha/2} \sqrt{\frac{\sigma_{x}^{2}}{n_x} + \frac{\sigma_{y}^{2}}{n_y}}$
 
-## CI for Proportions and Difference in Proportions
+**Small Sample CI for a Mean (t-test)**
+
+$\bar{x} - \bar{y} \pm t \sqrt{\frac{\sigma_{x}^{2}}{n_x} + \frac{\sigma_{y}^{2}}{n_y}}$
+
+where
+
+$t = t_{n_x + n_y - 2, \alpha/2}$
+
+## CI for Proportions
+
+$p \pm \pm z_{\alpha/2} \sqrt{\frac{p(1-p)}{n}}$
+
+## CI for Difference in Proportions
+
+$(\hat{p_1} - \hat{p_2}) \pm z_{\alpha/2} \sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1} + \frac{\hat{p_2}(1-\hat{p_2})}{n_2}}$
+
+## CI for Slope Distribution ($\beta$s in Regression Models)
+
+$\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})$
+
+where
+
+$SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}$
 
 ---
 
@@ -27,15 +63,19 @@ $\bar{x} - \bar{y} \pm z_{\alpha/2} \sqrt{\frac{\sigma_{x}^{2}}{n_x} + \frac{\si
 > Question: What does it mean to say that we are 95% confident that the true population mean is in this
 interval?
 
-> Answer: In repeated sampling, 95% of all CIs obtained from sampling will
-actually contain the true population mean. The other 5% of CIs will not.
-
----
-
-# Examples
-
-**See bootstrapping confidence intervals in other section**
-
----
+> Answer: In repeated sampling, 95% of all CIs obtained from sampling will actually contain the true population mean. The other 5% of CIs will not.
 
 # R Programming
+
+Most of the work in calculating CIs in R are in knowing which statistic and that statistic's standard error formula to use.
+
+These statistics are our main concern in the calculations, as the other values are normally algebraically calculated.
+
+- z-stat: `qnorm(p, mean, sd)`
+  - `p`: quantile
+  - `mean`: mean
+  - `sd`: standard deviation
+  
+- t-stat: `qt(x, df)`
+  - `x`: quantile
+  - `df`: degrees of freedom
