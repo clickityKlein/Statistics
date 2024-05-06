@@ -1,0 +1,302 @@
+---
+title: "Model Selection"
+---
+
+F-tests and t-tests are decent for simple models. We know that $R^2$ holds significance for simple linear regression, and that $R_a^2$ holds significance for multiple linear regression. We can use these tests and metrics to compare different features in models across datasets. But, how do we use this for more complicated models? What about the case for a model with many predictors? If we were test different models manually for a dataset with 100 features, that's $2^{100}$ combinations!
+
+# Methods
+
+- Hypothesis Testings Based Methods
+  - backwards elimination:
+    - start with the full model, successively remove the predictor with the largest p-value greater than a selected threshold until either all p-values are below the selected threshold, or until a minimum number of features threshold is met
+  - forward selection:
+    - start with all possible simple (single feature) linear models, select the best model (i.e. lowest p-value), test all remaining features, select the best model for two features, and then successively repeat until either nothing else adds to the model, or until a maximum number of features threshold is met
+  - stepwise regression (bi-directional):
+    - essentially uses forwards and backwards elimination simultaneously, i.e. at each stage allow for any variable to be added or removed
+    
+- Criteria Based Methods:
+  - AIC (Akaike Information Criteria)
+  - BIC (Bayes Information Criteria)
+  - MSPE (mean-squared prediction error)
+  - $R^2_a$ (Adjusted R-Squared)
+
+
+> We actually normally use the criteria based methods (metrics) to help determine the "best" model, as we'll show later on in this page.
+
+## AIC
+
+$$AIC = 2(p+1) - 2\log(\frac{SSE}{n})$$
+
+$AIC$ estimates the relative amount of information that is lost by a given model in effort to minimize the information that's lost.
+
+The first term is an estimate of complexity with respect to the model, while the second term is an estimate of model fit. *Normally* thought of as a decent metric for prediction goals, though this is not a "hard and fast" rule.
+
+## BIC
+
+$$BIC = (p+1)log(n) - 2logL(\hat{\beta})$$
+
+$BIC$ is similar estimate to $AIC$ with slightly different parameters, where
+
+- $logL(\hat{\beta})$ is the log likelihood function
+
+BIC is *normally* thought of as a decent metric for explanation goals, though this is not a "hard and fast" rule. For a very large amount of features, the penalty term for BIC is larger than AIC.
+
+## Mean Squared Prediction Error
+
+$$MSPE = \frac{1}{n}\sum^n_{i=1} (y_i - \hat{y_i})^2$$
+
+$MSPE$ quantifies the discrepancy between the predicted values and the observed value, and can help to evalute the performance of a model.
+
+
+## Goals and Motivation
+
+Our goal is to ultimately select a model $g$ (parameterized by $\beta$) that is *close* to the *true* model $f$.
+
+**Kullback-Leiber** distance:
+
+$D_{KL}(f, g) = \int f(x) log(\frac{f(x)}{g(x; \beta)}) dx$
+
+$= \int f(x) log(f(x))dx - \int f(x) log(g(x; \beta))dx$
+
+The first term is constant with respect to $g$, and it can be shown the second term can be estimated to $-log(L(\hat{\beta})) + (p+1) + c$ (i.e. model complexity + model fit)
+
+$\rightarrow AIC(g(x; \hat{\beta}))$
+
+$\rightarrow BIC(g(x; \hat{\beta}))$
+
+## Procedure for Using the Methods
+
+> MSPE requires testing and training split datasets, while it is just a recommendation for AIC, BIC, and $R^2_a$
+
+1) *Split data into training/test sets*
+2) Fit several competing models (training set)
+  - Can use backwards, forwards, or bi-directional algorithms to help pick the models to test (more on this later)
+3) Calculate metric(s)
+4) Choose the optimal model
+  - Minimize $AIC$
+  - Minimize $BIC$
+  - Minimize $MSPE$
+  - Maximize $R^2_a$
+
+# Post-hoc Consideration: Multicollinearity
+
+Recall the issue with multicollinearity, which is when there is linear dependence between columns of data. This is a concern because lienar dependence causes non-invertibility in the matrices $X^TX$ and $XX^T$ for any given matrix $X$. This is disruptive in creating MLR models.
+
+We can test for multicollinearity through correlation matrices, or Variance Inflation Factors (VIF). In particular, VIF for the $j^{th}$ predictor is $VIF_j = \frac{1}{1 - R^2_j}$. This is $R^2$ value associated with regressing the $j^{th}$ predictor on the remaining predictors. Anything over a VIF of 5 is generally considered indicative of multicollinearity.
+
+# Implementing
+
+> Import Libraries and Data
+
+```{r, message = FALSE}
+library(tidyverse)
+library(caret)
+library(corrplot)
+library(reshape2)
+library(gridExtra)
+library(leaps)
+library('ggpubr')
+library(car)
+```
+
+```{r}
+df <- read_csv('data/baseball.csv')
+head(df)
+```
+
+## Stepwise Methods (UPDATE and REGSUBSETS)
+
+We can systematically implement functions for **forwards** and **backwards** selection using `update()`, but one method that can be directly implemented in R is through `regsubsets()`.
+
+### Update
+
+> Create SLR, Update To Add Variable, Update to Remove Variable
+
+```{r error = FALSE}
+# create model to predict WP from OBP
+mod <- lm(data=df, WP~OBP)
+summary(mod)
+
+# update model to add SLG
+mod <- update(mod, . ~ . + SLG)
+summary(mod)
+
+# update model to remove OBP
+mod <- update(mod, . ~ . - OBP)
+summary(mod)
+```
+
+### Regsubsets
+
+```{r}
+reg_lm <- regsubsets(data=df, WP ~ .)
+rs <- summary(reg_lm)
+rs$which
+```
+
+> Each row represents a progressive combination of features, representing the best model of different sizes, with each row adding a new feature. The best models are determined by lowest SSE, or sum squared error.
+
+## Custom Function
+
+> Custom Function for MSPE
+
+```{r}
+# function for returning mspe form a regsubset output
+mspe_loop <- function(train_set, test_set, regsubset_summary, response) {
+    # observed values from test set
+    obs <- test_set[[response]]
+    # initialize mspe tracking list
+    mspe_results <- c()
+    loop_size <- dim(regsubset_summary$which)[1]
+    for (model in 1:loop_size) {
+        # create model
+        true_cols <- names(which(regsubset_summary$which[model,]))
+        # remove intercept feature
+        true_cols <- true_cols[true_cols != '(Intercept)']
+        formula <- paste(unlist(true_cols), collapse = '+')
+        formula <- paste('~', formula, '')
+        formula <- paste(response, formula, '')
+        lmod <- lm(data = train_set, as.formula(formula))
+        # calculate MSPE
+        preds <- lmod %>% predict(test_set)
+        mspe <- mean((obs - preds)^2)
+        mspe_results <- c(mspe_results, mspe)
+    }
+    return(mspe_results)
+}
+```
+
+> Custom Function for Creating a Long Dataframe
+
+```{r}
+# function for making dataframe long with respect to response variable
+create_long_df <- function(df, response) {
+    df_long <- pivot_longer(df,
+                            cols = names(df %>% select(-all_of(response))),
+                            names_to = 'feature_names',
+                            values_to = 'feature_values')
+    return(df_long)
+}
+```
+
+> Custom Function for Plotting Facets from a Long Dataframe
+
+```{r}
+# create function for faceted plots
+plot_long_facets <- function(df_long, subset_type, response) {
+    title_text <- paste(subset_type, response)
+    ggplot(df_long, aes(x=feature_values, y=!!sym(response))) +
+        geom_point() +
+        facet_wrap(~ feature_names, scales = 'free_x') +
+        ggtitle(title_text) +
+        xlab('Feature')
+}
+```
+
+> Function for Full Model MLR Plotting
+
+```{r}
+# create function mlr the plotting
+plot_mlr <- function(full_set, train_set, test_set, response, subset_type) {
+    # faceted plots
+    # 1) build long dataframe with respect to variabe
+    # 2) create plots
+    df_long <- create_long_df(df=full_set, response=response)
+    faceted_plots <- plot_long_facets(df_long=df_long,
+                                      subset_type=subset_type,
+                                      response=response)
+    print(faceted_plots)
+    
+    # regsubsets builds models with forward selection
+    formula <- paste(response, '~.', '')
+    reg_lm <- regsubsets(data=train_set, as.formula(formula))
+    rs <- summary(reg_lm)
+    print(rs$which)
+    
+    # compute dimensions from dataset
+    n <- dim(train_set)[1]
+    m <- dim(train_set)[2]
+    x <- 1:(m-1)
+
+    # compute metrics
+    AIC <- 2*(2:m) + n*log(rs$rss/n)
+    BIC <- log(n)*(2:m) + n*log(rs$rss/n)
+    R2Adj <- rs$adjr2
+    mspe <- mspe_loop(train_set=train_set,
+                      test_set=test_set,
+                      regsubset_summary=rs,
+                      response=response)
+
+    # turn metrics into dataframes
+    AIC_df <- data.frame(AIC = AIC)
+    BIC_df <- data.frame(BIC = BIC)
+    R2Adj_df <- data.frame(R2Adj = R2Adj)
+    mspe_df <- data.frame(MSPE = mspe)
+    
+    # AIC Plot
+    AIC_plot <- ggplot(data = AIC_df, aes(x=x, y=AIC)) +
+        geom_line() +
+        geom_point(aes(x=which.min(AIC), y=min(AIC)), color='red', size=3) +
+        xlab('Model')
+
+    # BIC Plot
+    BIC_plot <- ggplot(data = BIC_df, aes(x=x, y=BIC)) +
+        geom_line() +
+        geom_point(aes(x=which.min(BIC), y=min(BIC)), color='red', size=3) +
+        xlab('Model')
+
+    # Adjusted R2 Plot
+    R2Adj_plot <- ggplot(data = R2Adj_df, aes(x=x, y=R2Adj)) +
+        geom_line() +
+        geom_point(aes(x=which.max(R2Adj), y=max(R2Adj)), color='red', size=3) +
+        xlab('Model')
+
+    # MSPE Plot
+    MSPE_plot <- ggplot(data = mspe_df, aes(x=x, y=MSPE)) +
+        geom_line() +
+        geom_point(aes(x=which.min(mspe), y=min(mspe)), color='red', size=3) +
+        xlab('Model')
+    
+    # combine plots
+    combined_plot <- ggarrange(AIC_plot, BIC_plot, R2Adj_plot, MSPE_plot,
+                           labels = c('AIC', 'BIC', 'R2Adj', 'MSPE'))
+    
+    print(combined_plot)
+}
+```
+
+> Create test/train set and Run Custom Model Plotting
+
+```{r}
+set.seed(42)
+n = floor(0.8 * nrow(df)) #find the number corresponding to 80% of the data
+index = sample(seq_len(nrow(df)), size = n) #randomly sample indicies to be included in the training set
+# playoffs
+train = df[index, ] #set the training set to be the randomly sampled rows of the dataframe
+test = df[-index, ] #set the testing set to be the remaining rows
+```
+
+```{r}
+plot_mlr(full_set=df,
+         train_set=train,
+         test_set=test,
+         response='WP',
+         subset_type='')
+```
+
+> We can build a final model using the fact that both AIC and MSPE suggest Model 3.
+
+```{r}
+final_lm <- lm(data=df, WP ~ RD + Playoffs + Champion)
+summary(final_lm)
+```
+
+## Variance Inflation Factors (VIF)
+
+> Finally, we can test the model for any multicollinearity.
+
+```{r}
+vif(final_lm)
+```
+
+**Note that all features have a VIF under 5, thus our model does lack evidence suggesting any multicollinearity.**

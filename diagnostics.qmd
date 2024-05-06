@@ -15,7 +15,11 @@ For most models, especially linear, we want to confirm the following main assump
 - Constant Variance (homoscedasticity)
   - in the **residual vs. fitted** plot, we want to observe randomness about the x-axis. Signs of non-constant variance (heteroscedasticity) or issue with the structure of the data include discernible patterns such as curves or a cone-like pattern. To clarify, a pattern may indicate the underlying model/data is wrong while the widening of residuals could indicate non-constant variance.
   - in the **scale-location** plot, if the average residual value is increasing (or decreasing) with the fitted values, this also indicates heteroscedasticity. There's usually a line representing the average residual for each fitted value. If this has a slope, this is a sign of non-constant variance. The most ideal value would be a completely flat line.
-- Normality: in the **qq-plot**, we want to observe a generally straight diagonal line (i.e. $y=x$).
+- Normality:
+  - in the **qq-plot**, we want to observe a generally straight diagonal line (i.e. $y=x$).
+  - normality of residuals improves accuracy and confidence in model fit
+  - the inference in $\beta_j$s relies upon the assumption of normality
+  - every term has some degree of error, recall that we assume $\epsilon_j \approx N(0, \sigma^2)$ (which actually yields that we assume errors are independent, have constant variance, and are normally distributed)
 
 Additionally, we want to address:
 
@@ -78,7 +82,7 @@ This will output:
     - i.e. with an acceptably low p-value, we would reject the null hypothesis indicating there is enough evidence to suggest the residuals are not normal. a "good" model would have a higher p-value, suggesting normal residuals.
   - `shapiro.test(residuals)`
 - Durbin-Watson Test:
-  - test for correlation of error between succsessive residuals
+  - test for correlation of errors between successive residuals
     - $H_0$: the errors are uncorrelated
     - $H_a$: the errors are correlated (specifically, the residuals exhibit autocorrelation)
     - i.e. with an acceptably low p-value, we would reject the null hypothesis indicated that there is enough evidence to suggest the residuals are correlated. a "good" model would have a higher p-value, suggesting uncorrelated residuals.

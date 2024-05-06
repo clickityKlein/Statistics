@@ -10,7 +10,7 @@ There are different versions of how to compute a confidence interval (CI) based 
 
 The general form of a CI: $\text{statistic} \pm \text{critical value} * \text{standard error}$,
 
-where *critical value* and *standard error* will depend o nthe *statistic*.
+where *critical value* and *standard error* will depend on the *statistic*.
 
 ## CI for Means
 
@@ -54,7 +54,7 @@ $\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})$
 
 where
 
-$SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}$
+$SE(\hat{\beta}) = \frac{\hat{\sigma}}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}$
 
 ---
 
