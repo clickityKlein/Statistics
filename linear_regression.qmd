@@ -1,5 +1,5 @@
 ---
-title: "Inference Models"
+title: "Linear Regression"
 ---
 
 This page features information about creating and interpreting regression models.
@@ -81,9 +81,9 @@ $= \sum\limits_{i=1}^{n} (y_i - (\alpha - \beta x_i))^2$
 
 ## Estimating the Variance
 
-Given that the parameter $\sigma^2$ determines the spread of the data about the true regression line, our estimate of the variance is $\hat{\sigma^2}$, which is equivalent to:
+Given that the parameter $\sigma^2$ determines the spread of the data about the true regression line, our estimate of the variance is $\hat{\sigma}^2$, which is equivalent to:
 
-$\hat{\sigma^2} = \frac{SSE}{n-2}$
+$\hat{\sigma}^2 = \frac{SSE}{n-2}$
 
 ## Coefficient of Determination
 
@@ -121,7 +121,7 @@ $R^2 = 1 - \frac{SSE}{SST}$
 
 $\hat{\beta} \sim N(\beta, \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2})$
 
-$SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}$
+$SE(\hat{\beta}) = \frac{\hat{\sigma}}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}$
 
 **Hypothesis Tests**
 
@@ -133,6 +133,9 @@ $H_A$: $\beta \neq 0$
 
 $\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})$
 
+> Note the statistic from the confidence interval, we use t-tests for the coefficients (i.e. individul coefficients for linear regression models). Specifically, used in finding if a feature has an effect on the response. In the case of a small enough p-value, we can reject the null hypothesis in favor of the alternative hypothesis which means there is statistical evidence that the associated feature (variable) has an effect on the response variable.
+
+
 ## SUMMARY OF SLR
 
 ### Main Formula
@@ -141,9 +144,9 @@ $Y = \alpha + \beta X + \epsilon$
 
 ### Variance & Slope Distribution ($\beta$s)
 
-$\hat{\sigma^2} = \frac{SSE}{n-2}$
+$\hat{\sigma}^2 = \frac{SSE}{n-2}$
 
-$SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}$
+$SE(\hat{\beta}) = \frac{\hat{\sigma}}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}$
 
 ### CI for t-tests on $\beta$
 
@@ -273,7 +276,7 @@ for some $c \in \mathbb{R}$.
 
 We would use a t-test with the test statistic:
 
-$t_{stat} = \frac{\hat{\beta_j} - \hat{\beta_j}}{\hat{SE(\hat{\beta_j})}}$
+$t_{stat} = \frac{\hat{\beta_j} - c}{SE(\hat{\beta_j})}$
 
 Recall our CI for $\beta$:
 
@@ -294,7 +297,7 @@ summary(mlr)
 In the above summary printout, note that:
 
 - Std. Error = $SE(\hat{\beta})$
-- t value: $t_stat$
+- t value: $t_{stat}$
 - Pr(>|t|): p-value
 
 Note that the `lm()` and `summary` functions asume a hypothesis test of:
@@ -319,6 +322,12 @@ $= 1 - (0.95)^{10}$
 $\approx 0.40$
 
 Which is high!
+
+## Multicollinearity / Collinearity / Non-Identifiability
+
+Multicollinearity, also known non-identifiability, can occur when there is linear dependence between columns of data. "Strict" non-identifiability occurs with true linear dependence and can be diagnosed with `NA` rows for MLR coefficients in a given `summary`, is **rare**. "Near" non-identifiability is less rare but can be tricky to diagnose. One method of diagnosing "near" collinearity is to recognize "*fishy*" coefficients, such as negatives when expecting positive.
+
+This is a concern because linear dependence causes non-invertibility in the matrices $X^TX$ and $XX^T$ for any given matrix $X$. This is disruptive in creating MLR models.
 
 ## F-test
 
@@ -350,6 +359,8 @@ In other words, we want to check whether ALL coefficients are 0:
 
 > The null hypothesis in the MLR case says that there is no useful linear relationship between $y$ and any of the $p$ predictors.
 
+The null hypothesis essentially states that there is no useful linear relationship between the response and any of the predictors. A small enough p-value suggests strong evidence against the null hypothesis, or in other words the model is better than the most reduced model possible. Useful in multiple linear regression (MLR) where the individual t-tests are suggesting evidence against the null hypothesis may result in type I errors.
+
 $F_{stat} = \frac{\frac{SST - SSE}{p}}{\frac{SSE}{n-p-1}}$
 
 where $p = df_{SST} - df_{SSE}$
@@ -378,8 +389,8 @@ Are the missing features important, or are we okay with the reduced model?
 
 Let's examine some measurements from the *full* and *reduced* models.
 
-- $SSE_{full} = $ variation unexplained by the full model
-- $SSE_{reduced} = $ variation unexplained by the reduced model
+- $SSE_{full}$: variation unexplained by the full model
+- $SSE_{reduced}$: variation unexplained by the reduced model
 
 Intuitively, if $SSE_{full}$ is much smaller than $SSE_{reduced}$, the full model fits the data much better than the reduced model. Therefore, the appropriate test statistic should depend on the difference between the unexplained variation.
 

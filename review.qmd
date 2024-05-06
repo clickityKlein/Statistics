@@ -694,7 +694,3 @@ Additionally useful in statistical modeling is the `quantile` function.
 > Explanatory Modeling is taking a data set and making inferences on the underlying distribution (i.e. hypothesis testing). When looking at explanatory modeling from a causality perspective, we're examining how a given variable behaves in the presecne of other variables. In other words, how does $X$ cause $Y$?
 
 > Predictive Modeling is any method that produces predictions given a data set. In association with causality, a predictive model is more useful for establishing the correlation between an event and an outcome. It's best used to find possible future data from past data.
-
----
-
-# Linear Algebra

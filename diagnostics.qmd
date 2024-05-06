@@ -1,0 +1,163 @@
+---
+title: "Diagnostics"
+---
+
+# Assumptions
+
+Aside from metrics like t-test p-values, f-test p-values, $R^2$, and $R^2_a$, how can we determine if the model is "good"?
+
+For most models, especially linear, we want to confirm the following main assumptions:
+
+- Linearity:
+  - using the **observed vs. predicted** plot, we want to observe a linear trend
+- Independence:
+  - using the **successive residuals** plot, we want to observe constant variance around the origin
+- Constant Variance (homoscedasticity)
+  - in the **residual vs. fitted** plot, we want to observe randomness about the x-axis. Signs of non-constant variance (heteroscedasticity) or issue with the structure of the data include discernible patterns such as curves or a cone-like pattern. To clarify, a pattern may indicate the underlying model/data is wrong while the widening of residuals could indicate non-constant variance.
+  - in the **scale-location** plot, if the average residual value is increasing (or decreasing) with the fitted values, this also indicates heteroscedasticity. There's usually a line representing the average residual for each fitted value. If this has a slope, this is a sign of non-constant variance. The most ideal value would be a completely flat line.
+- Normality: in the **qq-plot**, we want to observe a generally straight diagonal line (i.e. $y=x$).
+
+Additionally, we want to address:
+
+- Outliers (influential points):
+  - in the **residuals vs. leverage** plot, we don't want to see any points crossing the Cook's distance thresholds. There are different levels of thresholds, and each successive threshold indicates outliers in that area have even more influence than the previous threshold.
+
+# Implementing
+
+## Plotting
+
+The built-in function to display a few of these plots:
+
+`plot(model)`
+
+This will generally output:
+
+- **Residuals vs. Fitted** (constant variance check)
+- **QQ-Plot** (normality check)
+- **Scale-Location** (constant variance check)
+- **Residuals vs. Leverage** (outliers)
+
+We need to manually create a few plots to check the other assumptions:
+
+*For linear models*:
+
+```{r eval = FALSE}
+# predicted vs. observed
+plot(predict(model), df[response_variable], main='Predicted vs. Observed', xlab='Predicted', ylab='Observed')
+
+# successive residuals
+df_diagnostics = data.frame(yhat = fitted(model),
+                            r = resid(model),
+                            y = df[[response_var]])
+n = dim(df)[1]; 
+x = head(df_diagnostics$r, n-1)
+y = tail(df_diagnostics$r, n-1)
+srp = data.frame(x,y)
+ggplot(srp, aes(x = x, y = y)) + 
+    geom_point() + 
+    geom_vline(xintercept = 0) + 
+    geom_hline(yintercept = 0) + 
+    xlab(expression(hat(epsilon)[i])) +
+    ylab(expression(hat(epsilon)[i+1])) + 
+    ggtitle("Successive Residual Plot") + 
+    theme_bw() + 
+    theme(plot.title = element_text(hjust = 0.5))
+```
+
+This will output:
+
+- **Predicted vs. Observed** (linearity check)
+- **Successive Residuals Plot** (independence check)
+
+## Hypothesis Tests
+
+- Shapiro-Wilks Test:
+  - tests for normality
+    - $H_0$: residuals are normal
+    - $H_a$: residuals are not normal
+    - i.e. with an acceptably low p-value, we would reject the null hypothesis indicating there is enough evidence to suggest the residuals are not normal. a "good" model would have a higher p-value, suggesting normal residuals.
+  - `shapiro.test(residuals)`
+- Durbin-Watson Test:
+  - test for correlation of error between succsessive residuals
+    - $H_0$: the errors are uncorrelated
+    - $H_a$: the errors are correlated (specifically, the residuals exhibit autocorrelation)
+    - i.e. with an acceptably low p-value, we would reject the null hypothesis indicated that there is enough evidence to suggest the residuals are correlated. a "good" model would have a higher p-value, suggesting uncorrelated residuals.
+  - from package `car`, `durbinWatsonTest(model)`
+- Levenes' Test:
+  - tests for homogeneity of variance
+    - $H_0$: the variance among the groups is equal
+    - $H_a$: the variance among the groups is not equal
+
+
+## Full Diagnostic Plots Function
+
+> Note that this includes an option for linear and generalized linear models
+
+```{r eval = FALSE}
+# diagnostics
+diagnostics_plots <- function(df, model, response_var, type='linear') {
+    if (type=='linear') {
+        # default plots
+        plot(model)
+        # predicted vs observed
+        plot(predict(model), df[[response_var]],
+             main='Predicted vs Observed',
+             xlab='Predicted', ylab='Observed')
+        # successive residuals
+        df_diagnostics = data.frame(yhat = fitted(model),
+                                    r = resid(model),
+                                    y = df[[response_var]])
+        n = dim(df)[1]; 
+        x = head(df_diagnostics$r, n-1)
+        y = tail(df_diagnostics$r, n-1)
+        srp = data.frame(x,y)
+        ggplot(srp, aes(x = x, y = y)) + 
+            geom_point() + 
+            geom_vline(xintercept = 0) + 
+            geom_hline(yintercept = 0) + 
+            xlab(expression(hat(epsilon)[i])) +
+            ylab(expression(hat(epsilon)[i+1])) + 
+            ggtitle("Successive Residual Plot") + 
+            theme_bw() + 
+            theme(plot.title = element_text(hjust = 0.5))
+    } else  if (type=='response') {
+        # default plots
+        plot(model)
+        # predicted vs observed
+        plot(predict(model, type='response'), df[[response_var]],
+             main='Predicted vs Observed',
+             xlab='Predicted', ylab='Observed')
+        # contingency table
+        df_diagnostics <- df
+        predicted_value <- predict(model, df, type='response')
+        df_diagnostics$Predicted <- ifelse(predicted_value > 0.5, 1, 0)
+        contingency_table <- table(df_diagnostics[[response_var]],
+                                   df_diagnostics$Predicted,
+                                   dnn=c(response_var, 'Predicted'))
+        accuracy <- sum(diag(contingency_table)) / sum(contingency_table)
+        print(accuracy)
+        print(contingency_table)
+        # successive residuals
+        df_diagnostics = data.frame(yhat = fitted(model),
+                                    r = resid(model),
+                                    y = df[[response_var]])
+        n = dim(df)[1]; 
+        x = head(df_diagnostics$r, n-1)
+        y = tail(df_diagnostics$r, n-1)
+        srp = data.frame(x,y)
+        ggplot(srp, aes(x = x, y = y)) + 
+            geom_point() + 
+            geom_vline(xintercept = 0) + 
+            geom_hline(yintercept = 0) + 
+            xlab(expression(hat(epsilon)[i])) +
+            ylab(expression(hat(epsilon)[i+1])) + 
+            ggtitle("Successive Residual Plot") + 
+            theme_bw() + 
+            theme(plot.title = element_text(hjust = 0.5))
+    } else {
+        print('Please use either type: linear or type: response')
+    }
+}
+```
+
+

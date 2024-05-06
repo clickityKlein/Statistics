@@ -21,8 +21,12 @@ website:
         text: "Confidence Intervals"
       - href: statistical_hypotheses.qmd
         text: "Statistical Hypotheses"
-      - href: regression.qmd
-        text: "Regression Models"
+      - href: linear_regression.qmd
+        text: "Linear Regression"
+      - href: diagnostics.qmd
+        text: "Diagnostics"
+      - href: anova_categorical.qmd
+        text: "ANOVA for Categorical"   
     right:
       - icon: github
         menu:
