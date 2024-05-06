@@ -135,6 +135,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./anova_categorical.html"> 
 <span class="menu-text">ANOVA for Categorical</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./model_selection.html"> 
+<span class="menu-text">Model Selection</span></a>
+  </li>  
 </ul>
 <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item dropdown ">
@@ -213,7 +217,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>in the <strong>scale-location</strong> plot, if the average residual value is increasing (or decreasing) with the fitted values, this also indicates heteroscedasticity. There’s usually a line representing the average residual for each fitted value. If this has a slope, this is a sign of non-constant variance. The most ideal value would be a completely flat line.</li>
 </ul>
 </li>
-<li>Normality: in the <strong>qq-plot</strong>, we want to observe a generally straight diagonal line (i.e.&nbsp;<span class="math inline">\(y=x\)</span>).</li>
+<li>Normality:
+<ul>
+<li>in the <strong>qq-plot</strong>, we want to observe a generally straight diagonal line (i.e.&nbsp;<span class="math inline">\(y=x\)</span>).</li>
+<li>normality of residuals improves accuracy and confidence in model fit</li>
+<li>the inference in <span class="math inline">\(\beta_j\)</span>s relies upon the assumption of normality</li>
+<li>every term has some degree of error, recall that we assume <span class="math inline">\(\epsilon_j \approx N(0, \sigma^2)\)</span> (which actually yields that we assume errors are independent, have constant variance, and are normally distributed)</li>
+</ul>
+</li>
 </ul>
 <p>Additionally, we want to address:</p>
 <ul>
@@ -286,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li>Durbin-Watson Test:
 <ul>
-<li>test for correlation of error between succsessive residuals
+<li>test for correlation of errors between successive residuals
 <ul>
 <li>
 <span class="math inline">\(H_0\)</span>: the errors are uncorrelated</li>
