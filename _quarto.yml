@@ -8,7 +8,7 @@ website:
   page-footer:
     center: |
       <a href="https://clickityklein.github.io/Carl-Klein/">About Carl Klein</a>
-    background: primary
+    background: secondary
     
   navbar:
     left:
@@ -28,7 +28,9 @@ website:
       - href: anova_categorical.qmd
         text: "ANOVA for Categorical"
       - href: model_selection.qmd
-        text: "Model Selection"  
+        text: "Model Selection"
+      - href: bayes_nets.qmd
+        text: "Bayesian Networks"  
     right:
       - icon: github
         menu:
