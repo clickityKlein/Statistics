@@ -183,7 +183,7 @@ result <- oneway.test(value ~ group, data = longdata, var.equal = TRUE)
 
 ```{r}
 Fstat = result$statistic
-pval = result$p.value
+pvalue = result$p.value
 
 Fstat
 pvalue
@@ -269,7 +269,7 @@ leveneTest(value ~ group, data = longdata)
 
 ```{r}
 aov_residuals <- residuals(object = weightloss_study_aov)
-shaprio.test(x = aov_residuals)
+shapiro.test(x = aov_residuals)
 ```
 
 ## What if Assumptions are not Met?

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.525">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Advanced Statistics - Inference Models</title>
+<title>Advanced Statistics - Linear Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -124,8 +124,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Statistical Hypotheses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./regression.html" aria-current="page"> 
-<span class="menu-text">Regression Models</span></a>
+    <a class="nav-link active" href="./linear_regression.html" aria-current="page"> 
+<span class="menu-text">Linear Regression</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./diagnostics.html"> 
+<span class="menu-text">Diagnostics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./anova_categorical.html"> 
+<span class="menu-text">ANOVA for Categorical</span></a>
   </li>  
 </ul>
 <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -200,6 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#type-i-errors-in-multiple-t-tests" id="toc-type-i-errors-in-multiple-t-tests" class="nav-link" data-scroll-target="#type-i-errors-in-multiple-t-tests">Type I Errors in Multiple t-tests</a></li>
   </ul>
 </li>
+  <li><a href="#multicollinearity-collinearity-non-identifiability" id="toc-multicollinearity-collinearity-non-identifiability" class="nav-link" data-scroll-target="#multicollinearity-collinearity-non-identifiability">Multicollinearity / Collinearity / Non-Identifiability</a></li>
   <li>
 <a href="#f-test" id="toc-f-test" class="nav-link" data-scroll-target="#f-test">F-test</a>
   <ul class="collapse">
@@ -227,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Inference Models</h1>
+<h1 class="title">Linear Regression</h1>
 </div>
 
 
@@ -310,8 +319,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><span class="math inline">\(\alpha = \bar{y} - \beta \bar{x}\)</span></li>
 <li><span class="math inline">\(\beta = \frac{\bar{xy} - \bar{x} \bar{y}}{\bar{x^2} - (\bar{x})^2}\)</span></li>
 </ul></section><section id="estimating-the-variance" class="level2"><h2 class="anchored" data-anchor-id="estimating-the-variance">Estimating the Variance</h2>
-<p>Given that the parameter <span class="math inline">\(\sigma^2\)</span> determines the spread of the data about the true regression line, our estimate of the variance is <span class="math inline">\(\hat{\sigma^2}\)</span>, which is equivalent to:</p>
-<p><span class="math inline">\(\hat{\sigma^2} = \frac{SSE}{n-2}\)</span></p>
+<p>Given that the parameter <span class="math inline">\(\sigma^2\)</span> determines the spread of the data about the true regression line, our estimate of the variance is <span class="math inline">\(\hat{\sigma}^2\)</span>, which is equivalent to:</p>
+<p><span class="math inline">\(\hat{\sigma}^2 = \frac{SSE}{n-2}\)</span></p>
 </section><section id="coefficient-of-determination" class="level2"><h2 class="anchored" data-anchor-id="coefficient-of-determination">Coefficient of Determination</h2>
 <p>The coefficient of determination, <span class="math inline">\(R^2\)</span>, quantifies how well the model explains the data. <span class="math inline">\(R^2\)</span> ranges from <span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span>.</p>
 <p>The regression sum of squares is given by:</p>
@@ -332,18 +341,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="slope-distribution" class="level2"><h2 class="anchored" data-anchor-id="slope-distribution">Slope Distribution</h2>
 <p><strong>Distribution</strong></p>
 <p><span class="math inline">\(\hat{\beta} \sim N(\beta, \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2})\)</span></p>
-<p><span class="math inline">\(SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\)</span></p>
+<p><span class="math inline">\(SE(\hat{\beta}) = \frac{\hat{\sigma}}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\)</span></p>
 <p><strong>Hypothesis Tests</strong></p>
 <p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta = 0\)</span></p>
 <p><span class="math inline">\(H_A\)</span>: <span class="math inline">\(\beta \neq 0\)</span></p>
 <p><strong>Confidence Intervals</strong></p>
 <p><span class="math inline">\(\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})\)</span></p>
+<blockquote class="blockquote">
+<p>Note the statistic from the confidence interval, we use t-tests for the coefficients (i.e.&nbsp;individul coefficients for linear regression models). Specifically, used in finding if a feature has an effect on the response. In the case of a small enough p-value, we can reject the null hypothesis in favor of the alternative hypothesis which means there is statistical evidence that the associated feature (variable) has an effect on the response variable.</p>
+</blockquote>
 </section><section id="summary-of-slr" class="level2"><h2 class="anchored" data-anchor-id="summary-of-slr">SUMMARY OF SLR</h2>
 <section id="main-formula" class="level3"><h3 class="anchored" data-anchor-id="main-formula">Main Formula</h3>
 <p><span class="math inline">\(Y = \alpha + \beta X + \epsilon\)</span></p>
 </section><section id="variance-slope-distribution-betas" class="level3"><h3 class="anchored" data-anchor-id="variance-slope-distribution-betas">Variance &amp; Slope Distribution (<span class="math inline">\(\beta\)</span>s)</h3>
-<p><span class="math inline">\(\hat{\sigma^2} = \frac{SSE}{n-2}\)</span></p>
-<p><span class="math inline">\(SE(\hat{\beta}) = \frac{\sigma^2}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\)</span></p>
+<p><span class="math inline">\(\hat{\sigma}^2 = \frac{SSE}{n-2}\)</span></p>
+<p><span class="math inline">\(SE(\hat{\beta}) = \frac{\hat{\sigma}}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\)</span></p>
 </section><section id="ci-for-t-tests-on-beta" class="level3"><h3 class="anchored" data-anchor-id="ci-for-t-tests-on-beta">CI for t-tests on <span class="math inline">\(\beta\)</span>
 </h3>
 <p><span class="math inline">\(\hat{\beta} \pm t_{\alpha / 2, df = n-2} SE(\hat{\beta})\)</span></p>
@@ -520,7 +532,7 @@ F-statistic: 2.054e+04 on 1 and 7174 DF,  p-value: &lt; 2.2e-16</code></pre>
 </ul>
 <p>for some <span class="math inline">\(c \in \mathbb{R}\)</span>.</p>
 <p>We would use a t-test with the test statistic:</p>
-<p><span class="math inline">\(t_{stat} = \frac{\hat{\beta_j} - \hat{\beta_j}}{\hat{SE(\hat{\beta_j})}}\)</span></p>
+<p><span class="math inline">\(t_{stat} = \frac{\hat{\beta_j} - c}{SE(\hat{\beta_j})}\)</span></p>
 <p>Recall our CI for <span class="math inline">\(\beta\)</span>:</p>
 <p>CI: <span class="math inline">\(\hat{\beta} \pm t_{\alpha/2, df = n - 2} \frac{\hat{\sigma}}{\sqrt{\sum_{i=1}^n(x_i - \bar{x})^2}}\)</span></p>
 <p><span class="math inline">\(= \hat{\beta} \pm t_{\alpha/2, df = n - 2} \hat{SE(\hat{\beta_j})}\)</span></p>
@@ -561,7 +573,7 @@ F-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
 <li>Std. Error = <span class="math inline">\(SE(\hat{\beta})\)</span>
 </li>
-<li>t value: <span class="math inline">\(t_stat\)</span>
+<li>t value: <span class="math inline">\(t_{stat}\)</span>
 </li>
 <li>Pr(&gt;|t|): p-value</li>
 </ul>
@@ -585,7 +597,10 @@ F-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p><span class="math inline">\(= 1 - (0.95)^{10}\)</span></p>
 <p><span class="math inline">\(\approx 0.40\)</span></p>
 <p>Which is high!</p>
-</section></section><section id="f-test" class="level2"><h2 class="anchored" data-anchor-id="f-test">F-test</h2>
+</section></section><section id="multicollinearity-collinearity-non-identifiability" class="level2"><h2 class="anchored" data-anchor-id="multicollinearity-collinearity-non-identifiability">Multicollinearity / Collinearity / Non-Identifiability</h2>
+<p>Multicollinearity, also known non-identifiability, can occur when there is linear dependence between columns of data. “Strict” non-identifiability occurs with true linear dependence and can be diagnosed with <code>NA</code> rows for MLR coefficients in a given <code>summary</code>, is <strong>rare</strong>. “Near” non-identifiability is less rare but can be tricky to diagnose. One method of diagnosing “near” collinearity is to recognize “<em>fishy</em>” coefficients, such as negatives when expecting positive.</p>
+<p>This is a concern because linear dependence causes non-invertibility in the matrices <span class="math inline">\(X^TX\)</span> and <span class="math inline">\(XX^T\)</span> for any given matrix <span class="math inline">\(X\)</span>. This is disruptive in creating MLR models.</p>
+</section><section id="f-test" class="level2"><h2 class="anchored" data-anchor-id="f-test">F-test</h2>
 <p>How do control the <strong>overall</strong> type I error rate when we need to test whether to drop several predictors from a model. We can use a simultaneous test, the <strong>F-test</strong>.</p>
 <p>Consider two different models from a dataset with <span class="math inline">\(p\)</span> features:</p>
 <ul>
@@ -624,6 +639,7 @@ F-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16</code></pre>
 <blockquote class="blockquote">
 <p>The null hypothesis in the MLR case says that there is no useful linear relationship between <span class="math inline">\(y\)</span> and any of the <span class="math inline">\(p\)</span> predictors.</p>
 </blockquote>
+<p>The null hypothesis essentially states that there is no useful linear relationship between the response and any of the predictors. A small enough p-value suggests strong evidence against the null hypothesis, or in other words the model is better than the most reduced model possible. Useful in multiple linear regression (MLR) where the individual t-tests are suggesting evidence against the null hypothesis may result in type I errors.</p>
 <p><span class="math inline">\(F_{stat} = \frac{\frac{SST - SSE}{p}}{\frac{SSE}{n-p-1}}\)</span></p>
 <p>where <span class="math inline">\(p = df_{SST} - df_{SSE}\)</span></p>
 <p>The <span class="math inline">\(F_{stat}\)</span> is a measure of how much better our model is than just using the mean.</p>
@@ -654,8 +670,10 @@ F-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p><strong>Strategy: fit the full and reduced models, then determine if the difference in performance is real or just due to chance.</strong></p>
 <p>Let’s examine some measurements from the <em>full</em> and <em>reduced</em> models.</p>
 <ul>
-<li>$SSE_{full} = $ variation unexplained by the full model</li>
-<li>$SSE_{reduced} = $ variation unexplained by the reduced model</li>
+<li>
+<span class="math inline">\(SSE_{full}\)</span>: variation unexplained by the full model</li>
+<li>
+<span class="math inline">\(SSE_{reduced}\)</span>: variation unexplained by the reduced model</li>
 </ul>
 <p>Intuitively, if <span class="math inline">\(SSE_{full}\)</span> is much smaller than <span class="math inline">\(SSE_{reduced}\)</span>, the full model fits the data much better than the reduced model. Therefore, the appropriate test statistic should depend on the difference between the unexplained variation.</p>
 <p>Give a full model with <span class="math inline">\(p\)</span> features and a reduced model with <span class="math inline">\(k\)</span> features:</p>
@@ -753,7 +771,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">mlr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="regression_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="linear_regression_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -763,7 +781,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">mlr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">mlr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="linear_regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

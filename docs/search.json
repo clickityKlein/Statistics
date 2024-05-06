@@ -140,137 +140,256 @@
     "text": "Hypothesis Testing with Randomization\nProportion Example\n\nCodeprop_treatment &lt;- 45/69\nprop_control &lt;- 30/34\nprop_difference &lt;- prop_control - prop_treatment\nprop_difference\n\n[1] 0.230179\n\n\n\nCode# create_data function\ncreate_data &lt;- function(control_total, control_death,\n                        treatment_total, treatment_death) {\n    total_deaths &lt;- control_death + treatment_death\n    total_subjects &lt;- control_total + treatment_total\n    non_survivors &lt;- rep(1, total_deaths)\n    survivors &lt;- rep(0, total_subjects - total_deaths)\n\n    return(c(non_survivors, survivors))\n}\n\n\n\nCode# shuffle function\nsimulation &lt;- function(control_total = 34, control_death = 30,\n                       treatment_total = 69, treatment_death = 45) {\n    index_data &lt;- create_data(control_total, control_death,\n                              treatment_total, treatment_death)\n    shuffled_data &lt;- sample(x = index_data, size = length(index_data),\n                            replace = FALSE)\n    control &lt;- shuffled_data[1:control_total]\n    treatment &lt;- shuffled_data[(control_total+1):length(shuffled_data)]\n    \n    # proportion of deaths in control group\n    control_p &lt;- sum(control) / length(control)\n    \n    # proportion of deaths in treatment group\n    treatment_p &lt;- sum(treatment) / length(treatment)\n    \n    # compute difference\n    difference_p &lt;- control_p - treatment_p\n    \n    return(difference_p)\n}\n\n\n\nCode# run simulation 1000 times\nrandomized_differences &lt;- replicate(1000, simulation())\n\n\n\nCodedifference_quantile &lt;- quantile(x = randomized_differences, probs = c(0.95))\ndifference_quantile\n\n    95% \n0.14237 \n\n\n\nCodeggplot() +\n    geom_histogram(aes(x = randomized_differences, y = after_stat(density),\n                       color = 'Differences'), bins = 12) +\n    annotate('rect', xmin = difference_quantile, xmax = 0.3,\n             ymin = 0, ymax = 8, alpha = 0.1, fill = 'blue') +\n    geom_vline(mapping = aes(color = 'Rejection', xintercept = difference_quantile),\n               linewidth = 2) +\n    geom_vline(mapping =\n               aes(color = 'Sample Proportion',\n                   xintercept = prop_difference), linewidth = 2) +\n    xlab('Differences') +\n    ylab('Density') +\n    ggtitle('Proportion Differences Histogram') +\n    scale_color_manual(breaks = c('Differences', 'Rejection',  'Sample Proportion'),\n                       values = c('black', 'blue', 'green'),\n                       name = 'Legend')"
   },
   {
-    "objectID": "regression.html",
-    "href": "regression.html",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html",
+    "href": "linear_regression.html",
+    "title": "Linear Regression",
     "section": "",
     "text": "This page features information about creating and interpreting regression models."
   },
   {
-    "objectID": "regression.html#the-expected-value-of-the-response-variable",
-    "href": "regression.html#the-expected-value-of-the-response-variable",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#the-expected-value-of-the-response-variable",
+    "href": "linear_regression.html#the-expected-value-of-the-response-variable",
+    "title": "Linear Regression",
     "section": "The Expected Value of the Response Variable",
     "text": "The Expected Value of the Response Variable\nGiven \\(Y = \\alpha + \\beta X + \\epsilon\\), what is \\(E[Y]\\)?\n\\(E[Y] = E[\\alpha + \\beta X + \\epsilon]\\)\n\\(= E[\\alpha] + E[\\beta X] + E[\\epsilon]\\)\n\\(= \\alpha + \\beta E[X] + 0\\)\n\\(= \\alpha + \\beta X\\)"
   },
   {
-    "objectID": "regression.html#interpreting-parameters",
-    "href": "regression.html#interpreting-parameters",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#interpreting-parameters",
+    "href": "linear_regression.html#interpreting-parameters",
+    "title": "Linear Regression",
     "section": "Interpreting Parameters",
     "text": "Interpreting Parameters\n\\(\\beta\\): the slope of our true regression line represents the increase in our response from a unit increase in our feature."
   },
   {
-    "objectID": "regression.html#minimizing-the-residuals",
-    "href": "regression.html#minimizing-the-residuals",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#minimizing-the-residuals",
+    "href": "linear_regression.html#minimizing-the-residuals",
+    "title": "Linear Regression",
     "section": "Minimizing the Residuals",
     "text": "Minimizing the Residuals\nGiven our data, \\((x_1, y_1), \\dots, (x_n, y_n)\\) how do we minimize the residuals, \\(\\epsilon_i = y_i - (\\alpha + \\beta x_i)\\)? In other words, how do we minimize the sum of the squared errors?\n\ninsert image of vertical line from regression line to point, label it e_i\n\nGiven:\n\n\n\\(y_i\\): the actual value of the data point\n\n\\(\\hat{y_i}\\): the predicted value of the \\(i^{th}\\) data point\n\n\\(SSE = \\sum\\limits_{i=1}^{n} (y_i - \\hat{y_i})^2\\)\n\nthe point-estimates (single value estimated from the data) of the slope and intercept parameters are called the least-squares estimates, and are defined to be the values that minimize the SSE. The SSE can be thought of as a measure of how much variation in \\(Y\\) is left unexplained by the model."
   },
   {
-    "objectID": "regression.html#how-we-find-the-parameter-estimates",
-    "href": "regression.html#how-we-find-the-parameter-estimates",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#how-we-find-the-parameter-estimates",
+    "href": "linear_regression.html#how-we-find-the-parameter-estimates",
+    "title": "Linear Regression",
     "section": "How we Find the Parameter Estimates?",
     "text": "How we Find the Parameter Estimates?\n\\(SSE = \\sum\\limits_{i=1}^{n} (y_i - \\hat{y_i})^2\\)\n\\(= \\sum\\limits_{i=1}^{n} (y_i - (\\alpha - \\beta x_i))^2\\)\nAfter making this substitution, compute…\n\n\\(\\frac{\\partial SSE}{\\partial \\alpha} = 0\\)\n\\(\\frac{\\partial SSE}{\\partial \\beta} = 0\\)\n\nWhich yield the following solutions, respectively…\n\n\\(\\alpha = \\bar{y} - \\beta \\bar{x}\\)\n\\(\\beta = \\frac{\\bar{xy} - \\bar{x} \\bar{y}}{\\bar{x^2} - (\\bar{x})^2}\\)"
   },
   {
-    "objectID": "regression.html#estimating-the-variance",
-    "href": "regression.html#estimating-the-variance",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#estimating-the-variance",
+    "href": "linear_regression.html#estimating-the-variance",
+    "title": "Linear Regression",
     "section": "Estimating the Variance",
-    "text": "Estimating the Variance\nGiven that the parameter \\(\\sigma^2\\) determines the spread of the data about the true regression line, our estimate of the variance is \\(\\hat{\\sigma^2}\\), which is equivalent to:\n\\(\\hat{\\sigma^2} = \\frac{SSE}{n-2}\\)"
+    "text": "Estimating the Variance\nGiven that the parameter \\(\\sigma^2\\) determines the spread of the data about the true regression line, our estimate of the variance is \\(\\hat{\\sigma}^2\\), which is equivalent to:\n\\(\\hat{\\sigma}^2 = \\frac{SSE}{n-2}\\)"
   },
   {
-    "objectID": "regression.html#coefficient-of-determination",
-    "href": "regression.html#coefficient-of-determination",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#coefficient-of-determination",
+    "href": "linear_regression.html#coefficient-of-determination",
+    "title": "Linear Regression",
     "section": "Coefficient of Determination",
     "text": "Coefficient of Determination\nThe coefficient of determination, \\(R^2\\), quantifies how well the model explains the data. \\(R^2\\) ranges from \\(0\\) to \\(1\\).\nThe regression sum of squares is given by:\n\\(SSR = \\sum\\limits_{i=1}^n (\\hat{y_i} - \\bar{y})^2\\)\nand gives a sense of how much variation in \\(Y\\) is explained by our model.\nA quantitative measure of the total amount of variation in observed \\(Y\\) values is given by the total sum of squares:\n\\(SST = \\sum\\limits_{i=1}^n (y_i - \\bar{y})^2\\)\nSST is what we would get if we used the mean of the data as our model.\nNote that the sum of squared deviations about the least-squares line is smaller than the sum of squared deviations about nay other line.\n\\(SSE \\leq SST\\)\n\nInclude image of the three measures.\n\n\\(R^2\\)\nTherefore, the ratio of \\(\\frac{SSE}{SST}\\) is the proportion of the total variation in the data (SST) that cannot be explained by the SLR model (SSE). So we define the coefficient of determination \\(R^2\\) to be the proportion of variance that can be explained by the model.\n\\(R^2\\) has a magnitude between \\(0\\) and \\(1\\), with the closer to \\(1\\) be the better (i.e. the higher the number the more of the variation that can be explained by the model).\n\\(R^2 = 1 - \\frac{SSE}{SST}\\)"
   },
   {
-    "objectID": "regression.html#slope-distribution",
-    "href": "regression.html#slope-distribution",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#slope-distribution",
+    "href": "linear_regression.html#slope-distribution",
+    "title": "Linear Regression",
     "section": "Slope Distribution",
-    "text": "Slope Distribution\nDistribution\n\\(\\hat{\\beta} \\sim N(\\beta, \\frac{\\sigma^2}{\\sum_{i=1}^n (x_i - \\bar{x})^2})\\)\n\\(SE(\\hat{\\beta}) = \\frac{\\sigma^2}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}}\\)\nHypothesis Tests\n\\(H_0\\): \\(\\beta = 0\\)\n\\(H_A\\): \\(\\beta \\neq 0\\)\nConfidence Intervals\n\\(\\hat{\\beta} \\pm t_{\\alpha / 2, df = n-2} SE(\\hat{\\beta})\\)"
+    "text": "Slope Distribution\nDistribution\n\\(\\hat{\\beta} \\sim N(\\beta, \\frac{\\sigma^2}{\\sum_{i=1}^n (x_i - \\bar{x})^2})\\)\n\\(SE(\\hat{\\beta}) = \\frac{\\hat{\\sigma}}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}}\\)\nHypothesis Tests\n\\(H_0\\): \\(\\beta = 0\\)\n\\(H_A\\): \\(\\beta \\neq 0\\)\nConfidence Intervals\n\\(\\hat{\\beta} \\pm t_{\\alpha / 2, df = n-2} SE(\\hat{\\beta})\\)\n\nNote the statistic from the confidence interval, we use t-tests for the coefficients (i.e. individul coefficients for linear regression models). Specifically, used in finding if a feature has an effect on the response. In the case of a small enough p-value, we can reject the null hypothesis in favor of the alternative hypothesis which means there is statistical evidence that the associated feature (variable) has an effect on the response variable."
   },
   {
-    "objectID": "regression.html#summary-of-slr",
-    "href": "regression.html#summary-of-slr",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#summary-of-slr",
+    "href": "linear_regression.html#summary-of-slr",
+    "title": "Linear Regression",
     "section": "SUMMARY OF SLR",
-    "text": "SUMMARY OF SLR\nMain Formula\n\\(Y = \\alpha + \\beta X + \\epsilon\\)\nVariance & Slope Distribution (\\(\\beta\\)s)\n\\(\\hat{\\sigma^2} = \\frac{SSE}{n-2}\\)\n\\(SE(\\hat{\\beta}) = \\frac{\\sigma^2}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}}\\)\nCI for t-tests on \\(\\beta\\)\n\n\\(\\hat{\\beta} \\pm t_{\\alpha / 2, df = n-2} SE(\\hat{\\beta})\\)\nCoefficient of Determination\n\n\n\n\n\n\n\n\n\n\nSSE\nSSR\nSST\n\\(R^2\\)\n\n\n\nDescription\nMeasure of how much variation in \\(Y\\) is left unexplained by the model\nHow much variation in \\(Y\\) is explained by our model\nTotal amount of variation in observed \\(Y\\) values (what we would get if we used the mean of the data as our model)\nThe proportion of variance that can be explained by the model\n\n\nFormula\n\\(\\sum\\limits_{i=1}^{n} (y_i - \\hat{y_i})^2\\)\n\\(\\sum\\limits_{i=1}^n (\\hat{y_i} - \\bar{y})^2\\)\n\\(\\sum\\limits_{i=1}^n (y_i - \\bar{y})^2\\)\n\\(1 - \\frac{SSE}{SST}\\)\n\n\n\nThe closer to 1 \\(R^2\\) is, the better the model fits the data."
+    "text": "SUMMARY OF SLR\nMain Formula\n\\(Y = \\alpha + \\beta X + \\epsilon\\)\nVariance & Slope Distribution (\\(\\beta\\)s)\n\\(\\hat{\\sigma}^2 = \\frac{SSE}{n-2}\\)\n\\(SE(\\hat{\\beta}) = \\frac{\\hat{\\sigma}}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}}\\)\nCI for t-tests on \\(\\beta\\)\n\n\\(\\hat{\\beta} \\pm t_{\\alpha / 2, df = n-2} SE(\\hat{\\beta})\\)\nCoefficient of Determination\n\n\n\n\n\n\n\n\n\n\nSSE\nSSR\nSST\n\\(R^2\\)\n\n\n\nDescription\nMeasure of how much variation in \\(Y\\) is left unexplained by the model\nHow much variation in \\(Y\\) is explained by our model\nTotal amount of variation in observed \\(Y\\) values (what we would get if we used the mean of the data as our model)\nThe proportion of variance that can be explained by the model\n\n\nFormula\n\\(\\sum\\limits_{i=1}^{n} (y_i - \\hat{y_i})^2\\)\n\\(\\sum\\limits_{i=1}^n (\\hat{y_i} - \\bar{y})^2\\)\n\\(\\sum\\limits_{i=1}^n (y_i - \\bar{y})^2\\)\n\\(1 - \\frac{SSE}{SST}\\)\n\n\n\nThe closer to 1 \\(R^2\\) is, the better the model fits the data."
   },
   {
-    "objectID": "regression.html#workflow-for-simple-linear-regression",
-    "href": "regression.html#workflow-for-simple-linear-regression",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#workflow-for-simple-linear-regression",
+    "href": "linear_regression.html#workflow-for-simple-linear-regression",
+    "title": "Linear Regression",
     "section": "Workflow for Simple Linear Regression",
     "text": "Workflow for Simple Linear Regression\n\nPlot the data as a scatter plot\n\n\nDoes linearity seem appropriate?\nCompute and overlay best-fit line\n\n\nConsider assumptions in SLR\n\n\nPlot a histogram of the residuals (are they normal?): WANT NORMAL\n\nPlot the residuals against x (are they changing?): WANT RANDOM\n\n\n\nInclude Plots"
   },
   {
-    "objectID": "regression.html#simple-linear-regression-in-r",
-    "href": "regression.html#simple-linear-regression-in-r",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#simple-linear-regression-in-r",
+    "href": "linear_regression.html#simple-linear-regression-in-r",
+    "title": "Linear Regression",
     "section": "Simple Linear Regression in R",
     "text": "Simple Linear Regression in R\nThe following functions are paramount in implementing and interpreting simple linear regression in R:\n\nlm()\nsummary()\n\n\nLoad Library\n\n\nCode# import libraries\nlibrary(tidyverse)\n\n\n\nLoad Data (use txhousing from built in data)\n\n\nCodedf &lt;- txhousing\nhead(df)\n\n# A tibble: 6 × 9\n  city     year month sales   volume median listings inventory  date\n  &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;\n1 Abilene  2000     1    72  5380000  71400      701       6.3 2000 \n2 Abilene  2000     2    98  6505000  58700      746       6.6 2000.\n3 Abilene  2000     3   130  9285000  58100      784       6.8 2000.\n4 Abilene  2000     4    98  9730000  68600      785       6.9 2000.\n5 Abilene  2000     5   141 10590000  67300      794       6.8 2000.\n6 Abilene  2000     6   156 13910000  66900      780       6.6 2000.\n\n\n\nCreate a simple linear regression model to see if we can explain and predict volume from listings\n\n\nCodeslr &lt;- lm(volume ~ listings, data = df)\nsummary(slr)\n\n\nCall:\nlm(formula = volume ~ listings, data = df)\n\nResiduals:\n       Min         1Q     Median         3Q        Max \n-704067392  -27385680  -12084812    -951885 1686521981 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -1501601.1  1750052.1  -0.858    0.391    \nlistings       36990.0      258.1 143.319   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 130500000 on 7174 degrees of freedom\n  (1426 observations deleted due to missingness)\nMultiple R-squared:  0.7411,    Adjusted R-squared:  0.7411 \nF-statistic: 2.054e+04 on 1 and 7174 DF,  p-value: &lt; 2.2e-16\n\n\nFrom this summary, we can see that listings is a statistically significant factor (low p-value) and that the \\(R^2\\) for the model is somewhat acceptable at \\(0.7411\\). Although the intercept being negative does raise some concern, this would mean that for a time period with \\(0\\) listings, we would get a negative volume. The model also says that for each new listing, we can expect the volume to increase by \\(36990\\)."
   },
   {
-    "objectID": "regression.html#matrix-algebra-applications-solutions",
-    "href": "regression.html#matrix-algebra-applications-solutions",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#matrix-algebra-applications-solutions",
+    "href": "linear_regression.html#matrix-algebra-applications-solutions",
+    "title": "Linear Regression",
     "section": "Matrix Algebra Applications & Solutions",
     "text": "Matrix Algebra Applications & Solutions\nIf we have a perfectly square \\(X\\) matrix, then we can solve for \\(\\beta\\) via:\n\\(Y = X \\beta \\rightarrow X^{-1} Y = \\beta\\).\nHowever, we can almost guarantee that \\(X\\) will not be square. Look at this following linear algebra application:\n\nGiven a matrix \\(A\\) of any dimensions, both \\(A^TA\\) and \\(AA^T\\) will result in square matrices.\n\nTherefore, given \\(Y = X \\beta\\), we can solve via the following:\n\\((X^TX)^{-1}X^TY = \\beta\\)"
   },
   {
-    "objectID": "regression.html#interpreting-mlr",
-    "href": "regression.html#interpreting-mlr",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#interpreting-mlr",
+    "href": "linear_regression.html#interpreting-mlr",
+    "title": "Linear Regression",
     "section": "Interpreting MLR",
     "text": "Interpreting MLR\nGiven \\(y_i = \\beta_0 + B_1 x_{i, 1} + \\dots + B_p x_{i, p} + \\epsilon_i\\), parameter \\(\\beta_k\\) is the expected change in the response associated with a unit change in the value of feature \\(x_k\\) while all of the other features are held fixed."
   },
   {
-    "objectID": "regression.html#quantifying-goodness-of-fit",
-    "href": "regression.html#quantifying-goodness-of-fit",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#quantifying-goodness-of-fit",
+    "href": "linear_regression.html#quantifying-goodness-of-fit",
+    "title": "Linear Regression",
     "section": "Quantifying Goodness of Fit",
     "text": "Quantifying Goodness of Fit\n\n\\(R^2\\) vs. \\(R_a^2\\)\n\nLike in SLR, we can also calculate measures like SSE, SST, and \\(R^2\\) for MLR.\n\n\\(SSE = \\sum\\limits_{i=1}^n (y_i - \\hat{y_i})^2 = \\sum\\limits_{i=1}^n (y_i - (\\beta_0 + B_1 x_{i, 1} + \\dots + B_p x_{i, p}))^2\\)\n\\(SST = \\sum\\limits_{i=1}^n (y_i - \\bar{y})^2\\)\n\\(R^2 = 1 - \\frac{SSE}{SST}\\)\n\nAlthough we can calculate \\(R^2\\) for an MLR model, we run into the issue of multiple comparisons. The Adjusted \\(R^2\\), \\(R_a^2\\), is a better indicator of goodness of fit for MLR models. The adjusted version penalizes for having too many features that are not reducing SSE.\n\\(R_a^2 = 1 - \\frac{SSE/(n-p-1)}{SST/(n-1)}\\)\nCovariance & Correlation\nWe can discover relationships among features by performing a correlation analysis. If the value of one feature changes, how will this affect the other features.\nTraditionally, these measurements are calculated via:\n\nCovariance: \\(Cov(X, Y) = E[(X - E[X])(Y -E[Y])]\\)\n\nCorrelation (Pearson’s): \\(\\rho(X, Y) = \\frac{Cov(X, Y)}{\\sqrt{Var(X) Var(Y)}}\\)\n\n\nHowever, in an MLR, we estimate these relationships using formulas analogous to the sample variance.\n\nSample Covariance: \\(S^2_{XY} = \\frac{1}{n-1} \\sum\\limits_{i=1}^n (x_i - \\bar{x})(y_i - \\bar{y})\\)\n\nSample Correlation \\(\\hat{\\rho}(X &lt; Y) = \\frac{S^2_{XY}}{\\sqrt{S^2_{X}S^2_{Y}}}\\)\n\n\nwhere \\(S^2_{X}\\) and \\(S^2_{Y}\\) are the variances for \\(X\\) and \\(Y\\), respectively."
   },
   {
-    "objectID": "regression.html#individual-t-tests",
-    "href": "regression.html#individual-t-tests",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#individual-t-tests",
+    "href": "linear_regression.html#individual-t-tests",
+    "title": "Linear Regression",
     "section": "Individual t-tests",
-    "text": "Individual t-tests\nSuppose we want to test:\n\n\n\\(H_0\\): \\(\\beta_j = c\\)\n\n\n\\(H_A\\): \\(\\beta_j \\neq c\\)\n\n\nfor some \\(c \\in \\mathbb{R}\\).\nWe would use a t-test with the test statistic:\n\\(t_{stat} = \\frac{\\hat{\\beta_j} - \\hat{\\beta_j}}{\\hat{SE(\\hat{\\beta_j})}}\\)\nRecall our CI for \\(\\beta\\):\nCI: \\(\\hat{\\beta} \\pm t_{\\alpha/2, df = n - 2} \\frac{\\hat{\\sigma}}{\\sqrt{\\sum_{i=1}^n(x_i - \\bar{x})^2}}\\)\n\\(= \\hat{\\beta} \\pm t_{\\alpha/2, df = n - 2} \\hat{SE(\\hat{\\beta_j})}\\)\nCompare the test statistic with the t-test critical value (\\(t_{\\alpha/2, df = n - 2}\\)) and proceed from there.\nMLR in R: Individual t-test Output from summary\n\n\nFrom same dataset used in SLR, create MLR. Note: we can specify all variables like y ~ x1 + x2 + ... + xn, or we can call all of the variables besides the response variable by using ..\n\n\nCodemlr &lt;- lm(volume ~ month + sales + listings, data = df)\nsummary(mlr)\n\n\nCall:\nlm(formula = volume ~ month + sales + listings, data = df)\n\nResiduals:\n       Min         1Q     Median         3Q        Max \n-425617453   -8326819    1919907    8285352  451201576 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -7064965.5  1055382.2  -6.694 2.33e-11 ***\nmonth        -103150.3   141167.5  -0.731    0.465    \nsales         274509.7     1078.4 254.559  &lt; 2e-16 ***\nlistings      -12218.7      209.8 -58.251  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 41190000 on 7172 degrees of freedom\n  (1426 observations deleted due to missingness)\nMultiple R-squared:  0.9742,    Adjusted R-squared:  0.9742 \nF-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16\n\n\nIn the above summary printout, note that:\n\nStd. Error = \\(SE(\\hat{\\beta})\\)\n\nt value: \\(t_stat\\)\n\nPr(&gt;|t|): p-value\n\nNote that the lm() and summary functions asume a hypothesis test of:\n\n\n\\(H_0\\): \\(\\beta_j = 0\\)\n\n\n\\(H_A\\): \\(\\beta_j \\neq 0\\)\n\n\nSo, depending on the significance level we had set beforehand, we either reject the null hypothesis in favor of the alternative hypothesis or fail to reject the null hypothesis. In the case of a small enough p-value, we can reject the null hypothesis in favor of the alternative hypothesis which means there is statistical evidence that the associated feature (variable) has an effect on the response variable.\nType I Errors in Multiple t-tests\n\nHowever, it is not a good idea to conduct several t-tests at a time!\n\nExample: Suppose that we conduct 10 hypothesis tests at significance level \\(\\alpha = 0.05\\). So, the probability of type 1 error is 0.05 for any individual test.\nWhat is the probability of a type I error ocurring in at least one of these 10 tests?\n\\(P(\\text{at least 1 type I error}) = 1 - P(\\text{no type I error})\\)\n\\(= 1 - (0.95)^{10}\\)\n\\(\\approx 0.40\\)\nWhich is high!"
+    "text": "Individual t-tests\nSuppose we want to test:\n\n\n\\(H_0\\): \\(\\beta_j = c\\)\n\n\n\\(H_A\\): \\(\\beta_j \\neq c\\)\n\n\nfor some \\(c \\in \\mathbb{R}\\).\nWe would use a t-test with the test statistic:\n\\(t_{stat} = \\frac{\\hat{\\beta_j} - c}{SE(\\hat{\\beta_j})}\\)\nRecall our CI for \\(\\beta\\):\nCI: \\(\\hat{\\beta} \\pm t_{\\alpha/2, df = n - 2} \\frac{\\hat{\\sigma}}{\\sqrt{\\sum_{i=1}^n(x_i - \\bar{x})^2}}\\)\n\\(= \\hat{\\beta} \\pm t_{\\alpha/2, df = n - 2} \\hat{SE(\\hat{\\beta_j})}\\)\nCompare the test statistic with the t-test critical value (\\(t_{\\alpha/2, df = n - 2}\\)) and proceed from there.\nMLR in R: Individual t-test Output from summary\n\n\nFrom same dataset used in SLR, create MLR. Note: we can specify all variables like y ~ x1 + x2 + ... + xn, or we can call all of the variables besides the response variable by using ..\n\n\nCodemlr &lt;- lm(volume ~ month + sales + listings, data = df)\nsummary(mlr)\n\n\nCall:\nlm(formula = volume ~ month + sales + listings, data = df)\n\nResiduals:\n       Min         1Q     Median         3Q        Max \n-425617453   -8326819    1919907    8285352  451201576 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -7064965.5  1055382.2  -6.694 2.33e-11 ***\nmonth        -103150.3   141167.5  -0.731    0.465    \nsales         274509.7     1078.4 254.559  &lt; 2e-16 ***\nlistings      -12218.7      209.8 -58.251  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 41190000 on 7172 degrees of freedom\n  (1426 observations deleted due to missingness)\nMultiple R-squared:  0.9742,    Adjusted R-squared:  0.9742 \nF-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16\n\n\nIn the above summary printout, note that:\n\nStd. Error = \\(SE(\\hat{\\beta})\\)\n\nt value: \\(t_{stat}\\)\n\nPr(&gt;|t|): p-value\n\nNote that the lm() and summary functions asume a hypothesis test of:\n\n\n\\(H_0\\): \\(\\beta_j = 0\\)\n\n\n\\(H_A\\): \\(\\beta_j \\neq 0\\)\n\n\nSo, depending on the significance level we had set beforehand, we either reject the null hypothesis in favor of the alternative hypothesis or fail to reject the null hypothesis. In the case of a small enough p-value, we can reject the null hypothesis in favor of the alternative hypothesis which means there is statistical evidence that the associated feature (variable) has an effect on the response variable.\nType I Errors in Multiple t-tests\n\nHowever, it is not a good idea to conduct several t-tests at a time!\n\nExample: Suppose that we conduct 10 hypothesis tests at significance level \\(\\alpha = 0.05\\). So, the probability of type 1 error is 0.05 for any individual test.\nWhat is the probability of a type I error ocurring in at least one of these 10 tests?\n\\(P(\\text{at least 1 type I error}) = 1 - P(\\text{no type I error})\\)\n\\(= 1 - (0.95)^{10}\\)\n\\(\\approx 0.40\\)\nWhich is high!"
   },
   {
-    "objectID": "regression.html#f-test",
-    "href": "regression.html#f-test",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#multicollinearity-collinearity-non-identifiability",
+    "href": "linear_regression.html#multicollinearity-collinearity-non-identifiability",
+    "title": "Linear Regression",
+    "section": "Multicollinearity / Collinearity / Non-Identifiability",
+    "text": "Multicollinearity / Collinearity / Non-Identifiability\nMulticollinearity, also known non-identifiability, can occur when there is linear dependence between columns of data. “Strict” non-identifiability occurs with true linear dependence and can be diagnosed with NA rows for MLR coefficients in a given summary, is rare. “Near” non-identifiability is less rare but can be tricky to diagnose. One method of diagnosing “near” collinearity is to recognize “fishy” coefficients, such as negatives when expecting positive.\nThis is a concern because linear dependence causes non-invertibility in the matrices \\(X^TX\\) and \\(XX^T\\) for any given matrix \\(X\\). This is disruptive in creating MLR models."
+  },
+  {
+    "objectID": "linear_regression.html#f-test",
+    "href": "linear_regression.html#f-test",
+    "title": "Linear Regression",
     "section": "F-test",
-    "text": "F-test\nHow do control the overall type I error rate when we need to test whether to drop several predictors from a model. We can use a simultaneous test, the F-test.\nConsider two different models from a dataset with \\(p\\) features:\n\nFull Model: \\(\\Omega\\): \\(Y = \\beta_0 + \\beta_1 X_1 + \\dots + \\beta_p X_p\\)\n\nReduced Model: \\(\\omega\\): \\(Y = \\beta_0 + \\beta_1 X_1 + \\dots + \\beta_q X_q\\), where \\(q &lt; p\\)\n\n\nWe can consider testing the following hypothesis:\n\n\n\\(H_0\\): \\(\\omega\\) is sufficient\n\n\\(H_A\\): \\(\\omega\\) is not sufficient\n\nThe Full F-test\nThe null hypothesis is the most reduced model possible\nThe idea:\n\n\n\\(H_0\\): \\(y_i = \\beta_0 + \\epsilon_i\\)\n\n\n\\(H_A\\): at least 1 \\(B_j \\neq 0\\), where \\(j = 1, \\dots, p\\)\n\n\nIn other words, we want to check whether ALL coefficients are 0:\n\n\n\\(H_0\\): \\(\\beta_1 = \\beta_2 = \\dots = \\beta_p = 0\\)\n\n\n\\(H_A\\): \\(B_k \\neq 0\\) for at least one value of \\(k = 1, \\dots, p\\)\n\n\n\nThe null hypothesis in the MLR case says that there is no useful linear relationship between \\(y\\) and any of the \\(p\\) predictors.\n\n\\(F_{stat} = \\frac{\\frac{SST - SSE}{p}}{\\frac{SSE}{n-p-1}}\\)\nwhere \\(p = df_{SST} - df_{SSE}\\)\nThe \\(F_{stat}\\) is a measure of how much better our model is than just using the mean.\n\nIf \\(H_0\\) were true, then we would expect to see \\(F_{stat} \\approx 1\\). In other words, if we see an \\(F_{stat}\\) around 1, we will likely fail to reject the null hypothesis.\n\n\nIf \\(H_A\\) were true, then \\(SSE &lt; SST \\rightarrow F_{stat} &gt;&gt; 1\\)\n\nThe Partial F-test\nSuppose we have the following setup:\n\nFull Model: \\(y = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\beta_3 x_3 + \\beta_4 x_4\\)\n\nReduced Model: \\(y = \\beta_0 + \\beta_2 x_2 + \\beta_4 x_4\\)\n\n\nAre the missing features important, or are we okay with the reduced model?\nHypothesis Test for the Partial F-test:\n\n\n\\(H_0\\): \\(\\beta_1 = \\beta_3 = 0\\)\n\n\n\\(H_A\\): at least one of \\(\\beta_1\\), \\(\\beta_3\\) \\(\\neq 0\\)\n\n\nStrategy: fit the full and reduced models, then determine if the difference in performance is real or just due to chance.\nLet’s examine some measurements from the full and reduced models.\n\n$SSE_{full} = $ variation unexplained by the full model\n$SSE_{reduced} = $ variation unexplained by the reduced model\n\nIntuitively, if \\(SSE_{full}\\) is much smaller than \\(SSE_{reduced}\\), the full model fits the data much better than the reduced model. Therefore, the appropriate test statistic should depend on the difference between the unexplained variation.\nGive a full model with \\(p\\) features and a reduced model with \\(k\\) features:\n\\(F_{stat-partial} = \\frac{(SSE_{reduced} - SSE_{full}) / p - k}{SSE_{full} / (n-p-1)} \\sim F_{p-k, n-p-1}\\)\nwith the rejection region: \\(F \\geq F_{\\alpha, p-k, n-p-1}\\)\nNote that \\(p-k\\) comes from the differences in degrees of freedom:\n\\(df_{reduced} - df_{full} = (n-k-1) - (n-p-1) = p - k\\)\n\nLarge \\(F_{stat} \\rightarrow\\) Low P-Value from F-distribution \\(\\rightarrow\\) Well Fitting Model\n\nPrincipal of Parsimony: The principle that the most acceptable explanation of an occurrence, phenomenon, or event is the simplest, involving the fewest entities, assumptions, or changes.\nWe’re striving to create an MLR model which explains the variation in the data with relatively few features that are easily interpreted."
+    "text": "F-test\nHow do control the overall type I error rate when we need to test whether to drop several predictors from a model. We can use a simultaneous test, the F-test.\nConsider two different models from a dataset with \\(p\\) features:\n\nFull Model: \\(\\Omega\\): \\(Y = \\beta_0 + \\beta_1 X_1 + \\dots + \\beta_p X_p\\)\n\nReduced Model: \\(\\omega\\): \\(Y = \\beta_0 + \\beta_1 X_1 + \\dots + \\beta_q X_q\\), where \\(q &lt; p\\)\n\n\nWe can consider testing the following hypothesis:\n\n\n\\(H_0\\): \\(\\omega\\) is sufficient\n\n\\(H_A\\): \\(\\omega\\) is not sufficient\n\nThe Full F-test\nThe null hypothesis is the most reduced model possible\nThe idea:\n\n\n\\(H_0\\): \\(y_i = \\beta_0 + \\epsilon_i\\)\n\n\n\\(H_A\\): at least 1 \\(B_j \\neq 0\\), where \\(j = 1, \\dots, p\\)\n\n\nIn other words, we want to check whether ALL coefficients are 0:\n\n\n\\(H_0\\): \\(\\beta_1 = \\beta_2 = \\dots = \\beta_p = 0\\)\n\n\n\\(H_A\\): \\(B_k \\neq 0\\) for at least one value of \\(k = 1, \\dots, p\\)\n\n\n\nThe null hypothesis in the MLR case says that there is no useful linear relationship between \\(y\\) and any of the \\(p\\) predictors.\n\nThe null hypothesis essentially states that there is no useful linear relationship between the response and any of the predictors. A small enough p-value suggests strong evidence against the null hypothesis, or in other words the model is better than the most reduced model possible. Useful in multiple linear regression (MLR) where the individual t-tests are suggesting evidence against the null hypothesis may result in type I errors.\n\\(F_{stat} = \\frac{\\frac{SST - SSE}{p}}{\\frac{SSE}{n-p-1}}\\)\nwhere \\(p = df_{SST} - df_{SSE}\\)\nThe \\(F_{stat}\\) is a measure of how much better our model is than just using the mean.\n\nIf \\(H_0\\) were true, then we would expect to see \\(F_{stat} \\approx 1\\). In other words, if we see an \\(F_{stat}\\) around 1, we will likely fail to reject the null hypothesis.\n\n\nIf \\(H_A\\) were true, then \\(SSE &lt; SST \\rightarrow F_{stat} &gt;&gt; 1\\)\n\nThe Partial F-test\nSuppose we have the following setup:\n\nFull Model: \\(y = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\beta_3 x_3 + \\beta_4 x_4\\)\n\nReduced Model: \\(y = \\beta_0 + \\beta_2 x_2 + \\beta_4 x_4\\)\n\n\nAre the missing features important, or are we okay with the reduced model?\nHypothesis Test for the Partial F-test:\n\n\n\\(H_0\\): \\(\\beta_1 = \\beta_3 = 0\\)\n\n\n\\(H_A\\): at least one of \\(\\beta_1\\), \\(\\beta_3\\) \\(\\neq 0\\)\n\n\nStrategy: fit the full and reduced models, then determine if the difference in performance is real or just due to chance.\nLet’s examine some measurements from the full and reduced models.\n\n\n\\(SSE_{full}\\): variation unexplained by the full model\n\n\\(SSE_{reduced}\\): variation unexplained by the reduced model\n\nIntuitively, if \\(SSE_{full}\\) is much smaller than \\(SSE_{reduced}\\), the full model fits the data much better than the reduced model. Therefore, the appropriate test statistic should depend on the difference between the unexplained variation.\nGive a full model with \\(p\\) features and a reduced model with \\(k\\) features:\n\\(F_{stat-partial} = \\frac{(SSE_{reduced} - SSE_{full}) / p - k}{SSE_{full} / (n-p-1)} \\sim F_{p-k, n-p-1}\\)\nwith the rejection region: \\(F \\geq F_{\\alpha, p-k, n-p-1}\\)\nNote that \\(p-k\\) comes from the differences in degrees of freedom:\n\\(df_{reduced} - df_{full} = (n-k-1) - (n-p-1) = p - k\\)\n\nLarge \\(F_{stat} \\rightarrow\\) Low P-Value from F-distribution \\(\\rightarrow\\) Well Fitting Model\n\nPrincipal of Parsimony: The principle that the most acceptable explanation of an occurrence, phenomenon, or event is the simplest, involving the fewest entities, assumptions, or changes.\nWe’re striving to create an MLR model which explains the variation in the data with relatively few features that are easily interpreted."
   },
   {
-    "objectID": "regression.html#feature-selection",
-    "href": "regression.html#feature-selection",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#feature-selection",
+    "href": "linear_regression.html#feature-selection",
+    "title": "Linear Regression",
     "section": "Feature Selection",
     "text": "Feature Selection\nThe number of models to test can exponentially increase with the number of features.\nGiven \\(p\\) features, there are \\(\\sum\\limits_{i=0}^p = 2^p\\) possible models.\nWhat are some ways we can reduce the impossible amount of models to try?\nForward Selection\nA greedy algorithm for adding features.\n\nFit a null model with an intercept but no slopes\nFit p individual SLR models - one for each possible feature. Add to the null model the one that improves the performance the most, based on some measure (i.e. decreases SSE the most, increases F-statistic the most, etc.)\nFit (p - 1) MLR models - one for each of the remaining features along with the feature we isolated from step 2. Add the one that improves model performance the most.\nRepeat until some stopping criterion is reached (i.e. some threshold SSE, or some fixed number of features, etc.)\nBackward Selection\nA greedy algorithm for removing features.\n\nFit model with available features.\nRemove the feature with the largest p-value (i.e. the least significant feature).\nRepeat until some stopping criterion is reached (i.e. some threshold SSE, or some fixed number of features, etc.)."
   },
   {
-    "objectID": "regression.html#basic-interpretations",
-    "href": "regression.html#basic-interpretations",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#basic-interpretations",
+    "href": "linear_regression.html#basic-interpretations",
+    "title": "Linear Regression",
     "section": "Basic Interpretations",
     "text": "Basic Interpretations\nLet’s recreate our MLR from earlier:\n\nCodemlr &lt;- lm(volume ~ month + sales + listings, data = df)\n\n\nsummary\n\nCodesummary(mlr)\n\n\nCall:\nlm(formula = volume ~ month + sales + listings, data = df)\n\nResiduals:\n       Min         1Q     Median         3Q        Max \n-425617453   -8326819    1919907    8285352  451201576 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -7064965.5  1055382.2  -6.694 2.33e-11 ***\nmonth        -103150.3   141167.5  -0.731    0.465    \nsales         274509.7     1078.4 254.559  &lt; 2e-16 ***\nlistings      -12218.7      209.8 -58.251  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 41190000 on 7172 degrees of freedom\n  (1426 observations deleted due to missingness)\nMultiple R-squared:  0.9742,    Adjusted R-squared:  0.9742 \nF-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16\n\n\nanova\n\nCodeanova(mlr)\n\nAnalysis of Variance Table\n\nResponse: volume\n            Df     Sum Sq    Mean Sq    F value    Pr(&gt;F)    \nmonth        1 1.5469e+17 1.5469e+17     91.194 &lt; 2.2e-16 ***\nsales        1 4.5387e+20 4.5387e+20 267563.442 &lt; 2.2e-16 ***\nlistings     1 5.7558e+18 5.7558e+18   3393.153 &lt; 2.2e-16 ***\nResiduals 7172 1.2166e+19 1.6963e+15                         \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nThe anova table gives us:\n\n\nDf: degrees of freedom\n\nSum Sq: SSE (for Residuals)\n\nSum Sq: SST (total column)\n\nMean Sq: SSR (for features)\n\nresiduals\n\nCodeggplot() +\n  geom_density(aes(residuals(mlr)))\n\n\n\n\n\n\n\n\nCodeggplot() +\n  geom_point(aes(x = seq(1, length(residuals(mlr))), y=residuals(mlr)))\n\n\n\n\n\n\n\nDon’t run, but this will return the predicted response values: fitted(mlr)"
   },
   {
-    "objectID": "regression.html#f-tests",
-    "href": "regression.html#f-tests",
-    "title": "Inference Models",
+    "objectID": "linear_regression.html#f-tests",
+    "href": "linear_regression.html#f-tests",
+    "title": "Linear Regression",
     "section": "F-tests",
     "text": "F-tests\nLet’s check out the F-tests.\n\nCodesummary(mlr)\n\n\nCall:\nlm(formula = volume ~ month + sales + listings, data = df)\n\nResiduals:\n       Min         1Q     Median         3Q        Max \n-425617453   -8326819    1919907    8285352  451201576 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -7064965.5  1055382.2  -6.694 2.33e-11 ***\nmonth        -103150.3   141167.5  -0.731    0.465    \nsales         274509.7     1078.4 254.559  &lt; 2e-16 ***\nlistings      -12218.7      209.8 -58.251  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 41190000 on 7172 degrees of freedom\n  (1426 observations deleted due to missingness)\nMultiple R-squared:  0.9742,    Adjusted R-squared:  0.9742 \nF-statistic: 9.035e+04 on 3 and 7172 DF,  p-value: &lt; 2.2e-16\n\n\nHere we notice that the individual t-tests are statistically significant, however be wary of type I errors. However, we can notice that the t-test associated with month is not significant, suggesting there is no evidence that parameter isn’t zero. Let’s check out the F-stat, which does have a high value with a low p-value associated with it. This is indicative of strong evidence that at least one of the \\(B_{k}\\)s are not \\(0\\).\nLet’s test a model removing month with a partial f-test.\n\nCodemlr_reduced &lt;- lm(volume ~ sales + listings, data = df)\n\n\n\nCodeanova(mlr_reduced, mlr)\n\nAnalysis of Variance Table\n\nModel 1: volume ~ sales + listings\nModel 2: volume ~ month + sales + listings\n  Res.Df        RSS Df  Sum of Sq      F Pr(&gt;F)\n1   7173 1.2167e+19                            \n2   7172 1.2166e+19  1 9.0568e+14 0.5339  0.465\n\n\nThe p-value for the f-test is very large, indicate that we don’t have enough evidence to reject the null hypothesis, which means that the reduced model is likely sufficient."
+  },
+  {
+    "objectID": "diagnostics.html",
+    "href": "diagnostics.html",
+    "title": "Diagnostics",
+    "section": "",
+    "text": "Aside from metrics like t-test p-values, f-test p-values, \\(R^2\\), and \\(R^2_a\\), how can we determine if the model is “good”?\nFor most models, especially linear, we want to confirm the following main assumptions:\n\nLinearity:\n\nusing the observed vs. predicted plot, we want to observe a linear trend\n\n\nIndependence:\n\nusing the successive residuals plot, we want to observe constant variance around the origin\n\n\nConstant Variance (homoscedasticity)\n\nin the residual vs. fitted plot, we want to observe randomness about the x-axis. Signs of non-constant variance (heteroscedasticity) or issue with the structure of the data include discernible patterns such as curves or a cone-like pattern. To clarify, a pattern may indicate the underlying model/data is wrong while the widening of residuals could indicate non-constant variance.\nin the scale-location plot, if the average residual value is increasing (or decreasing) with the fitted values, this also indicates heteroscedasticity. There’s usually a line representing the average residual for each fitted value. If this has a slope, this is a sign of non-constant variance. The most ideal value would be a completely flat line.\n\n\nNormality: in the qq-plot, we want to observe a generally straight diagonal line (i.e. \\(y=x\\)).\n\nAdditionally, we want to address:\n\nOutliers (influential points):\n\nin the residuals vs. leverage plot, we don’t want to see any points crossing the Cook’s distance thresholds. There are different levels of thresholds, and each successive threshold indicates outliers in that area have even more influence than the previous threshold."
+  },
+  {
+    "objectID": "diagnostics.html#plotting",
+    "href": "diagnostics.html#plotting",
+    "title": "Diagnostics",
+    "section": "Plotting",
+    "text": "Plotting\nThe built-in function to display a few of these plots:\nplot(model)\nThis will generally output:\n\n\nResiduals vs. Fitted (constant variance check)\n\nQQ-Plot (normality check)\n\nScale-Location (constant variance check)\n\nResiduals vs. Leverage (outliers)\n\nWe need to manually create a few plots to check the other assumptions:\nFor linear models:\n\nCode# predicted vs. observed\nplot(predict(model), df[response_variable], main='Predicted vs. Observed', xlab='Predicted', ylab='Observed')\n\n# successive residuals\ndf_diagnostics = data.frame(yhat = fitted(model),\n                            r = resid(model),\n                            y = df[[response_var]])\nn = dim(df)[1]; \nx = head(df_diagnostics$r, n-1)\ny = tail(df_diagnostics$r, n-1)\nsrp = data.frame(x,y)\nggplot(srp, aes(x = x, y = y)) + \n    geom_point() + \n    geom_vline(xintercept = 0) + \n    geom_hline(yintercept = 0) + \n    xlab(expression(hat(epsilon)[i])) +\n    ylab(expression(hat(epsilon)[i+1])) + \n    ggtitle(\"Successive Residual Plot\") + \n    theme_bw() + \n    theme(plot.title = element_text(hjust = 0.5))\n\n\nThis will output:\n\n\nPredicted vs. Observed (linearity check)\n\nSuccessive Residuals Plot (independence check)"
+  },
+  {
+    "objectID": "diagnostics.html#hypothesis-tests",
+    "href": "diagnostics.html#hypothesis-tests",
+    "title": "Diagnostics",
+    "section": "Hypothesis Tests",
+    "text": "Hypothesis Tests\n\nShapiro-Wilks Test:\n\ntests for normality\n\n\n\\(H_0\\): residuals are normal\n\n\\(H_a\\): residuals are not normal\ni.e. with an acceptably low p-value, we would reject the null hypothesis indicating there is enough evidence to suggest the residuals are not normal. a “good” model would have a higher p-value, suggesting normal residuals.\n\n\nshapiro.test(residuals)\n\n\nDurbin-Watson Test:\n\ntest for correlation of error between succsessive residuals\n\n\n\\(H_0\\): the errors are uncorrelated\n\n\\(H_a\\): the errors are correlated (specifically, the residuals exhibit autocorrelation)\ni.e. with an acceptably low p-value, we would reject the null hypothesis indicated that there is enough evidence to suggest the residuals are correlated. a “good” model would have a higher p-value, suggesting uncorrelated residuals.\n\n\nfrom package car, durbinWatsonTest(model)\n\n\n\nLevenes’ Test:\n\ntests for homogeneity of variance\n\n\n\\(H_0\\): the variance among the groups is equal\n\n\\(H_a\\): the variance among the groups is not equal"
+  },
+  {
+    "objectID": "diagnostics.html#full-diagnostic-plots-function",
+    "href": "diagnostics.html#full-diagnostic-plots-function",
+    "title": "Diagnostics",
+    "section": "Full Diagnostic Plots Function",
+    "text": "Full Diagnostic Plots Function\n\nNote that this includes an option for linear and generalized linear models\n\n\nCode# diagnostics\ndiagnostics_plots &lt;- function(df, model, response_var, type='linear') {\n    if (type=='linear') {\n        # default plots\n        plot(model)\n        # predicted vs observed\n        plot(predict(model), df[[response_var]],\n             main='Predicted vs Observed',\n             xlab='Predicted', ylab='Observed')\n        # successive residuals\n        df_diagnostics = data.frame(yhat = fitted(model),\n                                    r = resid(model),\n                                    y = df[[response_var]])\n        n = dim(df)[1]; \n        x = head(df_diagnostics$r, n-1)\n        y = tail(df_diagnostics$r, n-1)\n        srp = data.frame(x,y)\n        ggplot(srp, aes(x = x, y = y)) + \n            geom_point() + \n            geom_vline(xintercept = 0) + \n            geom_hline(yintercept = 0) + \n            xlab(expression(hat(epsilon)[i])) +\n            ylab(expression(hat(epsilon)[i+1])) + \n            ggtitle(\"Successive Residual Plot\") + \n            theme_bw() + \n            theme(plot.title = element_text(hjust = 0.5))\n    } else  if (type=='response') {\n        # default plots\n        plot(model)\n        # predicted vs observed\n        plot(predict(model, type='response'), df[[response_var]],\n             main='Predicted vs Observed',\n             xlab='Predicted', ylab='Observed')\n        # contingency table\n        df_diagnostics &lt;- df\n        predicted_value &lt;- predict(model, df, type='response')\n        df_diagnostics$Predicted &lt;- ifelse(predicted_value &gt; 0.5, 1, 0)\n        contingency_table &lt;- table(df_diagnostics[[response_var]],\n                                   df_diagnostics$Predicted,\n                                   dnn=c(response_var, 'Predicted'))\n        accuracy &lt;- sum(diag(contingency_table)) / sum(contingency_table)\n        print(accuracy)\n        print(contingency_table)\n        # successive residuals\n        df_diagnostics = data.frame(yhat = fitted(model),\n                                    r = resid(model),\n                                    y = df[[response_var]])\n        n = dim(df)[1]; \n        x = head(df_diagnostics$r, n-1)\n        y = tail(df_diagnostics$r, n-1)\n        srp = data.frame(x,y)\n        ggplot(srp, aes(x = x, y = y)) + \n            geom_point() + \n            geom_vline(xintercept = 0) + \n            geom_hline(yintercept = 0) + \n            xlab(expression(hat(epsilon)[i])) +\n            ylab(expression(hat(epsilon)[i+1])) + \n            ggtitle(\"Successive Residual Plot\") + \n            theme_bw() + \n            theme(plot.title = element_text(hjust = 0.5))\n    } else {\n        print('Please use either type: linear or type: response')\n    }\n}"
+  },
+  {
+    "objectID": "anova_categorical.html",
+    "href": "anova_categorical.html",
+    "title": "ANOVA for Categorical",
+    "section": "",
+    "text": "We can use the f-distribution for ANOVAs (Analysis of Variance), which we’ve seen can be used to compare models, but they are also great for categorical variables."
+  },
+  {
+    "objectID": "anova_categorical.html#degrees-of-freedom",
+    "href": "anova_categorical.html#degrees-of-freedom",
+    "title": "ANOVA for Categorical",
+    "section": "Degrees of Freedom",
+    "text": "Degrees of Freedom\nGiven \\(I\\) number of groups/categories and \\(N\\) total number of data points (across all groups/categories; recall that groups can have different number of data points):\n\n\\(SSB_{df} = I-1\\)\n\\(SSW_{df} = N-I\\)"
+  },
+  {
+    "objectID": "anova_categorical.html#f-statistic",
+    "href": "anova_categorical.html#f-statistic",
+    "title": "ANOVA for Categorical",
+    "section": "F-Statistic",
+    "text": "F-Statistic\nGiven:\n\n\n\\(H_0\\): \\(\\mu_0 = \\mu_1 = \\mu_2\\)\n\n\n\\(H_a\\): \\(\\mu_i \\neq \\mu_j\\) for some pair \\(i, j\\)\n\n\n\\(F_{stat} = \\frac{SSB/SSB_{df}}{SSW/SSW_{df}} = \\frac{\\frac{SSB}{I-1}}{\\frac{SSW}{N-I}}\\)\nRejection Region: \\(F_{\\alpha,I-1,N-I}\\)"
+  },
+  {
+    "objectID": "anova_categorical.html#anova-table",
+    "href": "anova_categorical.html#anova-table",
+    "title": "ANOVA for Categorical",
+    "section": "ANOVA Table",
+    "text": "ANOVA Table\nIt’s common to summarize everything associated with the analysis of variance in a table.\nGiven the example:\n\n\nControl\nDiet A\nDiet B\n\n\n\n3\n5\n5\n\n\n2\n3\n6\n\n\n1\n4\n7\n\n\n\n\n\nANOVA\nSS\nDF\nSS/DF\n\\(F_{stat}\\)\n\n\n\nbetween\n24\n2\n12\n12\n\n\nwithin\n6\n6\n1\n\n\n\nbetween\n30"
+  },
+  {
+    "objectID": "anova_categorical.html#the-test",
+    "href": "anova_categorical.html#the-test",
+    "title": "ANOVA for Categorical",
+    "section": "The Test",
+    "text": "The Test\nSuppose we determine that some of the means are different. How can we tell which ones?\nTukey’s Honest Significance Test (HST/HSD) post-hoc test for iff we reject the null hypothesis\n\nHypothesis test for pairwise comparison of means: many tests using what’s called the studentized range distribution\nAdjusts so that the probability of making a Type I error over all possible pairwise comparisons is kept at the original \\(\\alpha\\)\n\n\nWe can draw a conclusion from both the confidence interval and p-values output from this method (given a prescribed \\(\\alpha\\).\n\nconfidence interval [lower bound, upper bound]: if the lower bound and upper bound do not contain \\(0\\), we know that the difference between these groups is significant. In particular, we can know if the difference is positive, since the lower bound of the confidence interval is greater than \\(0\\).\np-value: given a confidence interval which does not contain \\(0\\), we would likely see a small enough p-value to reject the null hypothesis, indicating that the difference between the groups’ means is statistically significant.\n\nIn other words, we’d be doing the same test as before, just pairwise:\n\n\n\\(H_0\\): \\(\\mu_i = \\mu_j = \\mu_C = \\dots\\) for two groups/categories \\(i, j\\)\n\n\n\\(H_a\\): \\(\\mu_i \\neq \\mu_j\\) for two groups/categories \\(i, j\\)"
+  },
+  {
+    "objectID": "anova_categorical.html#one-way-anova-test",
+    "href": "anova_categorical.html#one-way-anova-test",
+    "title": "ANOVA for Categorical",
+    "section": "One-Way ANOVA Test",
+    "text": "One-Way ANOVA Test\n\nPerform Oneway ANOVA Test (var.equal = TRUE for this test, Var.equal = FALSE is another test)\n\n\nCoderesult &lt;- oneway.test(value ~ group, data = longdata, var.equal = TRUE)\n\n\n\nThe Results\n\n\nCodeFstat = result$statistic\npvalue = result$p.value\n\nFstat\n\n F \n12 \n\nCodepvalue\n\n[1] 0.008"
+  },
+  {
+    "objectID": "anova_categorical.html#anova-as-mlr-1",
+    "href": "anova_categorical.html#anova-as-mlr-1",
+    "title": "ANOVA for Categorical",
+    "section": "ANOVA as MLR",
+    "text": "ANOVA as MLR\nWe get a low enough p-value that we have enough evidence to reject the null hypothesis and conclude that at least one mean is different.\n\nWhat about the idea that ANOVA F-test is equivalent to linear regression where the features are binary categorical variables associated with group membership. We can recreate the 0, 1 dataframe.\n\n\nCode# x1: indicates membership in diet a\n# x2: indicates membership in diet b\n\nx1 &lt;- as.integer(longdata$group == 'DietA')\nx2 &lt;- as.integer(longdata$group == 'DietB')\ny &lt;- longdata$value\n\ny\n\n[1] 3 2 1 5 3 4 5 6 7\n\nCodex1\n\n[1] 0 0 0 1 1 1 0 0 0\n\nCodex2\n\n[1] 0 0 0 0 0 0 1 1 1\n\nCodedfRegression &lt;- data.frame(y, x1, x2)\ndfRegression\n\n  y x1 x2\n1 3  0  0\n2 2  0  0\n3 1  0  0\n4 5  1  0\n5 3  1  0\n6 4  1  0\n7 5  0  1\n8 6  0  1\n9 7  0  1\n\n\n\nPerform MLR and compare the computed F-test\n\n\nCodeanova_regression &lt;- lm(y ~ ., data = dfRegression)\nsummary(anova_regression)\n\n\nCall:\nlm(formula = y ~ ., data = dfRegression)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n    -1     -1      0      1      1 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)   \n(Intercept)   2.0000     0.5774   3.464  0.01340 * \nx1            2.0000     0.8165   2.449  0.04983 * \nx2            4.0000     0.8165   4.899  0.00271 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 1 on 6 degrees of freedom\nMultiple R-squared:    0.8, Adjusted R-squared:  0.7333 \nF-statistic:    12 on 2 and 6 DF,  p-value: 0.008"
+  },
+  {
+    "objectID": "anova_categorical.html#analysis-of-variance-summary-table",
+    "href": "anova_categorical.html#analysis-of-variance-summary-table",
+    "title": "ANOVA for Categorical",
+    "section": "Analysis of Variance Summary Table",
+    "text": "Analysis of Variance Summary Table\n\nUse aov() to create a summary table from original long data\n\n\nCodeweightloss_study_aov &lt;- aov(value ~ group, data = longdata)\nsummary(weightloss_study_aov)\n\n            Df Sum Sq Mean Sq F value Pr(&gt;F)   \ngroup        2     24      12      12  0.008 **\nResiduals    6      6       1                  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "anova_categorical.html#tukey-test",
+    "href": "anova_categorical.html#tukey-test",
+    "title": "ANOVA for Categorical",
+    "section": "Tukey Test",
+    "text": "Tukey Test\n\nUse TukeyHSD() on the aov summary to test which weight loss group(s) are statistically different\n\n\nCode# NOTE: can set significance level, i.e. TukeyHSD(aov_model, conf.level=0.95)\ntukey_test &lt;- TukeyHSD(weightloss_study_aov)\ntukey_test\n\n  Tukey multiple comparisons of means\n    95% family-wise confidence level\n\nFit: aov(formula = value ~ group, data = longdata)\n\n$group\n              diff        lwr      upr     p adj\nDietA-Control    2 -0.5052356 4.505236 0.1088670\nDietB-Control    4  1.4947644 6.505236 0.0064937\nDietB-DietA      2 -0.5052356 4.505236 0.1088670\n\n\n\nPlotting the Tukey Test Results\n\n\nCodeplot(tukey_test)"
+  },
+  {
+    "objectID": "anova_categorical.html#checking-assumptions",
+    "href": "anova_categorical.html#checking-assumptions",
+    "title": "ANOVA for Categorical",
+    "section": "Checking Assumptions",
+    "text": "Checking Assumptions\nSpecifically, we want to check:\n\nhomogeniety of variance assumption\nnormality assumption\n\n\nPlotting\n\n\nCodeplot(weightloss_study_aov)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLevenes’ Test (constant variance)\n\n\nCodeleveneTest(value ~ group, data = longdata)\n\nWarning in leveneTest.default(y = y, group = group, ...): group coerced to\nfactor.\n\n\nLevene's Test for Homogeneity of Variance (center = median)\n      Df F value Pr(&gt;F)\ngroup  2       0      1\n       6               \n\n\n\n\n\\(H_0\\): homogeneity of variance across all groups\n\n\\(H_a\\): homogeneity of variance condition violated\n\n\nShapiro-Wilk’s test (normality)\n\n\nCodeaov_residuals &lt;- residuals(object = weightloss_study_aov)\nshapiro.test(x = aov_residuals)\n\n\n    Shapiro-Wilk normality test\n\ndata:  aov_residuals\nW = 0.82304, p-value = 0.03729"
+  },
+  {
+    "objectID": "anova_categorical.html#what-if-assumptions-are-not-met",
+    "href": "anova_categorical.html#what-if-assumptions-are-not-met",
+    "title": "ANOVA for Categorical",
+    "section": "What if Assumptions are not Met?",
+    "text": "What if Assumptions are not Met?\nWhen assumptions are not met, we can use a non-parametric test known as the Kruskal-Wallis rank sum test, which determines whether or not there is a statistically significant difference between the medians of three or more independent groups. Note this returns a chi-squared value.\n\n\n\\(H_0\\): the median is equal across all groups\n\n\\(H_a\\): the median is not equal across all groups\n\n\nCodekruskal.test(value ~ group, data = longdata)\n\n\n    Kruskal-Wallis rank sum test\n\ndata:  value by group\nKruskal-Wallis chi-squared = 6.5311, df = 2, p-value = 0.03818\n\n\nWe can further determine which groups have significant differences between them by using pairwise.wilcox.test()."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\nCode1 + 1\n\n[1] 2"
   },
   {
     "objectID": "confidence_intervals.html",
@@ -313,13 +432,6 @@
     "title": "Confidence Intervals",
     "section": "CI for Slope Distribution (\\(\\beta\\)s in Regression Models)",
     "text": "CI for Slope Distribution (\\(\\beta\\)s in Regression Models)\n\\(\\hat{\\beta} \\pm t_{\\alpha / 2, df = n-2} SE(\\hat{\\beta})\\)\nwhere\n\\(SE(\\hat{\\beta}) = \\frac{\\sigma^2}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}}\\)"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\nCode1 + 1\n\n[1] 2"
   },
   {
     "objectID": "index.html",
