@@ -1,0 +1,217 @@
+---
+title: "Generalized Linear Models"
+---
+
+# Motivation
+
+We can address a larger amount of problems and models by abstracting a general for of linear models to account for categorical responses types such as binomial, multinomial, and poisson.
+
+A GLM is defined by specifying two components:
+
+- response: member of the exponential family distribution
+- link function: describes how the mean of the response and a linear combination of the predictors are related
+
+# Components
+
+The distribution of $Y$ is from the exponential family of distributions, and takes the general form of:
+
+$$f(y|\theta, \phi) = exp(\frac{y\theta - b(\theta)}{a(\theta)} + c(y, \theta))$$
+
+- $\theta$: canonical parameter, represents the location
+- $\Theta$: dispersion parameter, represents the scale
+- $a, b, c$: define various members of the family by specifying these
+
+## Common GLMs
+
+- Binomial Distribution
+- Poisson Distribution
+
+## GLM Setup
+
+Let
+
+- $x_j = (x_{1, j}, \dots x_{n, j})^T$, $j=1, \dots, p$ be a set of predictors
+- $Y = (Y_{1}, \dots Y_{n})^T$
+- $\beta = (\beta_0, \beta_1, \dots, \beta_p)^T$
+
+A GLM has three components:
+
+- Random Component:
+  - refers to the probability distribution of the response variable (i.e. binomial distribution)
+  - a random variable from the exponential family if the distribution can be written as the exponential function above
+- Systematic Component:
+  - refers to the explanatory variables $(X_1, \dots, X_k)$ as a combination of linear predictors
+  - $\eta = \beta_0 + \beta_1 x_1 + \dots \beta_p x_p = x^T\beta$
+- Link Function:
+  - specifies the link between the random and systematic components
+  - describes how the expected value of the response relates to the linear predictor of explanatory variables
+  - link function, $g$, describes how the mean response, $E[Y] = \mu$ is linked to the covariates through the linear predictor: $\eta = g(\mu)$
+  - i.e. $\eta = logit(\pi)$ as in logistic regression
+  - we require a monotone continuous and differentiable function
+  
+## Log-Likelihood
+
+- log-likelihood function: $l(\theta) = \frac{y\theta - b(\theta)}{a(\phi) + c(y, \phi)}$
+- derivative wrt $\theta$: $l'(\theta) = \frac{y - b'(\theta)}{a(\phi)}$
+- expectation over $y$: $E[l'(\theta)] = \frac{E[y] - b'(\theta)}{a(\phi)}$
+
+From general likelihood theory, we know that $E[l'(\theta)] = 0 \rightarrow E[Y] = \mu = b'(\theta)$
+
+- second derivative: $l''(\theta) = -E[(l'(\theta))^2]$
+- $\frac{b''(\theta)}{a(\phi)} = \frac{E[(Y - b'(\theta))^2]}{a^2(\phi)}$
+- results in: $var(Y) = b''(\theta)a(\phi)$
+
+# Binomial Regression (Logistic Regression)
+
+$f(y|\theta, \phi) = \binom{n}{y} \mu^y (1-\mu)^{n-y}$
+
+$= exp(ylog\mu + (n-y)log(1-\mu) + log\binom{n}{y})$
+
+$= exp(ylog\frac{\mu}{1-\mu} +nlog(1-\mu) + log\binom{n}{y})$
+
+- $\theta$ (canonical parameter): $log\frac{\mu}{1-\mu}$
+- $b(\theta)$: $-nlog(1-\mu) = nlog(1 + exp(\theta))$
+- $c(y, \phi)$: $log\binom{n}{y}$
+
+However, we usually represent binomial/logistic regression as:
+
+$$\hat{n_i} = \hat{\beta_0} + \hat{\beta_{1}}x_{i, 1} + \dots + \hat{\beta_{2}}x_{i, 2} = log(\frac{\hat{p_i}}{1-\hat{p_i}})$$
+
+# Poisson
+
+$f(y|\theta, \phi) = \frac{e^{-\mu}\mu^y}{y!}$
+
+$= exp(ylog\mu - \mu - log(y!))$
+
+- $\theta = log(\mu)$ (canonical parameter)
+- $\phi = 1$
+- $a(\phi) = 1$
+- $b(\theta) = exp(\theta)$
+- $c(y, \phi)$: $-logy$
+
+However, we usually represent Poisson regression as:
+
+$$\hat{n_i} = \hat{\beta_0} + \hat{\beta_{1}}x_{i, 1} + \dots + \hat{\beta_{2}}x_{i, 2} = log(\hat{\lambda_i})$$
+
+# Common Family Link Functions
+
+|Family|Link|Variance Function|
+|---|---|---|
+|Binomial|$\eta=log(\frac{\mu}{1-\mu})$|$\mu(1-\mu)$|
+|Poisson|$\eta=log(\mu)$|$\mu$|
+
+## Comparison to Linear Regresion
+
+|Type|Random Component|Systematic Component|Link Function|
+|---|---|---|---|
+|Linear Regression|$Y \sim Normal$|$\eta=\beta_0 + \beta_1 x_1 + \dots + \beta_p x_p$|Identity|
+|Logistic Regression|$Y \sim Binomial$|$\eta=\beta_0 + \beta_1 x_1 + \dots + \beta_p x_p$|logit: $\eta = log(\frac{p}{1-p})$|
+
+
+# Likelihood Ratio Statistic (Binomial Regression Goodness of fit)
+
+When comparing
+
+- full binomial model with $p$ predictors
+- reduced binomial model with $q$ predictors
+
+$\Lambda = 2 log(\frac{L(\beta_{p+1}; y)}{L(\beta_{q+1}; y)})$
+
+$= 2(l(\beta_{p+1}; y) - l(\beta_{q+1}; y))$
+
+> Likelihood Ratio Test:
+
+- $H_0$: the reduced model is sufficient
+- $H_a$: the alternative says that the reduced model is not sufficient
+
+# Deviance
+
+For goodness of fit we'll use both the likelihood ratio statistic and deviance. The deviance measures how close the smaller $q$ model (model we're actually fitting) comes to *perfectly* fitting the data.
+
+Let the $p$ model be the *perfectly* fitting model (as well as any model can).
+
+then, $\hat{p_i} = \frac{y_i}{n_i}$
+
+## Deviance of Binomial Regression
+
+$D = 2 \sum\limits_{i=1}^n (y_i log(\frac{y_i}{\hat{y_i}}) + (n_i - y_i)log(\frac{n_i - y_i}{n_i - \hat{y_i}}))$
+
+## Deviance of Poisson Regression
+
+$D = -2l(\hat{\beta})$
+
+$= -2 \sum\limits_{i=1}^n (y_i\hat{n_i} - e^{\hat{n_i}} - log(y_i!))$
+
+### Null Deviance
+
+$D_{null} = -2 \sum\limits_{i=1}^n (y_i log(\bar{y}) - \hat{\lambda_i} - log(y_i!))$
+
+$= -2 \sum\limits_{i=1}^n (y_i log(\bar{y}) - \bar{y} - log(y_i!))$
+
+### Saturated Deviance
+
+$D_{saturated} = -2 \sum\limits_{i=1}^n (y_i log(y_i) - y_i - log(y_i!))$
+
+### Residual Deviance
+
+$D_{residual} = D_{saturated} - D_{null}$
+
+> Distributed with $\chi^2$
+
+# Odds
+
+For an event $E$, the odds in favor of $E$ are defined as:
+
+$o_E = \frac{p}{1-p}$
+
+## Binomial Regression
+
+$\frac{p}{1-p} = exp(\beta_0 + \beta_1 x)$
+
+**Log Odds**
+
+$log(\frac{p}{1-p}) = \beta_0 + \beta_1 x$
+
+If we increase $x \rightarrow x+1$
+
+Then $odds = exp(\beta_0 + b_1(x+1)) = exp(\beta_0 + \beta_1x + \beta_1) = exp(\beta_1)exp(\beta_0 + \beta_1x)$
+
+i.e. we have been doing linear regression all along, but for the log-odds instead of probability.
+
+- $\eta = \beta_0 + \beta_1x_1 + \beta_2x_2 = log(\frac{p}{1-p})$
+- $\beta_0$ represents the log odds of success when all predictors are equal to 0
+- a unit increase in $x_j$ with all other predictors held constant increases the odds of success by $e^{\beta_j}$
+
+$sigm(\beta_0 + \beta_1x_1 + \beta_2x_2) = \frac{1}{1 + e^{-(\beta_0 + \beta_1x_1 + \beta_2x_2)}}$
+
+# Implementation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

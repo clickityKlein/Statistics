@@ -30,7 +30,9 @@ website:
       - href: model_selection.qmd
         text: "Model Selection"
       - href: bayes_nets.qmd
-        text: "Bayesian Networks"  
+        text: "Bayesian Networks"
+      - href: glm.qmd
+        text: "Generalized Linear Models" 
     right:
       - icon: github
         menu:

@@ -125,4 +125,7 @@ Diagnostic: observing an effect leads to competition between possible causes.
 - $Y$: Deformed Foot
 - $Z$: Foot Hurts
 
-We need to *diagnose* which is most likely.
+We need to *diagnose* which is most likely:
+
+- $X \rightarrow Z$
+- $Y \rightarrow Z$
