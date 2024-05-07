@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.525">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Advanced Statistics - Generalized Linear Models</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Advanced Statistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="./review.html"> 
+<span class="menu-text">Basic Review</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./confidence_intervals.html"> 
+<span class="menu-text">Confidence Intervals</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./statistical_hypotheses.html"> 
+<span class="menu-text">Statistical Hypotheses</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./linear_regression.html"> 
+<span class="menu-text">Linear Regression</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./diagnostics.html"> 
+<span class="menu-text">Diagnostics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./anova_categorical.html"> 
+<span class="menu-text">ANOVA for Categorical</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./model_selection.html"> 
+<span class="menu-text">Model Selection</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./bayes_nets.html"> 
+<span class="menu-text">Bayesian Networks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./glm.html" aria-current="page"> 
+<span class="menu-text">Generalized Linear Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./gam.html"> 
+<span class="menu-text">Generalized Additive Models</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">
+<li>
+    <a class="dropdown-item" href="https://github.com/clickityKlein/Statistics">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/clickityKlein">
+ <span class="dropdown-text">Carl Klein’s Main Page</span></a>
+  </li>  
+    </ul>
+</li>
+</ul>
+</div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+  <li>
+<a href="#components" id="toc-components" class="nav-link" data-scroll-target="#components">Components</a>
+  <ul class="collapse">
+<li><a href="#common-glms" id="toc-common-glms" class="nav-link" data-scroll-target="#common-glms">Common GLMs</a></li>
+  <li><a href="#glm-setup" id="toc-glm-setup" class="nav-link" data-scroll-target="#glm-setup">GLM Setup</a></li>
+  <li><a href="#log-likelihood" id="toc-log-likelihood" class="nav-link" data-scroll-target="#log-likelihood">Log-Likelihood</a></li>
+  </ul>
+</li>
+  <li><a href="#binomial-regression-logistic-regression" id="toc-binomial-regression-logistic-regression" class="nav-link" data-scroll-target="#binomial-regression-logistic-regression">Binomial Regression (Logistic Regression)</a></li>
+  <li><a href="#poisson" id="toc-poisson" class="nav-link" data-scroll-target="#poisson">Poisson</a></li>
+  <li>
+<a href="#common-family-link-functions" id="toc-common-family-link-functions" class="nav-link" data-scroll-target="#common-family-link-functions">Common Family Link Functions</a>
+  <ul class="collapse">
+<li><a href="#comparison-to-linear-regresion" id="toc-comparison-to-linear-regresion" class="nav-link" data-scroll-target="#comparison-to-linear-regresion">Comparison to Linear Regresion</a></li>
+  </ul>
+</li>
+  <li><a href="#likelihood-ratio-statistic-binomial-regression-goodness-of-fit" id="toc-likelihood-ratio-statistic-binomial-regression-goodness-of-fit" class="nav-link" data-scroll-target="#likelihood-ratio-statistic-binomial-regression-goodness-of-fit">Likelihood Ratio Statistic (Binomial Regression Goodness of fit)</a></li>
+  <li>
+<a href="#deviance" id="toc-deviance" class="nav-link" data-scroll-target="#deviance">Deviance</a>
+  <ul class="collapse">
+<li><a href="#deviance-of-binomial-regression" id="toc-deviance-of-binomial-regression" class="nav-link" data-scroll-target="#deviance-of-binomial-regression">Deviance of Binomial Regression</a></li>
+  <li>
+<a href="#deviance-of-poisson-regression" id="toc-deviance-of-poisson-regression" class="nav-link" data-scroll-target="#deviance-of-poisson-regression">Deviance of Poisson Regression</a>
+  <ul class="collapse">
+<li><a href="#null-deviance" id="toc-null-deviance" class="nav-link" data-scroll-target="#null-deviance">Null Deviance</a></li>
+  <li><a href="#saturated-deviance" id="toc-saturated-deviance" class="nav-link" data-scroll-target="#saturated-deviance">Saturated Deviance</a></li>
+  <li><a href="#residual-deviance" id="toc-residual-deviance" class="nav-link" data-scroll-target="#residual-deviance">Residual Deviance</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#odds" id="toc-odds" class="nav-link" data-scroll-target="#odds">Odds</a>
+  <ul class="collapse">
+<li><a href="#binomial-regression" id="toc-binomial-regression" class="nav-link" data-scroll-target="#binomial-regression">Binomial Regression</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a>
+  <ul class="collapse">
+<li><a href="#binomial-logistc-regression" id="toc-binomial-logistc-regression" class="nav-link" data-scroll-target="#binomial-logistc-regression">Binomial / Logistc Regression</a></li>
+  <li><a href="#poisson-regression" id="toc-poisson-regression" class="nav-link" data-scroll-target="#poisson-regression">Poisson Regression</a></li>
+  <li>
+<a href="#what-do-prediction-look-like" id="toc-what-do-prediction-look-like" class="nav-link" data-scroll-target="#what-do-prediction-look-like">What do Prediction Look Like?</a>
+  <ul class="collapse">
+<li><a href="#side-note-type-parameters-in-predict" id="toc-side-note-type-parameters-in-predict" class="nav-link" data-scroll-target="#side-note-type-parameters-in-predict">Side Note: type parameters in predict</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Generalized Linear Models</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="motivation" class="level1"><h1>Motivation</h1>
+<p>We can address a larger amount of problems and models by abstracting a general for of linear models to account for categorical responses types such as binomial, multinomial, and poisson.</p>
+<p>A GLM is defined by specifying two components:</p>
+<ul>
+<li>response: member of the exponential family distribution</li>
+<li>link function: describes how the mean of the response and a linear combination of the predictors are related</li>
+</ul></section><section id="components" class="level1"><h1>Components</h1>
+<p>The distribution of <span class="math inline">\(Y\)</span> is from the exponential family of distributions, and takes the general form of:</p>
+<p><span class="math display">\[f(y|\theta, \phi) = exp(\frac{y\theta - b(\theta)}{a(\theta)} + c(y, \theta))\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(\theta\)</span>: canonical parameter, represents the location</li>
+<li>
+<span class="math inline">\(\Theta\)</span>: dispersion parameter, represents the scale</li>
+<li>
+<span class="math inline">\(a, b, c\)</span>: define various members of the family by specifying these</li>
+</ul>
+<section id="common-glms" class="level2"><h2 class="anchored" data-anchor-id="common-glms">Common GLMs</h2>
+<ul>
+<li>Binomial Distribution</li>
+<li>Poisson Distribution</li>
+</ul></section><section id="glm-setup" class="level2"><h2 class="anchored" data-anchor-id="glm-setup">GLM Setup</h2>
+<p>Let</p>
+<ul>
+<li>
+<span class="math inline">\(x_j = (x_{1, j}, \dots x_{n, j})^T\)</span>, <span class="math inline">\(j=1, \dots, p\)</span> be a set of predictors</li>
+<li><span class="math inline">\(Y = (Y_{1}, \dots Y_{n})^T\)</span></li>
+<li><span class="math inline">\(\beta = (\beta_0, \beta_1, \dots, \beta_p)^T\)</span></li>
+</ul>
+<p>A GLM has three components:</p>
+<ul>
+<li>Random Component:
+<ul>
+<li>refers to the probability distribution of the response variable (i.e.&nbsp;binomial distribution)</li>
+<li>a random variable from the exponential family if the distribution can be written as the exponential function above</li>
+</ul>
+</li>
+<li>Systematic Component:
+<ul>
+<li>refers to the explanatory variables <span class="math inline">\((X_1, \dots, X_k)\)</span> as a combination of linear predictors</li>
+<li><span class="math inline">\(\eta = \beta_0 + \beta_1 x_1 + \dots \beta_p x_p = x^T\beta\)</span></li>
+</ul>
+</li>
+<li>Link Function:
+<ul>
+<li>specifies the link between the random and systematic components</li>
+<li>describes how the expected value of the response relates to the linear predictor of explanatory variables</li>
+<li>link function, <span class="math inline">\(g\)</span>, describes how the mean response, <span class="math inline">\(E[Y] = \mu\)</span> is linked to the covariates through the linear predictor: <span class="math inline">\(\eta = g(\mu)\)</span>
+</li>
+<li>i.e.&nbsp;<span class="math inline">\(\eta = logit(\pi)\)</span> as in logistic regression</li>
+<li>we require a monotone continuous and differentiable function</li>
+</ul>
+</li>
+</ul></section><section id="log-likelihood" class="level2"><h2 class="anchored" data-anchor-id="log-likelihood">Log-Likelihood</h2>
+<ul>
+<li>log-likelihood function: <span class="math inline">\(l(\theta) = \frac{y\theta - b(\theta)}{a(\phi) + c(y, \phi)}\)</span>
+</li>
+<li>derivative wrt <span class="math inline">\(\theta\)</span>: <span class="math inline">\(l'(\theta) = \frac{y - b'(\theta)}{a(\phi)}\)</span>
+</li>
+<li>expectation over <span class="math inline">\(y\)</span>: <span class="math inline">\(E[l'(\theta)] = \frac{E[y] - b'(\theta)}{a(\phi)}\)</span>
+</li>
+</ul>
+<p>From general likelihood theory, we know that <span class="math inline">\(E[l'(\theta)] = 0 \rightarrow E[Y] = \mu = b'(\theta)\)</span></p>
+<ul>
+<li>second derivative: <span class="math inline">\(l''(\theta) = -E[(l'(\theta))^2]\)</span>
+</li>
+<li><span class="math inline">\(\frac{b''(\theta)}{a(\phi)} = \frac{E[(Y - b'(\theta))^2]}{a^2(\phi)}\)</span></li>
+<li>results in: <span class="math inline">\(var(Y) = b''(\theta)a(\phi)\)</span>
+</li>
+</ul></section></section><section id="binomial-regression-logistic-regression" class="level1"><h1>Binomial Regression (Logistic Regression)</h1>
+<p><span class="math inline">\(f(y|\theta, \phi) = \binom{n}{y} \mu^y (1-\mu)^{n-y}\)</span></p>
+<p><span class="math inline">\(= exp(ylog\mu + (n-y)log(1-\mu) + log\binom{n}{y})\)</span></p>
+<p><span class="math inline">\(= exp(ylog\frac{\mu}{1-\mu} +nlog(1-\mu) + log\binom{n}{y})\)</span></p>
+<ul>
+<li>
+<span class="math inline">\(\theta\)</span> (canonical parameter): <span class="math inline">\(log\frac{\mu}{1-\mu}\)</span>
+</li>
+<li>
+<span class="math inline">\(b(\theta)\)</span>: <span class="math inline">\(-nlog(1-\mu) = nlog(1 + exp(\theta))\)</span>
+</li>
+<li>
+<span class="math inline">\(c(y, \phi)\)</span>: <span class="math inline">\(log\binom{n}{y}\)</span>
+</li>
+</ul>
+<p>However, we usually represent binomial/logistic regression as:</p>
+<p><span class="math display">\[\hat{n_i} = \hat{\beta_0} + \hat{\beta_{1}}x_{i, 1} + \dots + \hat{\beta_{2}}x_{i, 2} = log(\frac{\hat{p_i}}{1-\hat{p_i}})\]</span></p>
+</section><section id="poisson" class="level1"><h1>Poisson</h1>
+<p><span class="math inline">\(f(y|\theta, \phi) = \frac{e^{-\mu}\mu^y}{y!}\)</span></p>
+<p><span class="math inline">\(= exp(ylog\mu - \mu - log(y!))\)</span></p>
+<ul>
+<li>
+<span class="math inline">\(\theta = log(\mu)\)</span> (canonical parameter)</li>
+<li><span class="math inline">\(\phi = 1\)</span></li>
+<li><span class="math inline">\(a(\phi) = 1\)</span></li>
+<li><span class="math inline">\(b(\theta) = exp(\theta)\)</span></li>
+<li>
+<span class="math inline">\(c(y, \phi)\)</span>: <span class="math inline">\(-logy\)</span>
+</li>
+</ul>
+<p>However, we usually represent Poisson regression as:</p>
+<p><span class="math display">\[\hat{n_i} = \hat{\beta_0} + \hat{\beta_{1}}x_{i, 1} + \dots + \hat{\beta_{2}}x_{i, 2} = log(\hat{\lambda_i})\]</span></p>
+</section><section id="common-family-link-functions" class="level1"><h1>Common Family Link Functions</h1>
+<table class="table">
+<thead><tr class="header">
+<th>Family</th>
+<th>Link</th>
+<th>Variance Function</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Binomial</td>
+<td><span class="math inline">\(\eta=log(\frac{\mu}{1-\mu})\)</span></td>
+<td><span class="math inline">\(\mu(1-\mu)\)</span></td>
+</tr>
+<tr class="even">
+<td>Poisson</td>
+<td><span class="math inline">\(\eta=log(\mu)\)</span></td>
+<td><span class="math inline">\(\mu\)</span></td>
+</tr>
+</tbody>
+</table>
+<section id="comparison-to-linear-regresion" class="level2"><h2 class="anchored" data-anchor-id="comparison-to-linear-regresion">Comparison to Linear Regresion</h2>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead><tr class="header">
+<th>Type</th>
+<th>Random Component</th>
+<th>Systematic Component</th>
+<th>Link Function</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Linear Regression</td>
+<td><span class="math inline">\(Y \sim Normal\)</span></td>
+<td><span class="math inline">\(\eta=\beta_0 + \beta_1 x_1 + \dots + \beta_p x_p\)</span></td>
+<td>Identity</td>
+</tr>
+<tr class="even">
+<td>Logistic Regression</td>
+<td><span class="math inline">\(Y \sim Binomial\)</span></td>
+<td><span class="math inline">\(\eta=\beta_0 + \beta_1 x_1 + \dots + \beta_p x_p\)</span></td>
+<td>logit: <span class="math inline">\(\eta = log(\frac{p}{1-p})\)</span>
+</td>
+</tr>
+</tbody>
+</table></section></section><section id="likelihood-ratio-statistic-binomial-regression-goodness-of-fit" class="level1"><h1>Likelihood Ratio Statistic (Binomial Regression Goodness of fit)</h1>
+<p>When comparing</p>
+<ul>
+<li>full binomial model with <span class="math inline">\(p\)</span> predictors</li>
+<li>reduced binomial model with <span class="math inline">\(q\)</span> predictors</li>
+</ul>
+<p><span class="math inline">\(\Lambda = 2 log(\frac{L(\beta_{p+1}; y)}{L(\beta_{q+1}; y)})\)</span></p>
+<p><span class="math inline">\(= 2(l(\beta_{p+1}; y) - l(\beta_{q+1}; y))\)</span></p>
+<blockquote class="blockquote">
+<p>Likelihood Ratio Test:</p>
+</blockquote>
+<ul>
+<li>
+<span class="math inline">\(H_0\)</span>: the reduced model is sufficient</li>
+<li>
+<span class="math inline">\(H_a\)</span>: the alternative says that the reduced model is not sufficient</li>
+</ul></section><section id="deviance" class="level1"><h1>Deviance</h1>
+<p>For goodness of fit we’ll use both the likelihood ratio statistic and deviance. The deviance measures how close the smaller <span class="math inline">\(q\)</span> model (model we’re actually fitting) comes to <em>perfectly</em> fitting the data.</p>
+<p>Let the <span class="math inline">\(p\)</span> model be the <em>perfectly</em> fitting model (as well as any model can).</p>
+<p>then, <span class="math inline">\(\hat{p_i} = \frac{y_i}{n_i}\)</span></p>
+<section id="deviance-of-binomial-regression" class="level2"><h2 class="anchored" data-anchor-id="deviance-of-binomial-regression">Deviance of Binomial Regression</h2>
+<p><span class="math inline">\(D = 2 \sum\limits_{i=1}^n (y_i log(\frac{y_i}{\hat{y_i}}) + (n_i - y_i)log(\frac{n_i - y_i}{n_i - \hat{y_i}}))\)</span></p>
+</section><section id="deviance-of-poisson-regression" class="level2"><h2 class="anchored" data-anchor-id="deviance-of-poisson-regression">Deviance of Poisson Regression</h2>
+<p><span class="math inline">\(D = -2l(\hat{\beta})\)</span></p>
+<p><span class="math inline">\(= -2 \sum\limits_{i=1}^n (y_i\hat{n_i} - e^{\hat{n_i}} - log(y_i!))\)</span></p>
+<section id="null-deviance" class="level3"><h3 class="anchored" data-anchor-id="null-deviance">Null Deviance</h3>
+<p><span class="math inline">\(D_{null} = -2 \sum\limits_{i=1}^n (y_i log(\bar{y}) - \hat{\lambda_i} - log(y_i!))\)</span></p>
+<p><span class="math inline">\(= -2 \sum\limits_{i=1}^n (y_i log(\bar{y}) - \bar{y} - log(y_i!))\)</span></p>
+</section><section id="saturated-deviance" class="level3"><h3 class="anchored" data-anchor-id="saturated-deviance">Saturated Deviance</h3>
+<p><span class="math inline">\(D_{saturated} = -2 \sum\limits_{i=1}^n (y_i log(y_i) - y_i - log(y_i!))\)</span></p>
+</section><section id="residual-deviance" class="level3"><h3 class="anchored" data-anchor-id="residual-deviance">Residual Deviance</h3>
+<p><span class="math inline">\(D_{residual} = D_{saturated} - D_{null}\)</span></p>
+<blockquote class="blockquote">
+<p>Distributed with <span class="math inline">\(\chi^2\)</span></p>
+</blockquote>
+</section></section></section><section id="odds" class="level1"><h1>Odds</h1>
+<p>For an event <span class="math inline">\(E\)</span>, the odds in favor of <span class="math inline">\(E\)</span> are defined as:</p>
+<p><span class="math inline">\(o_E = \frac{p}{1-p}\)</span></p>
+<section id="binomial-regression" class="level2"><h2 class="anchored" data-anchor-id="binomial-regression">Binomial Regression</h2>
+<p><span class="math inline">\(\frac{p}{1-p} = exp(\beta_0 + \beta_1 x)\)</span></p>
+<p><strong>Log Odds</strong></p>
+<p><span class="math inline">\(log(\frac{p}{1-p}) = \beta_0 + \beta_1 x\)</span></p>
+<p>If we increase <span class="math inline">\(x \rightarrow x+1\)</span></p>
+<p>Then <span class="math inline">\(odds = exp(\beta_0 + b_1(x+1)) = exp(\beta_0 + \beta_1x + \beta_1) = exp(\beta_1)exp(\beta_0 + \beta_1x)\)</span></p>
+<p>i.e.&nbsp;we have been doing linear regression all along, but for the log-odds instead of probability.</p>
+<ul>
+<li><span class="math inline">\(\eta = \beta_0 + \beta_1x_1 + \beta_2x_2 = log(\frac{p}{1-p})\)</span></li>
+<li>
+<span class="math inline">\(\beta_0\)</span> represents the log odds of success when all predictors are equal to 0</li>
+<li>a unit increase in <span class="math inline">\(x_j\)</span> with all other predictors held constant increases the odds of success by <span class="math inline">\(e^{\beta_j}\)</span>
+</li>
+</ul>
+<p><span class="math inline">\(sigm(\beta_0 + \beta_1x_1 + \beta_2x_2) = \frac{1}{1 + e^{-(\beta_0 + \beta_1x_1 + \beta_2x_2)}}\)</span></p>
+</section></section><section id="implementation" class="level1"><h1>Implementation</h1>
+<section id="binomial-logistc-regression" class="level2"><h2 class="anchored" data-anchor-id="binomial-logistc-regression">Binomial / Logistc Regression</h2>
+<blockquote class="blockquote">
+<p>Import Libraries and Data</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ISwR</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ISwR' was built under R version 4.3.3</code></pre>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">admission</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"https://stats.idre.ucla.edu/stat/data/binary.csv"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">admission</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>  admit gre  gpa rank
+1     0 380 3.61    3
+2     1 660 3.67    3
+3     1 800 4.00    1
+4     1 640 3.19    4
+5     0 520 2.93    4
+6     1 760 3.00    2</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Perform Logistic Regression with admit as the response and rank as the categorical variable</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">admission</span><span class="op">$</span><span class="va">rank</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">admission</span><span class="op">$</span><span class="va">rank</span><span class="op">)</span></span>
+<span><span class="va">admission_glm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">admit</span> <span class="op">~</span> <span class="va">gre</span> <span class="op">+</span> <span class="va">gpa</span> <span class="op">+</span> <span class="va">rank</span>, data <span class="op">=</span> <span class="va">admission</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">admission_glm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = admit ~ gre + gpa + rank, family = binomial, data = admission)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -3.989979   1.139951  -3.500 0.000465 ***
+gre          0.002264   0.001094   2.070 0.038465 *  
+gpa          0.804038   0.331819   2.423 0.015388 *  
+rank2       -0.675443   0.316490  -2.134 0.032829 *  
+rank3       -1.340204   0.345306  -3.881 0.000104 ***
+rank4       -1.551464   0.417832  -3.713 0.000205 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 499.98  on 399  degrees of freedom
+Residual deviance: 458.52  on 394  degrees of freedom
+AIC: 470.52
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint.default</a></span><span class="op">(</span><span class="va">admission_glm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>                    2.5 %       97.5 %
+(Intercept) -6.2242418514 -1.755716295
+gre          0.0001202298  0.004408622
+gpa          0.1536836760  1.454391423
+rank2       -1.2957512650 -0.055134591
+rank3       -2.0169920597 -0.663415773
+rank4       -2.3703986294 -0.732528724</code></pre>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="va">admission_glm</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept) gre  gpa rank2 rank3 rank4
+1           1 380 3.61     0     1     0
+2           1 660 3.67     0     1     0
+3           1 800 4.00     0     0     0
+4           1 640 3.19     0     0     1
+5           1 520 2.93     0     0     1
+6           1 760 3.00     1     0     0</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Construct Reduced Model without rank. Conduct the likelihood ratio test to decide whether the reduced model is sufficient.</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">admission_red_glm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">admit</span> <span class="op">~</span> <span class="va">gre</span> <span class="op">+</span> <span class="va">gpa</span>, data <span class="op">=</span> <span class="va">admission</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">admission_red_glm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = admit ~ gre + gpa, family = binomial, data = admission)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -4.949378   1.075093  -4.604 4.15e-06 ***
+gre          0.002691   0.001057   2.544   0.0109 *  
+gpa          0.754687   0.319586   2.361   0.0182 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 499.98  on 399  degrees of freedom
+Residual deviance: 480.34  on 397  degrees of freedom
+AIC: 486.34
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">admission_red_glm</span>, <span class="va">admission_glm</span>, test <span class="op">=</span> <span class="st">"Chisq"</span><span class="op">)</span> <span class="co"># likelihood ratio test</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: admit ~ gre + gpa
+Model 2: admit ~ gre + gpa + rank
+  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+1       397     480.34                          
+2       394     458.52  3   21.826 7.088e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>The test reveals a small p-value, therefore we can reject the null hypothesis in favor of the alternative hypothesis that the reduced model is not sufficient.</p>
+<ul>
+<li>
+<span class="math inline">\(H_0\)</span>: the reduced model is sufficient</li>
+<li>
+<span class="math inline">\(H_a\)</span>: the reduced model is not sufficient</li>
+</ul></section><section id="poisson-regression" class="level2"><h2 class="anchored" data-anchor-id="poisson-regression">Poisson Regression</h2>
+<blockquote class="blockquote">
+<p>Dataset for Poisson Regression</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gala</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">"https://www.colorado.edu/amath/sites/default/files/attached-files/gala.txt"</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="st">"\t"</span><span class="op">)</span></span>
+<span><span class="va">gala</span> <span class="op">=</span> <span class="va">gala</span><span class="op">[</span>,<span class="op">-</span><span class="fl">2</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gala</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>             Species  Area Elevation Nearest Scruz Adjacent
+Baltra            58 25.09       346     0.6   0.6     1.84
+Bartolome         31  1.24       109     0.6  26.3   572.33
+Caldwell           3  0.21       114     2.8  58.7     0.78
+Champion          25  0.10        46     1.9  47.4     0.18
+Coamano            2  0.05        77     1.9   1.9   903.82
+Daphne.Major      18  0.34       119     8.0   8.0     1.84</code></pre>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">gala</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 30  6</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>See how a linear model looks</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lmod</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">gala</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmod</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Species ~ ., data = gala)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-111.679  -34.898   -7.862   33.460  182.584 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  7.068221  19.154198   0.369 0.715351    
+Area        -0.023938   0.022422  -1.068 0.296318    
+Elevation    0.319465   0.053663   5.953 3.82e-06 ***
+Nearest      0.009144   1.054136   0.009 0.993151    
+Scruz       -0.240524   0.215402  -1.117 0.275208    
+Adjacent    -0.074805   0.017700  -4.226 0.000297 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 60.98 on 24 degrees of freedom
+Multiple R-squared:  0.7658,    Adjusted R-squared:  0.7171 
+F-statistic:  15.7 on 5 and 24 DF,  p-value: 6.838e-07</code></pre>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lmod</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Warning in sqrt(crit * p * (1 - hh)/hh): NaNs produced
+
+Warning in sqrt(crit * p * (1 - hh)/hh): NaNs produced</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="glm_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">lmod</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/stdres.html">stdres</a></span><span class="op">(</span><span class="va">lmod</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="glm_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Poisson Regression</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glmod</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">gala</span>, family <span class="op">=</span> <span class="va">poisson</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">glmod</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Species ~ ., family = poisson, data = gala)
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  3.155e+00  5.175e-02  60.963  &lt; 2e-16 ***
+Area        -5.799e-04  2.627e-05 -22.074  &lt; 2e-16 ***
+Elevation    3.541e-03  8.741e-05  40.507  &lt; 2e-16 ***
+Nearest      8.826e-03  1.821e-03   4.846 1.26e-06 ***
+Scruz       -5.709e-03  6.256e-04  -9.126  &lt; 2e-16 ***
+Adjacent    -6.630e-04  2.933e-05 -22.608  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 3510.73  on 29  degrees of freedom
+Residual deviance:  716.85  on 24  degrees of freedom
+AIC: 889.68
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">glmod</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Warning in sqrt(crit * p * (1 - hh)/hh): NaNs produced
+
+Warning in sqrt(crit * p * (1 - hh)/hh): NaNs produced</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="glm_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">glmod</span>, type <span class="op">=</span> <span class="st">"link"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/stdres.html">stdres</a></span><span class="op">(</span><span class="va">glmod</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="glm_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Interpret the parameter associated with Nearest</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">8.826e-03</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.008865</code></pre>
+</div>
+</div>
+<p>This means that, given the model is correct, a one unit increase in Nearest is associated with a multiplicitive increase of <span class="math inline">\(e^{8.826e-03} = 1.01\)</span> in species, on average, adjusting for other predictors.</p>
+<blockquote class="blockquote">
+<p>Calculate the deviance for Poisson regression. Does this value show in the summary? Also, check the goodness of fit of this model using Pearson’s <span class="math inline">\(\chi^2\)</span> statistic. What can you conclude about the fit?</p>
+</blockquote>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">gala</span>,</span>
+<span>              <span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Species</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">glmod</span><span class="op">)</span><span class="op">/</span><span class="va">Species</span><span class="op">)</span> <span class="op">-</span> <span class="op">(</span><span class="va">Species</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">glmod</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">d_res</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 716.8458</code></pre>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chisq_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">gala</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">Species</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">glmod</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">glmod</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pval</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">pchisq</a></span><span class="op">(</span><span class="va">chisq_test</span>, <span class="fl">24</span><span class="op">)</span></span>
+<span><span class="va">pval</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">glmod</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Species ~ ., family = poisson, data = gala)
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  3.155e+00  5.175e-02  60.963  &lt; 2e-16 ***
+Area        -5.799e-04  2.627e-05 -22.074  &lt; 2e-16 ***
+Elevation    3.541e-03  8.741e-05  40.507  &lt; 2e-16 ***
+Nearest      8.826e-03  1.821e-03   4.846 1.26e-06 ***
+Scruz       -5.709e-03  6.256e-04  -9.126  &lt; 2e-16 ***
+Adjacent    -6.630e-04  2.933e-05 -22.608  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 3510.73  on 29  degrees of freedom
+Residual deviance:  716.85  on 24  degrees of freedom
+AIC: 889.68
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<p>The Chisq statistic is very large, and the p-value is small, so we would reject the null hypothesis that the model fits the data.</p>
+</section><section id="what-do-prediction-look-like" class="level2"><h2 class="anchored" data-anchor-id="what-do-prediction-look-like">What do Prediction Look Like?</h2>
+<p>Let’s look at the binomial regression model for this.</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># predict admit from gre, gpa, rank</span></span>
+<span><span class="va">newData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>gre<span class="op">=</span><span class="fl">600</span>, gpa<span class="op">=</span><span class="fl">3.8</span>, rank<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">admission_glm</span>, newdata <span class="op">=</span> <span class="va">newData</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>        1 
+-1.127445 </code></pre>
+</div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">admission_glm</span>, newdata <span class="op">=</span> <span class="va">newData</span>, type <span class="op">=</span> <span class="st">'response'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>       1 
+0.244633 </code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Note that type response returns the percent associated with the model.</p>
+</blockquote>
+<section id="side-note-type-parameters-in-predict" class="level3"><h3 class="anchored" data-anchor-id="side-note-type-parameters-in-predict">Side Note: type parameters in predict</h3>
+<ul>
+<li>response: default for many model types and returns the predicted values on <em>the scale of the response variable</em>
+</li>
+<li>class: often used with classification models, this returns the predicted class label</li>
+<li>terms: this returns the contribution of each term in the linear predictor to prediction</li>
+<li>link: in GLMs, this returns the linear predictors, i.e.&nbsp;the predicted values on the scale of the linear predictor (before applying the link function)</li>
+<li>prob: some models allow for returning a matrix of class probabilities, where each column corresponds to a class and each row corresponds to an observation</li>
+<li>votes: for ensemble models, this might return a matrix of vote counts from different models</li>
+</ul>
+
+
+</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><a href="https://clickityklein.github.io/Carl-Klein/">About Carl Klein</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>
