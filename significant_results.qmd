@@ -159,8 +159,3 @@ How much groups are split from their own mean.
 $SSB = \sum\limits_{i=1}^{I} \sum\limits_{j=1}^{n_i} (\bar{y_i} - \bar{\bar{y}})^2$
 
 How much groups are split from the total mean.
-
-# Theoretical Results
-
-
-# Selected Questions
