@@ -1,0 +1,166 @@
+---
+title: "Significant Results"
+---
+
+# Hypothesis Testing
+
+## t-test
+
+- statistic: $t_{stat} = \frac{\hat{\beta_j} - c}{SE(\hat{\beta_j})}$
+  - $SE(\hat{\beta_j}) = \frac{\hat{\sigma}}{\sqrt{\sum\limits_{i=1}^n (x_i - \bar{x})^2}}$
+  - $\hat{\sigma} = \sqrt{\frac{SSE}{n-2}}$
+- $H_0$: $\beta_j = c$
+- $H_A$: $\beta_j \neq c$
+
+$c \in \mathbb{R}$
+
+We'll assume $c=0$ for most of our purposes, as this is the value that is reported for MLR models created through `summary()` with an `lm()`.
+
+Used in finding if a feature has an effect on the response. In the case of a small enough p-value, we can reject the null hypothesis in favor of the alternative hypothesis which means there is statistical evidence that the associated feature (variable) has an effect on the response variable.
+
+## Partial F-test
+
+Given a full model ($\Omega$) and a reduced model ($\omega$),
+
+- statistic: $F_{stat} = \frac{\frac{SSE_{full} - SSE_{reduced}}{p-k}}{\frac{SSE_{full}}{n-p-1}}$
+  - $p$: number of features in the full model
+  - $k$: number of features in the reduced model
+  - $n$: the total observations in the dataset
+- $H_0$: $\beta_j = 0$, $\forall j \notin \omega$ but in $\Omega$ (the reduced model is sufficient)
+- $H_A$: $\beta_j \neq 0$ for at least one of $j \notin \omega$ but in $\Omega$ (the reduced model is not sufficient)
+
+When there is a small enough p-value, this suggests that the reduced is not sufficient. Used in testing reduced models against full models. This is usually found through `anova(reduced_model, full_model)` for linear models, and `anova(reduced_model, full_model, test = "Chisq")` for generalized linear models (which actually turns it into the **chi-squared** test, as this compares the reduction in deviance between two nested models, i.e. it is analogous to the F-test for linear regression).
+
+## Full F-test
+- statistic: $F_{stat} = \frac{\frac{SST - SSE}{p}}{\frac{SSE}{n-p-1}}$
+  - $p = SST_{df} - SSE_{df}$
+  - $n$: number of observations in the dataset
+- $H_0$: $y_i = \beta_0 + \epsilon_i$ (i.e. $\beta_1 = \beta_2 = \dots = \beta_p = 0$)
+- $H_A$: $\beta_k \neq 0$ for at least one value in $k \in \{1, \dots, p\}$
+
+The null hypothesis essentially states that there is no useful linear relationship between the response and any of the predictors. A small enough p-value suggests strong evidence against the null hypothesis, or in other words the model is better than the most reduced model possible. Useful in multiple linear regression (MLR) where the individual t-tests have suggesting evidence against the null hypothesis that may result in type I errors.
+
+## Shapiro-Wilks Test
+
+- $H_0$: residuals are normal
+- $H_a$: residuals are not normal
+
+Used for model diagnostics. With an acceptably low p-value, we would reject the null hypothesis indicating there is enough evidence to suggest the residuals are not normal. A "good" model would have a higher p-value, suggesting normal residuals.
+
+## Durbin-Watson Test
+
+- $H_0$: the errors are uncorrelated
+- $H_a$: the errors are correlated (specifically, the residuals exhibit autocorrelation)
+
+Used for model diagnostics. With an acceptably low p-value, we would reject the null hypothesis indicating there is enough evidence to suggest the residuals are correlated. A "good" model would have a higher p-value, suggesting uncorrelated residuals.
+
+## Levenes' Test
+
+- $H_0$: the variance among groups/categories is equal
+- $H_a$: the variance among groups/categories is not equal
+
+Useful in categorical analysis, and tests for homogeneity of variance.
+
+## One-Way ANOVA
+
+- statistic: $F_{stat} = \frac{SSB/SSB_{df}}{SSW/SSW_{df}} = \frac{\frac{SSB}{I-1}}{\frac{SSW}{N-I}}$
+  - $SSB_{df} = I - 1$
+  - $SSW_{df} = N - I$
+  - $I$: number of groups/categories
+  - $N$: total number of data points (across all groups/categories; recall that groups can have different number of data points)
+- $H_0$: $\mu_A = \mu_B = \mu_c = \dots$ for all groups/categories (i.e. the means of each group are the same)
+- $H_a$: at least one of the groups/categories' means differ from the rest (i.e. at least one pair of means is not equal, or at least one sample mean is not equal to the other)
+
+Used for testing for different means between categorical tests. With an acceptably low p-value, we would reject the null hypothesis indicating there is enough evidence to suggest there is at least one differing mean between the categories. We need to test further pairwise sets to determine which is individually different.
+
+
+# Important Formulas
+
+## SSE (Sum Squared Error) or RSS (Residual Sum of of Squares)
+
+$$SSE = \sum\limits_{i=1}^{n} (y_i - \hat{y_i})^2$$
+
+$SSE$ is a measure of how much variation is left unexplained by the model, where:
+
+- $y_i$: actual/observed value
+- $\hat{y_i}$: predicted value
+
+## SST (Sum of Squares Total) or TSS (Total Sum of Squares)
+
+$$SST = \sum\limits_{i=1}^{n} (y_i - \bar{y})^2$$
+
+$SST$ represents the total amount of variation in observed values (what we would get if we used the mean of the data as our model), where:
+
+- $y_i$: actual/observed value
+- $\bar{y_i}$: mean of the actual/observed values
+
+## SSR (Sum of Squared Residuals) or RSS (Residual Sum of Sqaures)
+
+$$SSR = \sum\limits_{i=1}^{n} (\hat{y_i} - \bar{y})^2$$
+
+$SSR$ gives a sense of how much variation in $Y$ is explained by our model.
+
+- $\hat{y_i}$: predicted value
+- $\bar{y_i}$: mean of the actual/observed values
+
+## $R^2$
+
+$$R^2 = 1 - \frac{SSE}{SST}$$
+
+$R^2$ is the proportion of variance that can be explained by the model, and can be used as an indicator of goodness of fit for simple linear regression (SLR) models.
+
+## $R^2_a$ (Adjusted $R^2$)
+
+$$R^2_a = 1 - \frac{SSE/(n-p-1)}{SST/(n-1)}$$
+
+$R^2_a$ is a better indicator of goodness for multiple linear regression (MLR) models over the normal $R^2$ as it penalizes for having too many features that are not reducing $SSE$, where:
+
+- $n$: number of observations
+- $p$: number of features
+
+## MSPE (Mean Squared Prediction Error)
+
+$$MSPE = \frac{1}{n}\sum^n_{i=1} (y_i - \hat{y_i})^2$$
+
+$MSPE$ quantifies the discrepancy between the predicted values and the observed value, and can help to evalute the performance of a model.
+
+## AIC (Akaike Information Criteria)
+
+$$AIC = 2(p+1) - 2\log(\frac{SSE}{n})$$
+
+$AIC$ estimates the relative amount of information that is lost by a given model in effort to minimize the information that's lost.
+
+## BIC (Bayesian Information Criteria)
+
+$$BIC = (p+1)log(n) - 2logL(\hat{\beta})$$
+
+$BIC$ is similar estimate to $AIC$ with slightly different parameters, where
+
+- $logL(\hat{\beta})$ is the log likelihood function
+
+## One-Way ANOVA Equations
+
+### SST
+
+$SST = \sum\limits_{i=1}^{I} \sum\limits_{j=1}^{n_i} (y_{ij} - \bar{\bar{y}})^2$
+
+- $i \in {1, \dots, I}$: group/category
+- $j \in {1, \dots, n_i}$ value within group/category
+- $SST = SSW + SSB$
+
+### SSW (Within-Group Sum of Squares)
+
+$SSW = \sum\limits_{i=1}^{I} \sum\limits_{j=1}^{n_i} (y_{ij} - \bar{y_i})^2$
+
+How much groups are split from their own mean.
+
+### SSB (Between-Group Sum of Squares)
+
+$SSB = \sum\limits_{i=1}^{I} \sum\limits_{j=1}^{n_i} (\bar{y_i} - \bar{\bar{y}})^2$
+
+How much groups are split from the total mean.
+
+# Theoretical Results
+
+
+# Selected Questions

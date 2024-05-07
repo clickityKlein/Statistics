@@ -34,7 +34,9 @@ website:
       - href: glm.qmd
         text: "Generalized Linear Models"
       - href: gam.qmd
-        text: "Generalized Additive Models" 
+        text: "Generalized Additive Models"
+      - href: significant_results.qmd
+        text: "Significant Results"
     right:
       - icon: github
         menu:
