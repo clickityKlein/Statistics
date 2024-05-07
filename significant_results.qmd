@@ -159,3 +159,201 @@ How much groups are split from their own mean.
 $SSB = \sum\limits_{i=1}^{I} \sum\limits_{j=1}^{n_i} (\bar{y_i} - \bar{\bar{y}})^2$
 
 How much groups are split from the total mean.
+
+# Selected Questions
+
+## Question 1
+
+Explain why, in MLR, conducting multipe t-tests for regression parameters, $\beta_j$, is problematic and descrbie one solution to this problem.
+
+## Answer 1
+
+Conducting multiple t-tests for regression parameters in MLR is problematic because the more features the more likely you are to commit a Type I error. The probability of committing a single Type I error in a MLR model with just 10 features is about 40%. This is overall problematic because a feature could be shown as being statistically significant to having an effect on the response variable, when it actually isn't. One solution to this problem is to use a simultaneous test, the F-test.
+
+## Question 2
+
+Explain (in general) how to compute a percentile bootstrap interval for a proportion.
+
+## Answer 2
+
+1. Resample, with replacement, the original sample many times, having the resample be the same size as the same.
+2. Compute the desired statistic for each resample. In the case it will be a proportion.
+3. Let a be the probability of a type I error (i.e. alpha) such that significance level is (100 - a)%.
+
+Then, in the distribution find the corresponding percentiles for [a/2, (100 - a/2)].
+
+That will be your percentile bootstrap interval for a proportion.
+
+## Question 3
+
+Suppose we want to test the hypothesis that the slope coefficient $\beta_1$ is less than 1 (for a linear regression model). State the appropriate null and alternative hypothesis below
+
+## Answer 3
+
+- $H_0$: $\beta_1 \geq 0$
+- $H_a$: $\beta_1 < 0$
+
+> Here, we see a deviation from past material. The null hypothesis will always contain an equality symbol, however it can be an inequality.
+
+## Question 4
+
+Conduct the above hypothesis test.
+
+## Answer 4
+
+$t_{stat} = \frac{\hat{B_j} - \beta_j}{SE(\hat{\beta_j})}$
+
+- calculate test statistic (t-stat)
+- find rejection region critical value (t-crit)
+- compare t-stat and t-crit
+
+Recall our rejection regions for a given hypothesis test:
+
+- $H_a$: $\theta > \theta_0 \rightarrow test_{stat} \geq rejection_{crit}$
+- $H_a$: $\theta < \theta_0 \rightarrow test_{stat} \leq rejection_{crit}$
+- $H_a$: $\theta \neq \theta_0 \rightarrow test_{stat} \geq rejection_{crit}$ OR $test_{stat} \leq rejection_{crit}$
+
+So, in our case, we want to know if $t_{stat} \leq t_{crit}$. If it is, we have enough evidence to reject the null hypothesis.
+
+## Question 5
+
+Suppose you have data for the time in second it takes someone to leave their parking spot given the fact that someone is waiting or not.
+
+```{r}
+not_waiting <- c(29.6, 23.5, 31.6, 30, 29.2, 24.4, 34.6, 23, 31.5, 15.3, 32.7, 25.1, 26.8, 27.5, 23.8, 32.2, 34.9, 28.7, 28.4, 26)
+
+waiting <- c(35.7, 37.9, 35.2, 22.8, 35.2, 30.2, 23.1, 40.8, 39.7, 32.8, 34, 24.6, 34.3, 20.9, 22.7, 44.5, 31.8, 26.7, 28.4, 38.5)
+```
+
+- What is the mean time to vacate a parking spot when no one is waiting?
+- What is the mean time to vacate a parking spot when someone is waiting?
+- What is the difference in means? (Not Waiting - Waiting)
+- If we were to run a hypothesis test with randomization, what is the test setup?
+- Run the test and interpret the result.
+
+## Answer 5
+
+**Mean Time to Vacate When Not Waiting**
+
+```{r}
+mean(not_waiting)
+```
+
+**Mean Time to Vacate When Waiting**
+
+```{r}
+mean(waiting)
+```
+
+**Difference in Means**
+
+```{r}
+mean(not_waiting) - mean(waiting)
+```
+
+**Hypothesis Test with Randomization**
+
+Recall we want to make our null hypothesis the status quo (i.e. we would assume that there is no difference for this case).
+
+- $H_0$: $\mu_{not waiting} = \mu_{waiting}$, the difference in mean wait time is 0
+- $H_a$: $\mu_{waiting} > \mu_{not waiting}$
+  - $\mu_{waiting} - \mu_{not waiting} > 0$
+  - $\mu_{not waiting} - \mu_{waiting} < 0$
+
+**Perform the Test**
+
+> Distribution generated with 40 wait times, distributed into two size 20 groups. The test statistic is marked with a vertical red line.
+
+![](images/randomization_example.png)
+
+Since there were 1000 differences used to create this histogram, using our standard critical value of $\alpha = 0.05$, this would put our critical value for the rejection at $50$. We can approximate that the counts on the histogram are under $25$, thus giving us $p-value < \frac{25}{1000} = 0.025$, we can reject the null hypothesis in favor of the alternative hypothesis. There is evidence that the mean wait time when no one is waiting is less than the mean wait time when someone is waiting.
+
+## Question 6
+
+We found that the OLS estimator for $\beta$ in MLR is given by $\hat{\beta} = (X^TX)^{-1}X^TY$.
+
+- What condition must be true about the column of $X$ for the matrix $X^TX$ to be invertible?
+- How do you diagnose multicollinearity or non-identifiability?
+
+## Answer 6
+
+**True Condition**
+
+The columns of $X$ must be linearly independent. The inverse does not exist when the columns of $X$ are linearly dependent.
+
+**Diagnosing Multicollinearity**
+
+We can diagnose multicollinearity or non-identifiability several ways.
+
+Theoretically, if we find linear dependence using linear algebra, then we can notice it that way.
+
+Programmatically, if there is direct linear dependence, then after building a model and preparing a summary, we'll find NAs within the feature row.
+
+However, true direct linear dependence is VERY rare. Instead, "near" non-identifiability can be recognized (will take more investigation after it is suspected) if there is a "fishy" regression coefficient. For instance, if you know that a coefficient should be positive (good theoretical reasons), but is showing as negative, this could be a sign of multicollinearity. 
+
+## Question 7
+
+Given a one-way ANOVA test, suppose $F_{crit} = 3.006$ with $\alpha = 0.1$, perform a rejection region test provided we know that $F_{stat} = 6.55 \rightarrow p.value = 0.02$
+
+## Answer 7
+
+$0.02 < 0.1$, thus we reject the null hypothesis.
+
+## Question 8
+
+Smoothing splines will always go through each data.
+
+## Answer 8
+
+False, going through every data point is an overfit.
+
+## Question 9
+
+Binomial Regression is a type of nonparametric model.
+
+## Answer 9
+
+False, nonparametric models include kernel regression and GAMs.
+
+## Question 10
+
+$Y = f(x_1, x_2, x_3) = \beta_0 + \beta_1x_1 + e^{x_2} + sin(\pi x_3) + \epsilon$ is an example of an additive model.
+
+## Answer 10
+
+True, however, something like $Y = f(x_1, x_2, x_3) = \beta_0 + \beta_1x_1 + e^{x_2 * x_3} + sin(\pi x_3) + \epsilon$ is not an additive model. The term $e^{x_2 * x_3}$ violates the idea of additivity.
+
+## Question 11
+
+Suppose we have a Poisson model which explains the number of awards earned by students at a high school in a year based on:
+
+- math final exam score
+- type of program they are enrolled in, where the categories are:
+  - "Remedial"
+  - "Standard"
+  - "Honors"
+  
+`glm(formula = num_awards ~ prog + math, family = "poisson", data = p)`
+
+Coefficients:
+
+||Estimate|Std. Error|z value|P(> |z|)|
+|---|---|---|---|---|
+|(Intercept)|-5.2471|0.6585|-7.97|1.6e-15***|
+|progStandard|1.0839|0.3583|3.03|0.0025**|
+|progHonors|0.3698|0.4411|0.84|0.4018|
+|math|0.0702|0.0106|6.62|3.6e-11***|
+
+What is the expected number of awards for a student who is in the honors program and who's math final exam is set to the mean of the value of the sample: $math = 53$. Round to the nearest hundredths place.
+
+## Answer 11
+
+$log(\hat{Y}) = \hat{\beta_0} + \hat{\beta_1}x_1 + \hat{\beta_2}x_2 + \hat{\beta_3}x_3$
+
+$= -5.2471 + 1.0839 progStandard + 0.3698 progHonors + 0.0702 math$
+
+$= -5.2471 + 0.3698 + 0.0702*53$
+
+$= -1.1567$
+
+$log(\hat{Y}) = -1.1567 \rightarrow \hat{Y} = e^{-1.1567} \approx 0.31$
