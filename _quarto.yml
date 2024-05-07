@@ -32,7 +32,9 @@ website:
       - href: bayes_nets.qmd
         text: "Bayesian Networks"
       - href: glm.qmd
-        text: "Generalized Linear Models" 
+        text: "Generalized Linear Models"
+      - href: gam.qmd
+        text: "Generalized Additive Models" 
     right:
       - icon: github
         menu:

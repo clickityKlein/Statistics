@@ -1,0 +1,389 @@
+---
+title: "Generalized Addititive Models"
+---
+
+Welcome to the world of GAMs and nonparametric regression.
+
+![](images/gams_start.png)
+
+# Motivation
+
+A parametric statistical model is a family of probability distributions with a finite set of parameters.
+
+**Example: The Normal Regression Model**: $Y \sim N(X\beta, \sigma^2I_n)$
+
+A parametric statistical model where the shape of predictors is determined by a function on a theoretical distribution (i.e. logarithmic, sigmoid, etc.)
+
+A nonparametric function means that the shape of the predictor functions is determined by the data.
+
+Suppose we have two individual predictors:
+
+- $s(x_1)$: quadratic relationship with $X_1$
+- $s(x_2)$: linear relationship with $X_2$
+
+If we add these:
+
+- instead of using $\eta = \beta_0 + \beta_1x_1 + \dots$ (glm setup)
+- we use the link function $g(E[Y]) = \alpha + s_1(x_1) + s_2(x_2) + s_p(x_3)$, where:
+  - $g$: link function
+  - $Y$: response
+  - $s_i$: different functions
+  
+Can be described as:
+
+- relationships between feature and response is not assumed to be linear
+- relationship between individual predictors and response are linear and nonlinear
+- we can estimate the relationship between the predictions and the response by simply adding up the individual features
+- nonparametric regression allows us to be more flexible with the form of $f$ (i.e. in linear regression: $f(x) = \beta_0 + \beta_1x_1 + \dots$)
+
+# Modeling
+
+We learn $f$ by assuming it comes from some smooth family of functions. In this case, the set of potential fits to the data is much larger than the parametric approach (i.e. linear line + quadratic + cubic). We can use **kernel estimators** for these types of data.
+
+## Advantages
+
+- flexibility
+- fewer distributional assumptions
+
+## Disadvantages
+
+- less efficient when structure of the relationship is available
+- interpretation difficulties
+
+## Marginal Impacts of Each Feature
+
+- defined as each feature's individual relationship with response
+
+## Additive Function
+
+- model: $Y_i = f(x_i) + \epsilon_i$
+- $k$: kernel
+- $\lambda$: smoothing parameter
+
+**Additive Function**
+
+$$\hat{f_{\lambda}}(x) = \frac{\frac{1}{n\lambda}\sum\limits_{i=1}^n K(\frac{x-x_i}{\lambda})Y_i}{\sum\limits_{i=1}^n K(\frac{x-x_i}{\lambda})}$$
+
+## Smoothing Parameter
+
+- $\lambda_{small}$: lots of wiggles
+- $\lambda_{increases}$: less wiggles, more smoother, can find the "just right"
+- $\lambda_{too large}$: too smooth, we risk missing key patterns
+- when choosing the smoothing parameter, pick the least smooth fit that does not show any implausible fluctuations
+  - GLMs: we know the link function we will use (identity, log, sigmoid)
+  - GAMs: we don't know, they are learned from the data
+
+## Kernel Estimator
+
+- Kernel: a nonnegative, real-valued function $K$ such that $K(x) = K(-x)$ for all values of x (i.e. symmetry) and $\int K(x) dx = 1$ (i.e. normalization).
+
+Common Kernel Estimators
+
+- Uniform/Rectangular: $K(x) = \frac{1}{2}$, $-1 \leq x \leq 1$
+- Gaussian/Normal: $K(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}}$
+- Epanechnikov: $K(x) = \frac{3}{4} (1-x)^2$, $-1 \leq x \leq 1$
+
+# Smoothing Splines
+
+Given the model $Y_i = f(x_i) + \epsilon_i$, we can choose $\hat{f}$ by minimizing:
+
+- $MSE = \frac{1}{n} \sum\limits_{i=1}^n (Y_i - f(x_i))^2$, or
+- $\frac{1}{n} \sum\limits_{i=1}^n (Y_i - f(x_i))^2 + \lambda \int [f''(x)]^2dx$
+
+## Smoothing vs. Regression Splines
+
+**Smoothing Splines**
+
+- Smoothing splines are used to fit a smooth curve that passes close to the given datapoints.
+- They involve a roughness penalty to ensure the smoothness of the fitted curve. This penalty is an integrated squared second derivative times a smoothing parameter.
+- Smoothing splines typically have nkots at each data point, but the roughness penalty prevents overfitting by srhinking the coefficients.
+
+**Regression Splines**
+
+- Regression splines fit a piecewise polynomial function with a reduced set of knots, compared to smoothing splines.
+- They do not use a roughness penalty. Instead, the fit is typically obtained by least squares, which minimizes the sum of squared residuals.
+- Regression splines are more about estimating functional relationships rather than transforming variables.
+
+**Main Differences**
+
+Smoothing splines are more flexible due to the roughness penalty, while regression splines provide a simpler model with fewer knots and no penalty term. Should be chosen specific for each analysis.
+
+
+# Implementation
+
+> Libraries
+
+```{r message = FALSE}
+library(tidyverse)
+library(faraway)
+library(sm)
+library(mgcv)
+```
+
+## Kernel Models
+
+> Kernel Specific Data
+
+```{r}
+marketing = read.csv("https://raw.githubusercontent.com/bzaharatos/-Statistical-Modeling-for-Data-Science-Applications/master/Modern%20Regression%20Analysis%20/Datasets/marketing.txt", sep = "")
+head(marketing)
+```
+
+> Plot sales (response) against youtube (predictor), and then fit and overlay a kernel regression
+
+- Kernel: normal
+- Smooth Parameter: 5
+
+```{r}
+with(marketing, plot(sales~youtube))
+with(marketing, lines(ksmooth(youtube, sales, 'normal', 5)))
+```
+
+- Kernel: normal
+- Smooth Parameter: 50
+
+```{r}
+with(marketing, plot(sales~youtube))
+with(marketing, lines(ksmooth(youtube, sales, 'normal', 50)))
+```
+
+### Measuring Kernel Performance
+
+> A function to calculate MSPE from a given parameter (bandwidth). Note that ordering the data is required.
+
+```{r}
+optimize_kernel <- function(train_set, test_set, response, predictor, bandwidth) {
+    test_data <- test_set %>% select(!!sym(predictor), !!sym(response))
+    test_data <- test_data %>% arrange(!!sym(predictor))
+    obs <- test_data[[response]]
+    preds <- ksmooth(x = train_set[[predictor]],
+                     y = train_set[[response]],
+                     'normal',
+                     bandwidth,
+                     x.points = test_set[[predictor]])$y
+    mspe <- mean((obs - preds)^2)
+    return(mspe)
+}
+```
+
+## Nonparametric Regressions
+
+> Create a sine wave dataset
+
+```{r}
+set.seed(88888)
+n = 150
+x = runif(n, 0, pi/2) 
+y = sin(pi*x) + rnorm(n, 0, 0.5) 
+plot(y ~ x, main = expression(f(x) == sin(pi*x)), pch = 16, cex=0.8, col = alpha("darkgrey", 0.9))
+```
+
+> Plot some different kernel smoothing parameters
+
+```{r}
+plot(y ~ x, main = expression(f(x) == sin(pi*x)), pch = 16, cex=0.8, col = alpha("darkgrey", 0.9))
+lines(ksmooth(x, y, "normal", 0.05))
+
+plot(y ~ x, main = expression(f(x) == sin(pi*x)), pch = 16, cex=0.8, col = alpha("darkgrey", 0.9))
+lines(ksmooth(x, y, "normal", 1))
+
+
+plot(y ~ x, main = expression(f(x) == sin(pi*x)), pch = 16, cex=0.8, col = alpha("darkgrey", 0.9))
+lines(ksmooth(x, y, "normal", 0.3))
+```
+
+> Use the 0.3 parameter to make some predictions
+
+```{r}
+ksmooth(x, y, "normal", 0.3, x.points = 0.5)
+```
+
+### Replicate `ksmooth` with a Custom Function
+
+```{r}
+# custom function
+custom_smooth = function(x,y,lambda){
+    f = matrix(NA, ncol = 1, nrow = length(x))
+    for (i in 1:length(x)){
+        f[i] = sum(dnorm((x-x[i])/lambda)*y)/sum(dnorm((x-x[i])/lambda))
+    }
+    s = data.frame(x[order(x)],f[order(x)])
+    return(s)
+}
+
+# plotting with custom function
+plot(y ~ x, main = expression(f(x) == sin(pi*x)), pch = 16, cex=0.8, col = alpha("darkgrey", 0.9))
+s1 = custom_smooth(x, y, 0.1); 
+s2 = custom_smooth(x,y, 0.2)
+lines(s1$x,s1$f, type = "l", col = "blue")
+lines(s2$x,s2$f, type = "l", col = "orange")
+```
+
+### Smoothing Spline Estimator
+
+Use `smooth.spline` where `spar` is the smoothing parameter.
+
+```{r}
+plot(y ~ x, main = expression(f(x) == sin(pi*x)), pch = 16, col = alpha("grey", 0.8))
+lines(smooth.spline(x, y, spar = 0.5))
+
+plot(y ~ x, main = expression(f(x) == sin(pi*x)), pch = 16, col = alpha("grey", 0.8))
+lines(smooth.spline(x, y, spar = 1))
+```
+
+### Implement Loess Fit
+
+Use `geom_smooth`
+
+```{r}
+n = 50; x = runif(n, 0 , pi/2); y = sin(pi*x) + rnorm(n, 0, 2)
+df = data.frame(x = x, y = y)
+ggplot(df)+ 
+geom_point(aes(x = x, y = y)) + 
+geom_smooth(aes(x = x, y = y)) + 
+theme_bw()
+```
+
+## Other Non-Parametric Regressions and 3-d Plotting
+
+```{r}
+data(savings, package="faraway")
+head(savings)
+```
+
+> sm package is for "Smoothing Methods for Nonparametric Regression and Density Estimation"
+
+```{r}
+# The savings rate will be our response variable
+y = savings$sr
+# pop15 and ddpi will be our two predictor variables
+x = cbind(savings$pop15, savings$ddpi)
+
+#sm.regression - usage: sm.regression(x, y, h, design.mat = NA, model = "none", weights = NA,
+#group = NA, ...)
+sm.regression(x,y,h=c(1,1),xlab="pop15",ylab="growth",zlab="savings rate")
+sm.regression(x,y,h=c(5,5),xlab="pop15",ylab="growth",zlab="savings rate")
+```
+
+> Produce a spline surface with the `gam()` Function
+
+```{r}
+amod = gam(sr ~ s(pop15,ddpi), data=savings)
+vis.gam(amod, col="gray",ticktype="detailed",theta=-35)
+```
+
+> `loess` function
+
+```{r}
+lomod = loess(sr ~ pop15 + ddpi, data=savings)
+xg = seq(21,48,len=20)
+yg = seq(0,17,len=20)
+zg = expand.grid(pop15=xg,ddpi=yg)
+persp(xg,yg,predict(lomod,zg),theta=-35,ticktype="detailed",xlab="pop15",ylab="growth", zlab = "savings rate", col="gray")
+```
+
+## GAMs
+
+```{r}
+data(exp)
+head(exa)
+plot(y ~ x, data = exa, main = "f(x) = sin^3(2pi x^2)")
+```
+
+> First, attempt a fit with kernel estimators of the unknown function $Y = f(x)$.
+
+```{r}
+plot(y~x, data=exa, main="f(x) = sin^3(2*pi*x^2)")
+lines(ksmooth(exa$x, exa$y, 'normal', 0.25))
+```
+
+### Smoothing Spline vs. Regression Spline
+
+> Use a smoothing spline and a regression spline
+
+```{r}
+# default is spar=NULL
+plot(y ~ x, data = exb, main = "f(x) = 0")
+lines(smooth.spline(exb$x, exb$y))
+
+plot(y ~ x, data = exb, main = "f(x) = 0")
+lines(smooth.spline(exb$x, exb$y, spar = 1))
+```
+
+### Simulated Data
+
+```{r}
+set.seed(12)
+
+# construct predictors 
+n <- 100
+d <- data.frame(
+    x1=rnorm(n, mean = 45, sd = 15),
+    x2=sample(c('s','m','t'), size=n, replace=TRUE),
+    x3=sample(c(F,T), size=n, replace=TRUE),
+    stringsAsFactors=F)
+
+head(d)
+```
+
+> For this example, we make the response some nonlinear/nonparametric function of x1. In a realworld situation, we wouldn't know this relationship and would estimate it. Other terms are modeled parametrically. The resposne has normal noise. The model we want is a Poisson GAM, with true relationship $log(\mu_i) = \beta_1 + log(0.5x_i^2) - x_2 + x_3$
+
+```{r}
+# make predictor
+d$mu <- with(d, exp(log(0.5*x1^2)) - as.integer(as.factor(x2)) + as.integer(as.factor(x3)))
+d$y <- rpois(n, d$mu) # manufacturing a poisson response
+```
+
+
+```{r}
+mod_gam <- gam(y ~ s(x1) + as.integer(as.factor(x2)) + as.integer(as.factor(x3)), data=d, family=poisson)
+mod_gam
+summary(mod_gam)
+plot(mod_gam)
+res = residuals(mod_gam, response = 'deviance')
+plot(log(predict(mod_gam, type = 'link')), res)
+abline(h=0)
+```
+
+```{r}
+gam.check(mod_gam)
+```
+
+### Use GAMs on Another Dataset
+
+```{r}
+data(fat)
+head(fat)
+```
+
+```{r}
+# want to determining if we should use the smoothing function on each of the features
+gam_mod <- gam(siri ~ s(weight) + s(height) + s(chest) + s(neck) + s(abdom) + s(hip) + s(thigh) + s(knee) + s(ankle) + s(biceps) + s(forearm) + s(wrist), data=fat)
+
+# res vs predicted
+res <- residuals(gam_mod, type='deviance')
+plot(log(predict(gam_mod, type='response')), res)
+abline(h=0)
+
+# qqplot
+qqnorm(res)
+
+# missed a plot - SEE LECTURE VERSION
+# maybe
+plot.gam(gam_mod)
+```
+
+```{r}
+data(ozone)
+head(ozone)
+```
+
+```{r}
+gam_ozone <- gam(O3 ~ s(temp) + s(ibh) + s(ibt), data=ozone)
+summary(gam_ozone)
+```
+```{r}
+plot.gam(gam_ozone)
+```
+
+**Note: IBT has evidence that it could be linear, while others do not. What we want to see here is a linear line through the confidence bounds.** 

@@ -186,32 +186,124 @@ $sigm(\beta_0 + \beta_1x_1 + \beta_2x_2) = \frac{1}{1 + e^{-(\beta_0 + \beta_1x_
 
 # Implementation
 
+## Binomial / Logistc Regression
 
+> Import Libraries and Data
 
+```{r message = FALSE}
+library(MASS)
+library(tidyverse)
+library(ISwR)
+admission = read.csv("https://stats.idre.ucla.edu/stat/data/binary.csv")
+head(admission)
+```
 
+> Perform Logistic Regression with admit as the response and rank as the categorical variable
 
+```{r}
+admission$rank <- as.factor(admission$rank)
+admission_glm <- glm(admit ~ gre + gpa + rank, data = admission, family = binomial)
+summary(admission_glm)
+confint.default(admission_glm)
+head(model.matrix(admission_glm))
+```
 
+> Construct Reduced Model without rank. Conduct the likelihood ratio test to decide whether the reduced model is sufficient.
 
+```{r}
+admission_red_glm <- glm(admit ~ gre + gpa, data = admission, family = binomial)
+summary(admission_red_glm)
+anova(admission_red_glm, admission_glm, test = "Chisq") # likelihood ratio test
+```
 
+The test reveals a small p-value, therefore we can reject the null hypothesis in favor of the alternative hypothesis that the reduced model is not sufficient.
 
+- $H_0$: the reduced model is sufficient
+- $H_a$: the reduced model is not sufficient
 
+## Poisson Regression
 
+> Dataset for Poisson Regression
 
+```{r}
+gala = read.table("https://www.colorado.edu/amath/sites/default/files/attached-files/gala.txt", header = TRUE, sep = "\t")
+gala = gala[,-2]
 
+head(gala)
+dim(gala)
+```
 
+> See how a linear model looks
 
+```{r}
+lmod = lm(Species ~ ., data = gala)
+summary(lmod)
+par(mfrow = c(2,2))
+plot(lmod)
+df = data.frame(x = fitted(lmod), y = stdres(lmod))
+ggplot(df, aes(x = x, y = y)) + 
+    geom_point() + 
+    theme_bw() + 
+    geom_hline(yintercept = 0)
+```
 
+> Poisson Regression
 
+```{r}
+glmod = glm(Species ~ ., data = gala, family = poisson)
+summary(glmod)
+par(mfrow = c(2,2)); plot(glmod)
 
+df = data.frame(x = predict(glmod, type = "link"), y = stdres(glmod))
+ggplot(df, aes(x = x, y = y)) + 
+    geom_point() + 
+    theme_bw() + 
+    geom_hline(yintercept = 0)
+```
 
+> Interpret the parameter associated with Nearest
 
+```{r}
+exp(8.826e-03)
+```
 
+This means that, given the model is correct, a one unit increase in Nearest is associated with a multiplicitive increase of $e^{8.826e-03} = 1.01$ in species, on average, adjusting for other predictors.
 
+> Calculate the deviance for Poisson regression. Does this value show in the summary? Also, check the goodness of fit of this model using Pearson's $\chi^2$ statistic. What can you conclude about the fit?
 
+```{r}
+d_res <- with(gala,
+              -2*sum(Species*log(fitted(glmod)/Species) - (Species - fitted(glmod))))
+d_res
 
+chisq_test <- with(gala, sum((Species - fitted(glmod))^2/fitted(glmod)))
 
+pval <- 1 - pchisq(chisq_test, 24)
+pval
 
+summary(glmod)
+```
 
+The Chisq statistic is very large, and the p-value is small, so we would reject the null hypothesis that the model fits the data.
 
+## What do Prediction Look Like?
 
+Let's look at the binomial regression model for this.
 
+```{r}
+# predict admit from gre, gpa, rank
+newData <- data.frame(gre=600, gpa=3.8, rank=as.factor(4))
+predict(admission_glm, newdata = newData)
+predict(admission_glm, newdata = newData, type = 'response')
+```
+
+> Note that type response returns the percent associated with the model.
+
+### Side Note: type parameters in predict
+
+- response: default for many model types and returns the predicted values on *the scale of the response variable*
+- class: often used with classification models, this returns the predicted class label
+- terms: this returns the contribution of each term in the linear predictor to prediction
+- link: in GLMs, this returns the linear predictors, i.e. the predicted values on the scale of the linear predictor (before applying the link function)
+- prob: some models allow for returning a matrix of class probabilities, where each column corresponds to a class and each row corresponds to an observation
+- votes: for ensemble models, this might return a matrix of vote counts from different models
